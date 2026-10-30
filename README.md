@@ -5,6 +5,11 @@ A single-file, offline, interactive teaching app for **Australian podiatry under
 ## Run it
 Download [`app/FootAnkleXRayCoach.html`](app/FootAnkleXRayCoach.html) and double-click it — it opens in any browser on any computer. **All 20 clinical images are embedded inside the file** (data URIs), so the single HTML file is fully self-contained: no install, no server, no images folder, works offline. (~2.8 MB total.)
 
+## v7 architecture
+- Source is now a proper module layout in `src/` (core/config/store/event-bus, router+views, content, embedded images, viewer class, case-flow state machine, quiz/SRS/OSCE/drills) assembled into the single file by `./build.sh` (validated with `node --check`, JS minified with terser).
+- **Learning science:** guided 4-step case flow (film review → case questions → your structured report vs expert report → debrief); SM-2 spaced repetition with per-topic mastery; interleaved question order; confidence calibration on practice answers; XP + 10 levels + badges + day streaks; timed OSCE mode; anatomy label drills.
+- **Viewer:** pointer + full keyboard control, loupe, window/level, invert, 3-point angle measurement, compare-with-normal, clickable hotspot buttons, toasts + confetti.
+
 ## v5 architecture
 - Clean modular engine: store / router / PACS-style viewer / guided case flow / SRS quiz.
 - **Case flow per case:** 1 Film review (find-the-finding on the real image) → 2 Case questions → 3 Your structured report (saved draft) vs expert report → 4 Debrief (findings, differentials, management pearls, teaching points, expert report).

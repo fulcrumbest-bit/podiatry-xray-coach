@@ -153,7 +153,7 @@ function renderCase(){
   $("#rng-w").oninput=e=>{canvas.style.filter=`brightness(${e.target.value}%) contrast(100%)${S.invert?" invert(1)":""}`;};
   const np=$("#btn-next-step");if(np)np.onclick=()=>{S.step++;renderCase();};
   const pp=$("#btn-prev-step");if(pp)pp.onclick=()=>{S.step--;renderCase();};
-  $$("#case-detail .step").forEach(st=>{
+  $$all("#case-detail .step").forEach(st=>{
     st.addEventListener("click",()=>{S.step=+st.dataset.step;renderCase();});
     st.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();S.step=+st.dataset.step;renderCase();}});
   });
@@ -200,9 +200,9 @@ function bindStep(c){
         <p style="font-size:14px">${esc(x.q)}</p>
         ${x.opts.map((o,k)=>`<button class="opt" data-a="${k}">${esc(o)}</button>`).join("")}
         <div class="feedback" id="cq-fb"></div>`;
-      $$("#case-q-area .opt").forEach(b=>b.onclick=()=>{
+      $$all("#case-q-area .opt").forEach(b=>b.onclick=()=>{
         const a=+b.dataset.a,ok=a===x.a;
-        $$("#case-q-area .opt").forEach(o=>{o.disabled=true;const k=+o.dataset.a;const cl=k===x.a?"correct":k===a?"wrong":"";if(cl)o.classList.add(cl)});
+        $$all("#case-q-area .opt").forEach(o=>{o.disabled=true;const k=+o.dataset.a;const cl=k===x.a?"correct":k===a?"wrong":"";if(cl)o.classList.add(cl)});
         srsUpdate(x,ok);if(ok)addXp(CFG.xp.quizCorrect,"case question correct");else addXp(CFG.xp.quizWrong,"case question");
         const fb=$("#cq-fb");fb.className="feedback "+(ok?"ok":"no");fb.textContent=(ok?"✓ ":"✗ Correct answer: "+x.opts[x.a]+". ")+x.expl;
         const nb=el("button",{class:"btn small"},["Next →"]);nb.style.marginTop="8px";

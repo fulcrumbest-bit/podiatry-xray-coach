@@ -55,11 +55,11 @@ function runQuiz(osce){
       if(l<=0)finish();
     },1000);
     let confSel=3;
-    $$("#quiz-area .conf").forEach(b=>b.onclick=()=>{confSel=+b.dataset.c;$$("#quiz-area .conf").forEach(x=>x.classList.toggle("on",x===b));});
-    $$("#quiz-area .opt").forEach(b=>b.onclick=()=>{
+    $$all("#quiz-area .conf").forEach(b=>b.onclick=()=>{confSel=+b.dataset.c;$$all("#quiz-area .conf").forEach(x=>x.classList.toggle("on",x===b));});
+    $$all("#quiz-area .opt").forEach(b=>b.onclick=()=>{
       const a=+b.dataset.a,ok=a===x.a;
       score+=ok?1:0;answers[x.q]=ok;
-      $$("#quiz-area .opt").forEach(o=>{o.disabled=true;const k=+o.dataset.a;const cl=k===x.a?"correct":k===a?"wrong":"";if(cl)o.classList.add(cl)});
+      $$all("#quiz-area .opt").forEach(o=>{o.disabled=true;const k=+o.dataset.a;const cl=k===x.a?"correct":k===a?"wrong":"";if(cl)o.classList.add(cl)});
       if(!osce){
         srsUpdate(x,ok);
         if(ok){addXp(CFG.xp.quizCorrect,"quiz correct");if(confSel===3)addXp(5,"confident correct");}
@@ -98,9 +98,9 @@ function runDrill(){
   </div>`;
   let sel=null,score=0;
   const viewer=new Viewer($("#vp"),c);
-  $$("#drill-labels .drill-label").forEach(b=>b.onclick=()=>{
+  $$all("#drill-labels .drill-label").forEach(b=>b.onclick=()=>{
     sel=b.dataset.l;
-    $$("#drill-labels .drill-label").forEach(x=>x.classList.toggle("on",x===b));
+    $$all("#drill-labels .drill-label").forEach(x=>x.classList.toggle("on",x===b));
   });
   viewer.onTap=e=>{
     if(!sel)return;
@@ -111,7 +111,7 @@ function runDrill(){
     if(best>=0&&bd<=12&&c.hotspots[best].label===sel){
       score++;addXp(CFG.xp.quizCorrect,"label correct: "+sel);
       fb.className="feedback ok";fb.textContent="✓ Correct — that's the "+sel+".";
-      const lb=$$("#drill-labels .drill-label").find(x=>x.dataset.l===sel);
+      const lb=$$all("#drill-labels .drill-label").find(x=>x.dataset.l===sel);
       if(lb){lb.disabled=true;lb.classList.add("on");lb.textContent="✓ "+sel;}
       const canvas=$("#vp .canvas");
       canvas.appendChild(el("div",{class:"hotspot found show",style:`left:${c.hotspots[best].x}%;top:${c.hotspots[best].y}%`},["✓",el("span",{class:"hs-label"},[c.hotspots[best].label])]));

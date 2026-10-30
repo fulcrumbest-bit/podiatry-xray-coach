@@ -88,7 +88,7 @@ function overall(){
 
 /* ---------- tiny DOM helpers ---------- */
 const $=(s,r)=> (r||document).querySelector(s);
-const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const $$all=(s,r)=>Array.from((r||document).querySelectorAll(s));
 const el=(tag,attrs,children)=>{
   const e=document.createElement(tag);
   if(attrs)for(const k in attrs){

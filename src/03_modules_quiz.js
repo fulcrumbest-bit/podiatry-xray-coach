@@ -85,6 +85,31 @@ const MODULES=[
  <li>Offload immediately (total contact cast) while working up.</li></ul>
  <div class="callout bad"><b>Red flags on any foot X-ray:</b> soft-tissue gas (necrotising infection — emergency), rapidly progressive bone destruction, foreign body with surrounding lysis.</div>`,
  checklist:["I know the IWGDF initial bundle (PTB + X-ray + markers)","I know to repeat a normal X-ray at 2–3 weeks if suspicion persists","I know when MRI is indicated","I can describe Charcot stages and the hot-swollen-foot rule"]}
+,
+{id:"m7",title:"7 · Worked example: reading a Lisfranc film step by step",time:"12 min",tag:"Worked example",
+ summary:"A fully scaffolded walkthrough of one film — watch the expert read it, then you read it unaided.",
+ html:`<h2>Worked example — Lisfranc injury (case r1)</h2>
+ <ol class="tight">
+ <li><b>Step 1 — check the study:</b> WB DP both feet. Adequate? Both feet included for comparison — yes.</li>
+ <li><b>Step 2 — soft tissues:</b> swelling over the midfoot; no gas, no foreign body.</li>
+ <li><b>Step 3 — bones:</b> follow each metatarsal cortex from head to base. No cortical break on the metatarsals themselves.</li>
+ <li><b>Step 4 — joints & alignment:</b> at the tarsometatarsal joints, the 1st–2nd intermetatarsal interval is widened on the affected side (> 2 mm) and the medial 2nd MT base is not aligned with the intermediate cuneiform.</li>
+ <li><b>Step 5 — measurements:</b> interval widening is the measurement here; angles less relevant acutely.</li>
+ <li><b>Step 6 — impression:</b> Lisfranc ligament disruption with tarsometatarsal subluxation.</li>
+ <li><b>Step 7 — recommend:</b> orthopaedic referral if unstable; CT if comminution; compare WB views.</li></ol>
+ <div class="callout"><b>Now you try:</b> open case r1 and work the same 7 steps yourself before revealing the answer.</div>`,
+ checklist:["I can run the 7-step read on a real film unaided","I know what makes a WB DP both-feet study adequate","I know the >2 mm Lisfranc threshold"]},
+{id:"m8",title:"8 · Paediatric foot & growth-plate pitfalls",time:"10 min",tag:"Paediatric",
+ summary:"Apophysitis vs fracture in children: Sever's, Köhler's, Freiberg's, Mueller-Weiss, tarsal coalition.",
+ html:`<h2>Paediatric foot X-ray pitfalls</h2>
+ <table class="ref"><tr><th>Condition</th><th>Age</th><th>X-ray</th><th>Key point</th></tr>
+ <tr><td>Sever's disease (calcaneal apophysitis)</td><td>8–15</td><td>Fragmented/sclerotic calcaneal apophysis</td><td>Clinical diagnosis — NOT a fracture; apophysis normally irregular</td></tr>
+ <tr><td>Köhler's disease (navicular)</td><td>3–7</td><td>Flattened, sclerotic navicular</td><td>Osteonecrosis of ossification centre; self-limiting</td></tr>
+ <tr><td>Freiberg's infraction</td><td>12–18</td><td>Flattened 2nd MT head, sclerosis</td><td>AVN of 2nd MT head; often athletic girls</td></tr>
+ <tr><td>Mueller-Weiss</td><td>Adult</td><td>Fragmented, sclerotic navicular, lateral compression</td><td>Spontaneous osteonecrosis of navicular — NOT Köhler's</td></tr>
+ <tr><td>Tarsal coalition</td><td>child–adolescent</td><td>Calcaneonavicular "anteater nose" sign; C-sign (talocalcaneal)</td><td>CT best; rigid flatfoot with peroneal spasm</td></tr></table>
+ <div class="callout warn"><b>Rule:</b> in a child, a sclerotic/fragmented apophysis or ossification centre is usually a normal variant or apophysitis — correlate clinically before calling fracture.</div>`,
+ checklist:["I can name 5 paediatric foot conditions and their X-ray signs","I know Sever's is a clinical diagnosis, not a fracture","I know tarsal coalition needs CT","I know the difference between Köhler's and Mueller-Weiss"]}
 ];
 
 const QUIZ=[
@@ -117,4 +142,13 @@ const QUIZ=[
 {q:"Normal variant mistaken for fracture at the anterior calcaneus on oblique views:",opts:["Os calcaneus secundarius","Os trigonum","Os peroneum","Os vesalianum"],a:0,tag:"ossicles",expl:"Os calcaneus secundarius: triangular, corticated. Os trigonum = posterior talus; os peroneum = lateral midfoot; os vesalianum = 5th MT base."},
 {q:"Bimalleolar fracture means:",opts:["Fractures of both medial and lateral malleoli","Two fracture lines in the fibula","Fracture + dislocation of ankle","Fracture of talus"],a:0,tag:"ankle",expl:"Both malleoli fractured — often with widened medial clear space = unstable; needs orthopaedic assessment."},
 {q:"High-ankle (syndesmotic) sprain key X-ray finding:",opts:["Widened tibiofibular/medial clear space on mortise","Normal mortise","Calcaneal flattening","Lisfranc widening"],a:0,tag:"ankle",expl:"Syndesmotic disruption widens the distal tibiofibular and medial clear spaces; unstable cases need fixation. Normal films don't exclude it."}
+,
+{q:"Sever's disease on X-ray shows:",opts:["Fragmented/sclerotic calcaneal apophysis — a clinical diagnosis, not a fracture","A lucent fracture line through the calcaneal body","Flattened 2nd MT head","Anteater-nose sign"],a:0,tag:"ossicles",expl:"Apophysitis. The apophysis is normally irregular in adolescents — treat clinically (heel raises, activity modification)."},
+{q:"Kohler's disease affects the:",opts:["Navicular ossification centre (ages 3-7)","Calcaneal apophysis","2nd metatarsal head","Talus"],a:0,tag:"ossicles",expl:"Osteonecrosis of the navicular ossification centre — flattened, sclerotic navicular in a young child; self-limiting."},
+{q:"Freiberg's infraction is AVN of the:",opts:["2nd metatarsal head","Navicular","Calcaneus","Talus"],a:0,tag:"oa",expl:"2nd MT head AVN in adolescent athletes — flattened, sclerotic head."},
+{q:"Mueller-Weiss differs from Kohler's because:",opts:["It occurs in adults (spontaneous navicular osteonecrosis)","It is an apophysitis","It always needs surgery","It affects the calcaneus"],a:0,tag:"ossicles",expl:"Adult spontaneous navicular osteonecrosis with lateral compression — different population and prognosis."},
+{q:"Tarsal coalition is best confirmed on:",opts:["CT (bony coalition)","Plain X-ray alone","MRI","Ultrasound"],a:0,tag:"ossicles",expl:"Anteater-nose sign (calcaneonavicular, oblique) and C-sign (talocalcaneal, lateral) on plain films; CT confirms."},
+{q:"Rigid flatfoot with peroneal spasm in a 13-year-old suggests:",opts:["Tarsal coalition","Sever's disease","Normal variant","Flexible pes planus"],a:0,tag:"ossicles",expl:"Classic presentation of tarsal coalition — get CT."},
+{q:"Lisfranc injury on WB films: the key measurement is:",opts:["1st-2nd intermetatarsal interval > 2 mm","HVA > 15 deg","Medial clear space > 6 mm","Bohler < 20 deg"],a:0,tag:"lisfranc",expl:"Widening at the Lisfranc interval = ligament disruption."},
+{q:"Gout vs OA at the 1st MTP on X-ray:",opts:["Gout = punched-out erosions with overhanging edges, joint space preserved early; OA = narrowing + dorsal osteophyte","Gout = joint space narrowing","OA = erosions","They look identical"],a:0,tag:"oa",expl:"Erosions with overhanging edges and preserved space = gout; narrowing + dorsal spur = OA."}
 ];

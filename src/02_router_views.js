@@ -4,8 +4,8 @@
 
 function nav(name){
   S.screen=name;
-  $$(".screen").forEach(x=>x.classList.toggle("active",x.id==="scr-"+name));
-  $$(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));
+  $$all(".screen").forEach(x=>x.classList.toggle("active",x.id==="scr-"+name));
+  $$all(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));
   const views={home:renderHome,learn:renderLearn,cases:()=>{S.caseId=null;renderCaseList();renderCase();},quiz:renderQuizHome,progress:renderProgress};
   (views[name]||(()=>{}))();
   updateChip();window.scrollTo({top:0});

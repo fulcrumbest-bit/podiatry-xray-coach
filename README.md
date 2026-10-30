@@ -5,6 +5,12 @@ A single-file, offline, interactive teaching app for **Australian podiatry under
 ## Run it
 Download [`app/FootAnkleXRayCoach.html`](app/FootAnkleXRayCoach.html) and double-click it — it opens in any browser on any computer. **All 20 clinical images are embedded inside the file** (data URIs), so the single HTML file is fully self-contained: no install, no server, no images folder, works offline. (~2.8 MB total.)
 
+## v8 — installable app (PWA)
+The app is now a **Progressive Web App**: `manifest.webmanifest` + icons + inline service worker, so on any computer you can **Install** it from the browser menu (Chrome/Edge: ⋮ → "Install X-Ray Coach"; Safari: Share → Add to Home Screen) — it then opens in its **own window without browser chrome, with its own desktop icon, and works fully offline**. Double-clicking the HTML file still works as before.
+Files: `app/FootAnkleXRayCoach.html`, `app/manifest.webmanifest`, `app/icon-192.png`, `app/icon-512.png` (keep them together in `app/` for install to work).
+New content: **worked-example module** (7-step expert read of the Lisfranc film) and **paediatric module** (Sever's, Köhler's, Freiberg's, Mueller-Weiss, tarsal coalition); quiz bank now 37 items.
+Splash screen on launch; install banner in browsers.
+
 ## v7 architecture
 - Source is now a proper module layout in `src/` (core/config/store/event-bus, router+views, content, embedded images, viewer class, case-flow state machine, quiz/SRS/OSCE/drills) assembled into the single file by `./build.sh` (validated with `node --check`, JS minified with terser).
 - **Learning science:** guided 4-step case flow (film review → case questions → your structured report vs expert report → debrief); SM-2 spaced repetition with per-topic mastery; interleaved question order; confidence calibration on practice answers; XP + 10 levels + badges + day streaks; timed OSCE mode; anatomy label drills.

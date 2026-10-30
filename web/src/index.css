@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { color-scheme: dark; }
+body { @apply bg-base-950 font-sans text-ink antialiased; margin: 0; }
+::selection { background: rgba(56,189,248,.35); }
+
+* { scrollbar-width: thin; scrollbar-color: #26334f #0a101f; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: #0a101f; }
+*::-webkit-scrollbar-thumb { background: #26334f; border-radius: 8px; border: 2px solid #0a101f; }
+
+.lesson h2 { @apply mt-5 mb-2 text-lg font-extrabold text-sky-300; }
+.lesson h3 { @apply mt-4 mb-1.5 text-[15px] font-bold text-emerald-300; }
+.lesson p { @apply mb-2.5 leading-relaxed text-[15px] text-ink/90; }
+.lesson ul, .lesson ol { @apply mb-3 ml-5 space-y-1 leading-relaxed text-[15px] text-ink/90; }
+.lesson ul { list-style: disc; }
+.lesson ol { list-style: decimal; }
+.lesson ul.tight li, .lesson ol.tight li { @apply text-[14px]; }
+.lesson b { @apply font-semibold text-ink; }
+.lesson a { @apply text-sky-300 underline decoration-sky-400/40 underline-offset-2 hover:text-sky-200; }
+.lesson table.ref { @apply mb-3 w-full border-collapse overflow-hidden rounded-xl text-[13.5px]; }
+.lesson table.ref th { @apply border border-white/10 bg-base-700 px-3 py-2 text-left font-bold text-sky-200; }
+.lesson table.ref td { @apply border border-white/10 bg-base-800/70 px-3 py-2 align-top text-ink/85; }
+.lesson .callout { @apply mb-3 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-[14px] leading-relaxed text-ink/90; }
+.lesson .callout.warn { @apply border-amber-400/40 bg-amber-500/10; }
+.lesson .callout.danger { @apply border-rose-400/40 bg-rose-500/10; }
+.lesson code { @apply rounded bg-base-700 px-1.5 py-0.5 font-mono text-[12.5px] text-emerald-300; }

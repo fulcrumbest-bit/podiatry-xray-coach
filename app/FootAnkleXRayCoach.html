@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foot &amp; Ankle X-Ray Coach — Podiatry Education (Australia)</title>
+<style>
+:root{
+  --bg:#0b0e13; --panel:#131822; --panel2:#1a2130; --ink:#e8ecf3; --muted:#9aa6b8;
+  --accent:#38bdf8; --accent2:#34d399; --warn:#fbbf24; --bad:#f87171; --line:#26304a;
+  --radius:14px; --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,14,19,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:17px;letter-spacing:.2px;margin-right:auto;white-space:nowrap}
+.brand small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.navbtn{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 14px}
+.navbtn:hover{border-color:var(--accent);color:var(--accent)}
+.navbtn.active{background:var(--accent);border-color:var(--accent);color:#04121f;font-weight:600}
+.progchip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--muted);white-space:nowrap}
+.progchip b{color:var(--accent2)}
+.banner{max-width:var(--maxw);margin:14px auto 0;padding:12px 16px;border:1px solid #7c5a10;background:#2a2008;color:#ffd98a;border-radius:var(--radius);font-size:13.5px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:18px 16px 80px}
+.screen{display:none}
+.screen.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1{font-size:26px;margin:6px 0 4px}
+h2{font-size:20px;margin:22px 0 8px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin:16px 0 6px;color:var(--accent)}
+.sub{color:var(--muted);margin-top:0}
+.grid{display:grid;gap:14px}
+.grid.cols2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.grid.cols3{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.card:hover{border-color:#3b4a6b}
+.card h3{margin-top:0}
+.card .meta{font-size:12.5px;color:var(--muted)}
+.tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--muted);margin:2px 4px 2px 0}
+.tag.diff1{color:var(--accent2);border-color:#1d4d3d}.tag.diff2{color:var(--warn);border-color:#5c4a14}.tag.diff3{color:var(--bad);border-color:#5c2323}
+.btn{background:var(--accent);color:#04121f;border:none;border-radius:10px;padding:10px 18px;font-weight:600}
+.btn.secondary{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.small{padding:6px 12px;font-size:13px;border-radius:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted)}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:center}
+.kpi .n{font-size:26px;font-weight:700;color:var(--accent2)}
+.kpi .l{font-size:12px;color:var(--muted)}
+/* viewer */
+.viewer{background:#000;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;position:relative}
+.viewport{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;touch-action:none;cursor:grab}
+.viewport.guess{cursor:crosshair}
+.canvas{position:absolute;left:0;top:0;transform-origin:0 0}
+.canvas svg{display:block}
+.hotspot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:rgba(56,189,248,.28);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;color:#04121f;font-size:11px;font-weight:700;pointer-events:none;transition:background .2s}
+.hotspot.found{background:rgba(52,211,153,.55);border-color:var(--accent2)}
+.hotspot .hs-label{position:absolute;top:110%;left:50%;transform:translateX(-50%);background:#04121f;color:var(--ink);border:1px solid var(--accent);padding:4px 8px;border-radius:8px;font-size:12px;white-space:nowrap;display:none;z-index:5}
+.hotspot.show-label .hs-label{display:block}
+.measure-dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--warn);border:2px solid #fff;pointer-events:none}
+.measure-label{position:absolute;background:#2a2008;color:#ffd98a;border:1px solid var(--warn);border-radius:8px;padding:3px 8px;font-size:12.5px;pointer-events:none;transform:translate(-50%,-140%);white-space:nowrap}
+.viewtabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.viewtab{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 14px}
+.viewtab.active{background:var(--accent);color:#04121f;font-weight:600;border-color:var(--accent)}
+.vcontrols{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.vcontrols label{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.vcontrols input[type=range]{width:110px;accent-color:var(--accent)}
+.toggle{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:13px}
+.toggle.on{background:var(--accent);color:#04121f;font-weight:600;border-color:var(--accent)}
+.feedback{margin:10px 0;padding:12px 14px;border-radius:10px;font-size:14px;display:none}
+.feedback.ok{display:block;background:#0c2b1e;border:1px solid #1d4d3d;color:#a7f3d0}
+.feedback.no{display:block;background:#331418;border:1px solid #5c2323;color:#fecaca}
+/* quiz */
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;max-width:760px}
+.opt{display:block;width:100%;text-align:left;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:8px 0}
+.opt:hover{border-color:var(--accent)}
+.opt.correct{background:#0c2b1e;border-color:var(--accent2);color:#a7f3d0}
+.opt.wrong{background:#331418;border-color:var(--bad);color:#fecaca}
+.opt:disabled{cursor:default}
+/* tables */
+table.ref{border-collapse:collapse;width:100%;font-size:13.5px;background:var(--panel);border-radius:var(--radius);overflow:hidden}
+table.ref th,table.ref td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+table.ref th{background:var(--panel2);color:var(--accent)}
+ul.tight li{margin:5px 0}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+.callout.warn{border-color:var(--warn)}
+.callout.bad{border-color:var(--bad)}
+.checkitem{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:7px 0}
+.checkitem input{margin-top:4px;accent-color:var(--accent);width:17px;height:17px}
+.progressbar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.progressbar>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+.footer-note{margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:14px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:640px){.brand{width:100%}.kpi .n{font-size:20px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a href="#main" class="sr-only" style="position:absolute;left:8px;top:8px;background:#000;padding:6px 10px;z-index:99">Skip to main content</a>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">Foot &amp; Ankle X-Ray Coach<small>Podiatry undergraduate education · Australia · education only</small></div>
+    <button class="navbtn" data-nav="home">Home</button>
+    <button class="navbtn" data-nav="modules">Learn</button>
+    <button class="navbtn" data-nav="cases">Cases</button>
+    <button class="navbtn" data-nav="quiz">Quiz</button>
+    <button class="navbtn" data-nav="progress">Progress</button>
+    <span class="progchip" id="progchip">0% complete</span>
+  </div>
+</header>
+
+<div class="banner" role="note">
+  <b>Education only.</b> This app is a study aid for podiatry students. It is <b>not a medical device</b> and does not diagnose, treat, cure or prevent any condition. All images are <b>original educational schematics</b> drawn for teaching — they are not real patient radiographs. Always correlate imaging with clinical findings and seek supervision from a registered podiatrist or radiologist. Never enter real patient information into this app.
+</div>
+
+<main id="main" class="wrap">
+
+  <!-- HOME -->
+  <section class="screen" id="scr-home" aria-label="Home">
+    <h1>Master foot &amp; ankle X-ray interpretation</h1>
+    <p class="sub">A structured, case-based trainer for Australian podiatry students — aligned to the Podiatry Board of Australia Professional Capabilities (2022), MBS imaging items 57521/57523/57527, IWGDF 2023 diabetic-foot guidance and the Ottawa ankle/foot rules.</p>
+    <div class="grid cols3" style="margin:16px 0">
+      <div class="kpi"><div class="n" id="kpi-cases">–</div><div class="l">annotated teaching cases</div></div>
+      <div class="kpi"><div class="n" id="kpi-quiz">–</div><div class="l">quiz questions (spaced repetition)</div></div>
+      <div class="kpi"><div class="n" id="kpi-done">0%</div><div class="l">your progress</div></div>
+    </div>
+    <div class="grid cols2">
+      <div class="card"><h3>1 · Learn the system</h3><p class="muted">Standard views (DP, oblique, lateral, mortise), weight-bearing vs non-weight-bearing, a systematic reading checklist, key angles (HVA, IMA, Meary, Böhler, calcaneal pitch) and the Ottawa rules for when to image.</p><button class="btn" data-nav="modules">Open Learn</button></div>
+      <div class="card"><h3>2 · Practise on cases</h3><p class="muted">Multi-view cases with “spot the finding” hotspots, interactive angle measurement, differential diagnoses and management pearls for Australian practice.</p><button class="btn" data-nav="cases">Open Cases</button></div>
+      <div class="card"><h3>3 · Test yourself</h3><p class="muted">MCQ bank with immediate feedback and a spaced-repetition schedule so findings stick for OSCEs and placement.</p><button class="btn" data-nav="quiz">Open Quiz</button></div>
+      <div class="card"><h3>4 · Track progress</h3><p class="muted">See cases completed, hotspots found, quiz accuracy and due reviews — all stored only on this device.</p><button class="btn secondary" data-nav="progress">Open Progress</button></div>
+    </div>
+    <div class="callout"><b>How podiatrists use X-ray in Australia:</b> registered podiatrists can request Medicare-rebatable plain radiographs of the foot, ankle, leg, femur and knee (MBS items 57521, 57523, 57527). Interpreting those films well is a core graduate capability — this app trains exactly that skill.</div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="screen" id="scr-modules" aria-label="Learn">
+    <h1>Learn</h1>
+    <p class="sub">Work through the modules in order. Each ends with a short checklist you can tick off.</p>
+    <div class="grid cols2" id="module-list"></div>
+    <div id="module-detail"></div>
+  </section>
+
+  <!-- CASES -->
+  <section class="screen" id="scr-cases" aria-label="Cases">
+    <h1>Case library</h1>
+    <p class="sub">All images are original teaching schematics (not patient films). Find every hotspot, measure angles where prompted, then read the discussion.</p>
+    <div class="row" style="margin:8px 0 14px">
+      <label class="muted" for="case-filter">Filter:</label>
+      <select id="case-filter" class="toggle" style="padding:8px 12px">
+        <option value="all">All topics</option>
+      </select>
+      <select id="case-diff" class="toggle" style="padding:8px 12px">
+        <option value="all">All difficulty</option>
+        <option value="1">Foundation</option>
+        <option value="2">Intermediate</option>
+        <option value="3">Advanced</option>
+      </select>
+    </div>
+    <div class="grid cols3" id="case-list"></div>
+    <div id="case-detail"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="scr-quiz" aria-label="Quiz">
+    <h1>Quiz</h1>
+    <p class="sub">Mixed MCQs. Correct answers are scheduled for spaced review; due items appear first.</p>
+    <div class="row" style="margin:8px 0 14px">
+      <button class="btn small" id="quiz-start">Start session</button>
+      <span class="muted" id="quiz-due"></span>
+    </div>
+    <div id="quiz-area"></div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="screen" id="scr-progress" aria-label="Progress">
+    <h1>Your progress</h1>
+    <p class="sub">Stored locally on this device only (browser localStorage). No accounts, no tracking, no data leaves your machine.</p>
+    <div class="grid cols3" style="margin:14px 0">
+      <div class="kpi"><div class="n" id="p-cases">0</div><div class="l">cases completed</div></div>
+      <div class="kpi"><div class="n" id="p-hot">0</div><div class="l">hotspots found</div></div>
+      <div class="kpi"><div class="n" id="p-acc">–</div><div class="l">quiz accuracy</div></div>
+    </div>
+    <div class="progressbar" style="margin:10px 0 18px"><div id="p-bar"></div></div>
+    <div class="grid cols2">
+      <div class="card"><h3>Due for review</h3><ul class="tight" id="p-due"></ul></div>
+      <div class="card"><h3>Module checklists</h3><ul class="tight" id="p-checks"></ul></div>
+    </div>
+    <div class="row" style="margin-top:16px"><button class="btn secondary small" id="p-reset">Reset all progress</button></div>
+    <div class="footer-note">
+      <b>References used in this app:</b> Podiatry Board of Australia, <i>Professional capabilities for podiatrists</i> (2022) and <i>Accreditation standards: entry-level podiatry programs</i> (2021); Medicare Benefits Schedule note IN.0.6 (podiatrist-rebatable imaging items 57521, 57523, 57527); Stiell et al., <i>Ottawa ankle rules</i>, JAMA 1993; IWGDF/IDSA 2023 guidelines on diabetes-related foot infections; Christman RA, <i>The normal foot and ankle</i> (normal radiographic anatomy); accessory-ossicle reviews (AJR 2019; Cureus 2018).<br>
+      <b>Attribution:</b> all diagrams are original schematics created for this educational app (CC BY-NC-SA 4.0). To add licensed clinical images later, place image files next to this HTML file and add entries with per-image source/licence metadata.
+    </div>
+  </section>
+
+</main>
+<script>
+/* ================= CONTENT DATA =================
+   All "images" are original teaching schematics defined as vector shapes.
+   Coordinates use a 100 x 75 schematic canvas per view. */
+
+const MODULES = [
+{
+  id:"m1", title:"1 · Standard views & weight-bearing", time:"10 min", tag:"Foundation",
+  summary:"The views a podiatrist requests (MBS 57521/57527) and why weight-bearing films change the answer.",
+  html:`
+  <h2>Standard series</h2>
+  <table class="ref">
+    <tr><th>Region</th><th>Views</th><th>What each view answers</th></tr>
+    <tr><td><b>Foot</b></td><td>Dorsoplantar (DP, ~15° cephalad), medial oblique, lateral</td><td>DP: metatarsals, phalanges, forefoot alignment (HVA, IMA). Oblique: midfoot, tarsometatarsal joints, cuboid. Lateral: arches (Meary, calcaneal pitch), calcaneus, talar dome, osteophytes.</td></tr>
+    <tr><td><b>Ankle</b></td><td>AP, mortise (AP oblique ~15–20° internal rotation), lateral</td><td>Mortise: ankle mortise and medial clear space without overlap. Lateral: tibiotalar joint, posterior talus (os trigonum), calcaneus.</td></tr>
+    <tr><td><b>Specialist</b></td><td>Calcaneal axial (Harris), sesamoid axial, weight-bearing AP/lateral, stress views</td><td>Harris: calcaneal body, sustentaculum, Böhler angle. Sesamoid axial: both hallux sesamoids without overlap. Stress/WB: instability (e.g. Lisfranc).</td></tr>
+  </table>
+  <div class="callout"><b>Weight-bearing (WB) vs non-weight-bearing (NWB):</b> podiatry almost always wants <b>WB</b> films for deformity, arthritis and instability — angles such as the hallux valgus angle, intermetatarsal angle, Meary's angle and calcaneal pitch can change by several degrees depending on loading. Always check whether the film was weight-bearing before quoting a measurement. MBS items 57521 (foot/ankle/leg/femur), 57523 (knee), 57527 (combined regions) are Medicare-rebatable when requested by a registered podiatrist.</div>
+  <h3>Positioning quality checks</h3>
+  <ul class="tight">
+    <li>DP foot centred at base of 3rd metatarsal; base of 5th metatarsal must be included (Jones/avulsion zone).</li>
+    <li>Oblique: 30–40° medial rotation shows the tarsometatarsal (Lisfranc) joints clearly.</li>
+    <li>Mortise: 15–20° internal rotation — the lateral malleolus should not overlap the talus.</li>
+    <li>Lateral: superimposed malleoli; include the whole calcaneus and the base of the 5th metatarsal.</li>
+  </ul>`,
+  checklist:["I can name the 3 standard foot views and 3 ankle views","I know why WB films matter for measurements","I can spot a poorly positioned mortise view","I know the podiatrist-rebatable MBS items (57521/57523/57527)"]
+},
+{
+  id:"m2", title:"2 · A systematic reading checklist", time:"8 min", tag:"Foundation",
+  summary:"A fixed search pattern so subtle findings (Lisfranc, syndesmosis, stress fractures) are not missed.",
+  html:`
+  <h2>Read every film in this order</h2>
+  <ol class="tight">
+    <li><b>Soft tissues</b> — swelling, gas (surgical emergency), foreign bodies, skin thickening.</li>
+    <li><b>Bones</b> — follow every cortex; check trabecular pattern; look at each named bone in turn.</li>
+    <li><b>Joints</b> — joint space, alignment, subluxation/dislocation, erosions.</li>
+    <li><b>Alignment &amp; measurements</b> — HVA, IMA, Meary, calcaneal pitch, Böhler, Kite's angle where relevant.</li>
+    <li><b>Comparison</b> — with the other side or prior films; check the whole film, not just the painful area.</li>
+    <li><b>Report structure</b> — indication/technique → findings → impression → recommendations.</li>
+  </ol>
+  <div class="callout warn"><b>Classic misses in foot/ankle trauma:</b> Lisfranc injury (look for widening between 1st–2nd metatarsal bases on WB films), syndesmotic injury (medial clear space &gt; 6 mm or tibiofibular widening), navicular stress fracture, talar lateral process fracture, os trigonum mistaken for fracture. A normal X-ray does not exclude ligament injury or early osteomyelitis.</div>
+  <h3>Structured reporting</h3>
+  <p>Model your written interpretation on structured radiology reporting: <b>technique</b> (views, WB/NWB), <b>findings</b> (systematic, descriptive — no diagnosis words), <b>impression</b> (numbered, most important first), <b>recommendations</b> (further imaging, referral). Never put a diagnosis in the impression that you did not describe in the findings.</p>`,
+  checklist:["I use the same fixed order every time","I check soft tissues first","I measure alignment, not just look at it","I compare with the other side / prior films","I write findings before impression"]
+},
+{
+  id:"m3", title:"3 · Key angles & measurements", time:"12 min", tag:"Intermediate",
+  summary:"The measurements podiatrists quote for deformity and fracture: HVA, IMA, Meary, calcaneal pitch, Böhler, Kite. Use the angle tool in the cases to practise.",
+  html:`
+  <h2>Measurements you must know</h2>
+  <table class="ref">
+    <tr><th>Measurement</th><th>View</th><th>Normal</th><th>Used for</th></tr>
+    <tr><td>Hallux valgus angle (HVA)</td><td>WB AP/DP</td><td>&lt; 15°</td><td>Bunion severity: mild 15–25°, moderate 25–40°, severe &gt; 40°</td></tr>
+    <tr><td>Intermetatarsal angle (IMA 1–2)</td><td>WB AP/DP</td><td>&lt; 9°</td><td>Hallux valgus, metatarsus primus varus</td></tr>
+    <tr><td>Meary's angle (talo–1st metatarsal)</td><td>WB lateral</td><td>≈ 0° (line straight)</td><td>Pes planus (&gt; 4° convex down) vs pes cavus</td></tr>
+    <tr><td>Calcaneal pitch / inclination</td><td>WB lateral</td><td>18–25°</td><td>Arch height; reduced in flatfoot</td></tr>
+    <tr><td>Böhler angle</td><td>Lateral calcaneus</td><td>25–40°</td><td>Calcaneal compression fractures flatten it (&lt; 20° suspicious)</td></tr>
+    <tr><td>Kite's angle (talocalcaneal)</td><td>AP + lateral</td><td>AP 20–40°</td><td>Hindfoot alignment</td></tr>
+  </table>
+  <div class="callout"><b>Technique matters:</b> these angles are only valid on <b>weight-bearing</b> films for functional assessment. Rotation of a few degrees changes the measurement — always measure on the correct standardised view. In the case library, switch on <b>Measure</b> and click three points (vertex last or middle) to draw an angle on the schematic.</div>
+  <p class="muted">In the case player: <b>Measure mode</b> → click point A, point B (vertex), point C → the app computes angle ABC in degrees and compares it with the expected range for that case.</p>`,
+  checklist:["I can name the normal range for HVA, IMA, Meary, calcaneal pitch, Böhler","I know which view each measurement needs","I know these require WB films","I can use the app's angle tool"]
+},
+{
+  id:"m4", title:"4 · When to image: Ottawa rules & requesting", time:"10 min", tag:"Applied",
+  summary:"Clinical decision rules that reduce unnecessary radiography, and how podiatrists request imaging in Australia.",
+  html:`
+  <h2>Ottawa ankle rules (sensitivity ~100%)</h2>
+  <ul class="tight">
+    <li><b>Ankle X-ray</b> only if pain in the malleolar zone <b>AND</b> any of: bony tenderness over the distal 6 cm of the posterior edge/tip of the lateral malleolus; bony tenderness over the distal 6 cm of the posterior edge/tip of the medial malleolus; inability to bear weight both immediately and in clinic (4 steps).</li>
+    <li><b>Foot X-ray</b> only if pain in the midfoot zone <b>AND</b> any of: bony tenderness at the base of the 5th metatarsal; bony tenderness at the navicular; inability to bear weight (4 steps).</li>
+    <li>Validated in children &gt; 6 years (98.5% sensitivity). Exclusions: pregnancy, intoxication, head injury, injuries &gt; 10 days old, calcaneal body injuries are not covered by the midfoot rule.</li>
+  </ul>
+  <h2>Ottawa knee rules</h2>
+  <p>X-ray the knee after acute injury if any of: age ≥ 55; isolated patellar tenderness; fibular head tenderness; inability to flex to 90°; inability to bear weight 4 steps.</p>
+  <h2>Requesting imaging (Australia)</h2>
+  <ul class="tight">
+    <li>Registered podiatrists may request Medicare-rebatable plain radiographs: <b>57521</b> (foot, ankle, femur or leg), <b>57523</b> (knee), <b>57527</b> (combined foot/ankle/leg/knee/femur), plus EOS lower-limb studies and limited MSK ultrasound items (55834/55835).</li>
+    <li>Write a clear clinical question on the request ("? Lisfranc injury — WB AP/oblique/lateral foot") — it changes the views the radiographer acquires.</li>
+    <li>CT/MRI referrals by podiatrists are generally <b>not</b> MBS-rebatable; refer via a medical practitioner where advanced imaging is needed.</li>
+  </ul>`,
+  checklist:["I can apply the Ottawa ankle and foot rules","I know the common exclusions","I can write a useful imaging request with a clinical question","I know which MBS items podiatrists can request"]
+},
+{
+  id:"m5", title:"5 · Pitfalls: normal variants & accessory ossicles", time:"10 min", tag:"Intermediate",
+  summary:"The classic trap: mistaking a normal accessory ossicle for a fracture. ~2.7% of accessory ossicles are misdiagnosed as avulsion fractures.",
+  html:`
+  <h2>Know these before you call a fracture</h2>
+  <table class="ref">
+    <tr><th>Variant</th><th>Where</th><th>Clue it is normal</th><th>Common confusion</th></tr>
+    <tr><td>Os trigonum (7–10%)</td><td>Posterior talus, lateral view</td><td>Oval, fully corticated</td><td>Lateral talar process (Shepherd's) fracture</td></tr>
+    <tr><td>Accessory navicular (4–14%)</td><td>Medial navicular, DP/oblique</td><td>Round/oval, corticated; often bilateral</td><td>Navicular tuberosity avulsion</td></tr>
+    <tr><td>Os peroneum (5–11%)</td><td>Within peroneus longus tendon, lateral foot</td><td>Round, corticated; bipartite in 30%, bilateral in 60%</td><td>Cuboid fracture</td></tr>
+    <tr><td>Bipartite sesamoid (10–30%)</td><td>Medial hallux sesamoid</td><td>Two parts, <b>both</b> corticated; often bilateral</td><td>Sesamoid fracture (fragments are not both corticated)</td></tr>
+    <tr><td>Os calcaneus secundarius</td><td>Anterior calcaneus, oblique</td><td>Triangular, corticated</td><td>Anterior process fracture</td></tr>
+    <tr><td>Os vesalianum</td><td>Base of 5th metatarsal</td><td>Small, corticated</td><td>Avulsion fracture</td></tr>
+  </table>
+  <div class="callout warn"><b>Rule of thumb:</b> acute fracture lines are <b>lucid (dark) and jagged with non-corticated margins</b>; ossicles and sesamoid variants are <b>round/oval with a smooth cortical rim</b>. When in doubt: compare with the other side, check old films, or get CT/MRI.</div>`,
+  checklist:["I can list the 5 most common foot/ankle ossicles","I know the corticated-margin rule","I know bipartite sesamoids are often bilateral","I know when to escalate to CT/MRI"]
+},
+{
+  id:"m6", title:"6 · The high-risk foot: infection vs Charcot", time:"12 min", tag:"Advanced",
+  summary:"IWGDF/IDSA 2023: plain X-ray is first-line for diabetic foot infection but insensitive early; know when to repeat and when to escalate to MRI.",
+  html:`
+  <h2>Diabetic foot osteomyelitis (IWGDF/IDSA 2023)</h2>
+  <ul class="tight">
+    <li>Initial bundle: <b>probe-to-bone test + plain X-ray + inflammatory markers</b> (ESR, CRP, ± PCT).</li>
+    <li>Obtain plain X-rays of the foot in <b>all non-superficial diabetic foot infections</b>.</li>
+    <li>X-ray signs of osteomyelitis: cortical destruction, periosteal reaction, sequestrum — but plain film is <b>insensitive in the first 2–3 weeks</b>. If suspicion stays high with a normal film, <b>repeat at 2–3 weeks</b>.</li>
+    <li>If doubt remains after clinical + X-ray + labs → <b>MRI</b> (sensitivity ~90%). Bone (not soft-tissue) samples for culture.</li>
+    <li>Suspect osteomyelitis especially with a deep/long-standing ulcer, especially if bone is palpable on probing.</li>
+  </ul>
+  <h2>Charcot neuro-osteoarthropathy (CNO)</h2>
+  <ul class="tight">
+    <li>Hot, swollen, red foot in a neuropathic diabetic patient — <b>Charcot until proven otherwise</b> (IWGDF 2023 CNO guideline).</li>
+    <li>X-ray (Eichenholtz): fragmentation, disorganisation, subluxation/dislocation, midfoot collapse ("rocker-bottom"), increased bone density in chronic stages.</li>
+    <li><b>Differentiating infection from Charcot on X-ray is hard</b> — distribution helps: Charcot is often midfoot/multiple joints; osteomyelitis usually starts under a single ulcer. MRI ± labelled WBC scan when uncertain.</li>
+    <li>Offload immediately (total contact cast) while awaiting workup — do not miss acute Charcot.</li>
+  </ul>
+  <div class="callout bad"><b>Red flags on any foot X-ray:</b> soft-tissue gas (necrotising infection — emergency), rapidly progressive bone destruction, foreign body with surrounding lysis.</div>`,
+  checklist:["I know the IWGDF initial bundle (PTB + X-ray + markers)","I know to repeat a normal X-ray at 2–3 weeks if suspicion persists","I know when MRI is indicated","I can describe Charcot X-ray stages and the hot-swollen-foot rule"]
+}
+];
+
+/* Each case: views[] with a schematic "kind" plus overlay shapes drawn in the
+   100x75 canvas. hotspots: x,y in canvas coords + label + explanation. */
+const CASES = [
+{
+  id:"c1", title:"Jones fracture — base of 5th metatarsal", topic:"Trauma", diff:2, views:["footDP","footObl"],
+  stem:"28-year-old netball player, inversion injury 3 days ago. Tender at the base of the 5th metatarsal; Ottawa foot rule positive. WB films requested under MBS 57521.",
+  viewsData:{
+    footDP:{overlays:[{t:"fxline",pts:[[66,40],[69,44],[67,48],[70,52]],w:2.2}]},
+    footObl:{overlays:[{t:"fxline",pts:[[70,38],[73,43],[71,47]] ,w:2.2},{t:"label",x:76,y:34,text:"transverse # at metaphyseal–diaphyseal junction"}]}
+  },
+  hotspots:[{x:68,y:46,label:"Jones fracture",expl:"Transverse fracture at the metaphyseal–diaphyseal junction of the 5th metatarsal base, 1.5–3 cm distal to the tuberosity, extending into the 4th–5th intermetatarsal joint. High risk of non-union (watershed zone) — often needs immobilisation/orthopaedic referral."}],
+  ddx:["5th MT base avulsion (pseudo-Jones) — more proximal, at the tuberosity, from peroneus brevis","5th MT shaft (dancer's) fracture — distal, spiral","Os vesalianum — corticated, no lucid line"],
+  pearls:["Distinguish Jones (junction) from avulsion (tuberosity): management differs","Check the whole film — Lisfranc injury can coexist","WB AP/oblique/lateral is the right series; CT if comminution suspected"],
+  refs:["Ottawa foot rules (Stiell 1993)","MBS item 57521"],
+  measure:null, quizTag:"trauma-5thmt"
+},
+{
+  id:"c2", title:"5th metatarsal base avulsion (pseudo-Jones)", topic:"Trauma", diff:1, views:["footDP"],
+  stem:"55-year-old, sudden sharp pain walking, eversion force. Tender over the 5th metatarsal tuberosity.",
+  viewsData:{footDP:{overlays:[{t:"fxline",pts:[[71,42],[74,45],[72,49]],w:2.0},{t:"label",x:78,y:40,text:"avulsion at tuberosity"}]}},
+  hotspots:[{x:73,y:45,label:"Avulsion fracture",expl:"Small bony fragment avulsed from the tuberosity by peroneus brevis/plantar aponeurosis. Extra-articular, usually heals well with symptomatic care (stiff-soled shoe/boot)."}],
+  ddx:["Jones fracture — more distal, intra-articular, higher non-union risk","Os vesalianum — a normal variant: corticated ossicle, no acute lucid line; often bilateral"],
+  pearls:["Location decides management: tuberosity vs junction","Compare with contralateral film if unsure about os vesalianum"],
+  refs:["Ottawa foot rules"], measure:null, quizTag:"trauma-5thmt"
+},
+{
+  id:"c3", title:"Lisfranc (tarsometatarsal) injury", topic:"Trauma", diff:3, views:["footDP","footObl"],
+  stem:"31-year-old, fall from height landing on plantar-flexed foot. Midfoot pain and swelling. WB AP shows subtle widening.",
+  viewsData:{
+    footDP:{overlays:[{t:"gap",x1:47,y1:30,x2:52,y2:30},{t:"label",x:50,y:22,text:"widening 1st–2nd MT bases (>2 mm)"}]},
+    footObl:{overlays:[{t:"fleck",x:57,y:33,r:1.6},{t:"label",x:62,y:28,text:"fleck sign (avulsion)"}]}
+  },
+  hotspots:[
+    {x:49,y:30,label:"1st–2nd intermetatarsal widening",expl:"Widening > 2 mm between the 1st and 2nd metatarsal bases on WB films indicates Lisfranc ligament disruption. Look also for malalignment of the medial 2nd MT base with the intermediate cuneiform."},
+    {x:57,y:33,label:"Fleck sign",expl:"Small avulsion fragment at the Lisfranc interval (between medial cuneiform and 2nd MT base) — pathognomonic for ligament injury."}
+  ],
+  ddx:["Normal variant splaying — compare WB vs NWB and the other foot","Midfoot sprain without instability — stress views/MRI if X-ray subtle"],
+  pearls:["Get WB views — NWB films can look normal","Unstable Lisfranc needs orthopaedic referral (ORIF); stable sprains can be cast","A normal X-ray does not exclude Lisfranc — MRI/CT if suspicion high"],
+  refs:["Lisfranc injury reviews (Radiology Key / FootEducation)"], measure:null, quizTag:"lisfranc"
+},
+{
+  id:"c4", title:"Hallux valgus — measure HVA & IMA", topic:"Deformity", diff:2, views:["footDP"],
+  stem:"42-year-old, progressive bunion pain. WB DP film. Use Measure mode: HVA = angle between 1st metatarsal axis and proximal phalanx axis; IMA = angle between 1st and 2nd metatarsal axes.",
+  viewsData:{footDP:{overlays:[
+    {t:"axis",pts:[[34,50],[34,20]]},{t:"axis",pts:[[40,50],[30,18]]},{t:"axis",pts:[[48,50],[48,20]]},
+    {t:"label",x:60,y:14,text:"lateral deviation of hallux"}]}},
+  hotspots:[{x:31,y:20,label:"Hallux valgus deformity",expl:"Lateral deviation of the hallux at the 1st MTP with prominence of the 1st metatarsal head. Measure HVA (normal <15°) and IMA (normal <9°) on the WB film to grade severity and guide management."}],
+  ddx:["Hallux rigidus — same joint, but dorsal osteophytes and loss of dorsiflexion dominate","Bunionette — 5th MTP equivalent"],
+  pearls:["Grade with HVA: mild 15–25°, moderate 25–40°, severe >40°","IMA >9° suggests metatarsus primus varus — surgical planning changes","Always WB for measurements"],
+  refs:["Normal foot & ankle radiographic angles (JAPMA)"],
+  measure:{kind:"HVA", vertex:[34,26], a:[34,48], b:[30,20], expected:"15–40° (case ≈ 32°)", note:"Also measure IMA between the 1st and 2nd metatarsal axes (normal < 9°)."},
+  quizTag:"hallux"
+},
+{
+  id:"c5", title:"Hallux rigidus — 1st MTP osteoarthritis", topic:"Degenerative", diff:1, views:["footLat"],
+  stem:"60-year-old runner, dorsal big-toe pain and stiffness. WB lateral film.",
+  viewsData:{footLat:{overlays:[{t:"spur",x:20,y:36,dir:"up"},{t:"js",x:22,y:41},{t:"label",x:30,y:30,text:"dorsal osteophyte + joint space narrowing"}]}},
+  hotspots:[{x:21,y:38,label:"Dorsal osteophyte, 1st MTP",expl:"Dorsal osteophyte with joint-space narrowing, subchondral sclerosis and cysts at the 1st MTP = hallux rigidus. The dorsal spur blocks dorsiflexion (hallux limitus → rigidus). Grading (Coughlin–Shurnas) guides cheilectomy vs fusion/arthroplasty."}],
+  ddx:["Gout (podagra) — erosions with overhanging edges, soft-tissue tophus","Sesamoiditis — pain plantar, sesamoid axial view"],
+  pearls:["1st MTP is the most common OA joint in the foot","X-ray supports, never replaces, the clinical exam (dorsiflexion < 10° = severe)"],
+  refs:["Foot & ankle OA reviews"], measure:null, quizTag:"oa"
+},
+{
+  id:"c6", title:"Calcaneal compression fracture — Böhler angle", topic:"Trauma", diff:3, views:["ankleLat"],
+  stem:"Fall from 2 m onto heels. Severe heel pain, swelling. Lateral ankle/heel film. Use Measure mode at Böhler's angle: vertex at the highest point of the posterior facet; arms to the highest point of the anterior process and the posterior tuberosity.",
+  viewsData:{ankleLat:{overlays:[
+    {t:"fxline",pts:[[52,50],[60,54],[66,50],[72,56]],w:2.2},
+    {t:"axis",pts:[[48,42],[70,58]]},{t:"axis",pts:[[70,58],[80,46]]},
+    {t:"label",x:56,y:66,text:"Böhler angle flattened (<20°)"}]}},
+  hotspots:[{x:62,y:52,label:"Intra-articular calcaneal fracture",expl:"Comminuted intra-articular calcaneal fracture with loss of height: Böhler angle < 20° (normal 25–40°). Check the subtalar joint and get CT for surgical planning. Always X-ray the spine/other heel in fall-from-height calcaneal fractures (10% bilateral; associated lumbar fractures)."}],
+  ddx:["Calcaneal stress fracture — sclerotic band, Böhler preserved","Sever's disease (child) — apophysitis, not a fracture line"],
+  pearls:["Böhler < 20° = compression, not simple avulsion","CT for intra-articular extension; Bohler + Gissane angle guide management","Assess soft tissues — compartment syndrome risk"],
+  refs:["Calcaneal fracture imaging reviews"],
+  measure:{kind:"Böhler", vertex:[70,58], a:[48,42], b:[80,46], expected:"< 20° (flattened; normal 25–40°)", note:"Vertex = highest point of posterior facet."}, quizTag:"calcaneus"
+},
+{
+  id:"c7", title:"Os trigonum vs lateral talar process fracture", topic:"Pitfalls", diff:2, views:["ankleLat"],
+  stem:"16-year-old soccer player, posterior ankle pain after forced plantarflexion. Lateral ankle film.",
+  viewsData:{ankleLat:{overlays:[{t:"ossicle",x:74,y:44,r:3.2},{t:"label",x:78,y:38,text:"corticated ossicle posterior to talus"}]}},
+  hotspots:[{x:74,y:44,label:"Os trigonum (normal variant)",expl:"Oval, fully corticated ossicle behind the talus = os trigonum (present in 7–10%). It can become painful (os trigonum syndrome / posterior impingement) but here there is no acute lucid fracture line. Compare with Shepherd's fracture: jagged, non-corticated fragment of the lateral talar process."}],
+  ddx:["Shepherd's fracture (lateral talar process) — acute, non-corticated, history of trauma","Posterior talar impingement from a prominent Stieda process"],
+  pearls:["Corticated + round = ossicle; jagged + lucent = fracture","If symptomatic: MRI to look for oedema between os trigonum and talus","Bilateral in ~25% — check the other ankle"],
+  refs:["Accessory ossicles of the foot & ankle (AJR 2019)"], measure:null, quizTag:"ossicles"
+},
+{
+  id:"c8", title:"Accessory navicular vs navicular fracture", topic:"Pitfalls", diff:2, views:["footDP"],
+  stem:"14-year-old with medial midfoot pain after sport. DP and oblique films.",
+  viewsData:{footDP:{overlays:[{t:"ossicle",x:44,y:47,r:3.0},{t:"label",x:30,y:56,text:"corticated accessory bone at medial navicular"}]}},
+  hotspots:[{x:44,y:47,label:"Accessory navicular (os tibiale externum)",expl:"Round corticated ossicle at the medial navicular (4–14% of people) — a normal variant that can become painful (accessory navicular syndrome) via the posterior tibial tendon, often with flatfoot. A true navicular avulsion shows a jagged lucent line."}],
+  ddx:["Navicular tuberosity avulsion fracture","Kohler's disease (child) — flattened sclerotic navicular ossification centre","Navicular stress fracture — the “N spot”; needs MRI if suspected"],
+  pearls:["Corticated margin + bilateral = variant","Symptomatic accessory navicular + pes planus → orthoses first"],
+  refs:["Accessory ossicle reviews (SMJ 2018)"], measure:null, quizTag:"ossicles"
+},
+{
+  id:"c9", title:"Diabetic foot osteomyelitis", topic:"High-risk foot", diff:3, views:["footDP","footLat"],
+  stem:"58-year-old with type 2 diabetes, neuropathy and a plantar ulcer over the 1st metatarsal head for 4 weeks. Probe-to-bone positive. ESR 68. X-ray: see below.",
+  viewsData:{
+    footDP:{overlays:[{t:"lytic",x:34,y:26,r:4.5},{t:"label",x:20,y:16,text:"cortical destruction, 1st MT head"}]},
+    footLat:{overlays:[{t:"periosteal",x:26,y:42},{t:"label",x:12,y:56,text:"periosteal reaction"}]}
+  },
+  hotspots:[{x:34,y:26,label:"Osteomyelitis, 1st metatarsal head",expl:"Cortical destruction with periosteal reaction under the ulcer = diabetic foot osteomyelitis until proven otherwise (IWGDF/IDSA 2023: PTB + X-ray + ESR/CRP as the initial bundle). Plain film changes lag 2–3 weeks behind infection — a normal early film does not exclude it; repeat at 2–3 weeks or go to MRI (sensitivity ~90%)."}],
+  ddx:["Charcot arthropathy — usually midfoot, multiple joints, hot swollen foot","Soft-tissue infection only — no bone change; antibiotics + debridement"],
+  pearls:["Probe-to-bone positive + ulcer = high risk; X-ray + markers first","MRI when doubt remains; bone biopsy for culture, not swabs","Refer for urgent surgical opinion in moderate/severe infection"],
+  refs:["IWGDF/IDSA 2023 diabetic foot infection guideline"], measure:null, quizTag:"dfi"
+},
+{
+  id:"c10", title:"Charcot neuro-osteoarthropathy (midfoot)", topic:"High-risk foot", diff:3, views:["footLat"],
+  stem:"62-year-old diabetic with neuropathy, now a hot, swollen, red midfoot after minor trauma. WB lateral film.",
+  viewsData:{footLat:{overlays:[
+    {t:"disorg",pts:[[36,40],[44,46],[52,42],[58,48]],w:2.4},
+    {t:"label",x:30,y:28,text:"fragmentation, disorganisation, rocker-bottom collapse"}]}},
+  hotspots:[{x:46,y:44,label:"Charcot midfoot collapse",expl:"Eichenholtz-type changes: fragmentation, subluxation/dislocation at the tarsometatarsal (Lisfranc) and naviculocuneiform joints, rocker-bottom collapse of the arch. In a neuropathic diabetic with a hot swollen foot this is acute Charcot until proven otherwise — offload immediately (total contact cast) and refer. Distinguish from osteomyelitis (usually single bone under an ulcer)."}],
+  ddx:["Diabetic foot osteomyelitis — MRI ± WBC scan to differentiate","Gout — usually 1st MTP, erosions with overhanging edges"],
+  pearls:["Hot + swollen + neuropathic = Charcot until excluded","Early X-ray can be normal — treat on clinical suspicion","Never immobilise a septic foot; rule out infection first"],
+  refs:["IWGDF 2023 acute Charcot guideline"], measure:null, quizTag:"charcot"
+},
+{
+  id:"c11", title:"Sesamoid fracture vs bipartite sesamoid", topic:"Pitfalls", diff:2, views:["sesAx"],
+  stem:"25-year-old dancer, plantar 1st MTP pain. Sesamoid axial view.",
+  viewsData:{sesAx:{overlays:[{t:"fxline",pts:[[40,44],[43,48],[41,52]],w:1.8},{t:"label",x:14,y:60,text:"lucent line through medial sesamoid — margins not corticated"}]}},
+  hotspots:[{x:42,y:48,label:"Sesamoid fracture",expl:"A lucent line crossing the medial sesamoid with non-corticated margins = fracture. A bipartite sesamoid has two parts but BOTH are corticated and is often bilateral (10–30% of people). Sesamoid fractures heal poorly — offload, sesamoidectomy if persistent."}],
+  ddx:["Bipartite sesamoid — both fragments corticated, often bilateral","Sesamoiditis — normal bone, oedema on MRI only"],
+  pearls:["Compare both feet — bilateral = variant","Sesamoid axial view shows both sesamoids without overlap"],
+  refs:["Accessory ossicles & sesamoids (AJR 2019)"], measure:null, quizTag:"ossicles"
+}
+];
+
+const QUIZ = [
+{q:"A 28-year-old twists her ankle playing netball. She has pain in the midfoot but no malleolar pain, is tender at the base of the 5th metatarsal, and can bear weight for 4 steps. According to the Ottawa foot rules, what is indicated?",opts:["No X-ray needed","Foot X-ray series","Ankle X-ray series only","Knee X-ray"],a:1,tag:"ottawa",expl:"Midfoot pain + base-of-5th-MT tenderness = foot X-ray. Weight-bearing ability does not override the tenderness criterion."},
+{q:"Ottawa ankle rules are best described as:",opts:["High sensitivity, moderate specificity — a rule-out tool","High specificity, low sensitivity","100% sensitive and 100% specific","Only valid in adults over 55"],a:0,tag:"ottawa",expl:"~100% sensitivity, modest specificity; reduces imaging by 30–40%. Validated in children >6."},
+{q:"Which MBS item covers a podiatrist-requested X-ray of the foot, ankle, leg or femur?",opts:["57521","57523","55834","63311"],a:0,tag:"mbs",expl:"57521 = foot/ankle/femur/leg; 57523 = knee; 57527 = combined regions; 55834/55835 = ultrasound items; 63311 = MRI (not podiatrist-rebatable)."},
+{q:"A transverse fracture at the metaphyseal–diaphyseal junction of the 5th metatarsal base is a:",opts:["Jones fracture","Avulsion (pseudo-Jones) fracture","Dancer's fracture","Stress fracture"],a:0,tag:"trauma-5thmt",expl:"Jones fracture = junction, intra-articular, non-union risk. Avulsion = tuberosity, extra-articular."},
+{q:"The avulsion fracture of the 5th metatarsal tuberosity is caused by pull of:",opts:["Peroneus brevis and lateral band of plantar fascia","Extensor digitorum longus","Flexor hallucis longus","Achilles tendon"],a:0,tag:"trauma-5thmt",expl:"Peroneus brevis inserts on the tuberosity; the plantar aponeurosis also attaches there."},
+{q:"On a WB AP foot film, widening >2 mm between the 1st and 2nd metatarsal bases suggests:",opts:["Lisfranc ligament injury","Normal variant","Hallux valgus","Pes cavus"],a:0,tag:"lisfranc",expl:"Lisfranc ligament connects medial cuneiform to 2nd MT base. Also look for the fleck sign and cuneiform–2nd MT malalignment."},
+{q:"The “fleck sign” in Lisfranc injury is:",opts:["An avulsion fragment at the Lisfranc interval","A fracture of the medial malleolus","A sign of gout","Soft-tissue gas"],a:0,tag:"lisfranc",expl:"Pathognomonic small ossific fleck between medial cuneiform and base of 2nd MT."},
+{q:"Normal hallux valgus angle on a weight-bearing AP film is:",opts:["< 15°","< 30°","< 45°","< 9°"],a:0,tag:"hallux",expl:"HVA <15° normal; IMA <9° normal. Mild 15–25°, moderate 25–40°, severe >40°."},
+{q:"Hallux rigidus on X-ray typically shows:",opts:["Dorsal osteophyte and 1st MTP joint space narrowing","Widening of the 1st MTP joint","Erosions with overhanging edges","No bony change"],a:0,tag:"oa",expl:"1st MTP OA: dorsal osteophyte blocks dorsiflexion. Gout shows punched-out erosions with overhanging edges."},
+{q:"Böhler angle of 15° on a lateral calcaneal film indicates:",opts:["Calcaneal compression fracture (flattened; normal 25–40°)","A normal calcaneus","Sever's disease","An avulsion fracture only"],a:0,tag:"calcaneus",expl:"Böhler 25–40° normal; <20° = loss of height from compression. Get CT for intra-articular extent."},
+{q:"An oval, fully corticated ossicle posterior to the talus on a lateral ankle film is most likely:",opts:["Os trigonum","Shepherd's fracture","Loose body from OA","Avulsion of the Achilles"],a:0,tag:"ossicles",expl:"Os trigonum in 7–10%. Shepherd's fracture is a jagged non-corticated lateral talar process fragment."},
+{q:"Which feature distinguishes a bipartite sesamoid from a sesamoid fracture?",opts:["Both parts are corticated in bipartite; fracture margins are not","Location under the 5th MTP","Size > 2 cm","Presence of soft-tissue swelling"],a:0,tag:"ossicles",expl:"Bipartite sesamoid: both fragments have smooth cortical rims, often bilateral (10–30%). Fracture: lucent jagged line, non-corticated."},
+{q:"Accessory navicular bone occurs in approximately:",opts:["4–14% of people","<1%","50%","90%"],a:0,tag:"ossicles",expl:"4–14%; can cause symptomatic accessory navicular syndrome via the posterior tibial tendon, often with flatfoot."},
+{q:"In suspected diabetic foot osteomyelitis, the IWGDF/IDSA 2023 initial bundle is:",opts:["Probe-to-bone + plain X-ray + ESR/CRP (±PCT)","MRI first in all cases","Bone biopsy first","X-ray alone"],a:0,tag:"dfi",expl:"PTB + X-ray + inflammatory markers first. MRI when doubt remains. Plain X-ray is insensitive in the first 2–3 weeks — repeat if suspicion persists."},
+{q:"A normal plain X-ray 5 days after ulcer onset in a diabetic foot:",opts:["Does not exclude osteomyelitis — repeat at 2–3 weeks or MRI","Excludes osteomyelitis","Excludes Charcot","Confirms infection"],a:0,tag:"dfi",expl:"Radiographic changes lag infection by 2–3 weeks (10–15% bone loss needed to be visible)."},
+{q:"A hot, swollen, red midfoot in a neuropathic diabetic patient should be treated as:",opts:["Acute Charcot neuro-osteoarthropathy until proven otherwise","Cellulitis only","Gout","Nothing — reassure"],a:0,tag:"charcot",expl:"IWGDF 2023 CNO guideline: hot swollen neuropathic foot = Charcot until excluded. Offload immediately; rule out infection."},
+{q:"X-ray features of Charcot arthropathy include:",opts:["Fragmentation, disorganisation, subluxation and rocker-bottom collapse","Punched-out erosions at 1st MTP","A single lucent fracture line","Normal alignment"],a:0,tag:"charcot",expl:"Eichenholtz stages; typically midfoot/multiple joints. Osteomyelitis usually starts under one ulcer."},
+{q:"Soft-tissue gas on a foot X-ray is:",opts:["A surgical emergency (necrotising infection)","Normal","A sign of gout","Artefact"],a:0,tag:"dfi",expl:"Gas in soft tissues = necrotising fasciitis until proven otherwise — urgent surgical debridement."},
+{q:"Weight-bearing foot films matter because:",opts:["Angles (HVA, IMA, Meary, calcaneal pitch) change with loading","They use less radiation","They show soft tissue better","They are required for Medicare rebate"],a:0,tag:"views",expl:"WB films show functional alignment; NWB can under-report deformity and Lisfranc instability."},
+{q:"The mortise view is obtained with approximately:",opts:["15–20° internal rotation","45° external rotation","No rotation","Full plantarflexion"],a:0,tag:"views",expl:"15–20° internal rotation opens the ankle mortise so the lateral malleolus does not overlap the talus."},
+{q:"Medial clear space > 6 mm on a mortise view suggests:",opts:["Syndesmotic (high ankle) injury / deltoid disruption","Normal ankle","Lateral ligament sprain only","Osteoarthritis"],a:0,tag:"ankle",expl:"Widened medial clear space or tibiofibular clear space >6 mm = unstable ankle; consider Maisonneuve fracture (proximal fibula) — image the leg."},
+{q:"A comminuted intra-articular calcaneal fracture after a fall from height should prompt:",opts:["CT for surgical planning + check for bilateral injury and lumbar spine fracture","Only symptomatic care","MRI of the ankle","No further imaging"],a:0,tag:"calcaneus",expl:"~10% bilateral; associated axial loading injuries (lumbar spine) common. CT defines posterior facet involvement."},
+{q:"In the systematic checklist, you should assess soft tissues first because:",opts:["Gas, foreign bodies and swelling change urgency and diagnosis","Bones are easier to see","It is faster","Joints depend on it"],a:0,tag:"system",expl:"Soft-tissue gas = emergency; foreign bodies and swelling alter the differential before you read bones."},
+{q:"Structured radiology reporting means:",opts:["Technique → findings → impression → recommendations, with no impression-only diagnoses","Writing as fast as possible","Only listing abnormal findings","Skipping the technique section"],a:0,tag:"system",expl:"Findings describe; impression concludes. Never put a diagnosis in the impression that is not in the findings."},
+{q:"A podiatrist-requested CT or MRI of the foot in Australia:",opts:["Is generally not MBS-rebatable — refer via a medical practitioner","Is fully rebated under 57521","Is rebated under 57527","Is rebated under 63311 by podiatrists"],a:0,tag:"mbs",expl:"Podiatrist MBS access covers plain X-ray (57521/57523/57527), EOS and limited ultrasound (55834/55835). CT/MRI item numbers are not claimable on podiatrist request."},
+{q:"Which is a normal variant that can be mistaken for a fracture at the anterior calcaneus on oblique views?",opts:["Os calcaneus secundarius","Os trigonum","Os peroneum","Os vesalianum"],a:0,tag:"ossicles",expl:"Os calcaneus secundarius is triangular and corticated at the anterior process — confused with anterior process fracture. Os trigonum is posterior talus; os peroneum is lateral midfoot; os vesalianum is 5th MT base."}
+];
+
+/* ================= APP ENGINE ================= */
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const store={
+  get(k,d){try{const v=localStorage.getItem("fxr_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("fxr_"+k,JSON.stringify(v))}catch(e){}}
+};
+const state={screen:"home",caseId:null,view:0,found:{},measureOn:false,quiz:store.get("quiz",{})};
+
+/* ---------- schematic X-ray renderer (original teaching diagrams) ---------- */
+const CW=100, CH=75;
+function polyD(pts,close){let d=`M ${pts[0][0]} ${pts[0][1]}`;for(let i=1;i<pts.length;i++)d+=` L ${pts[i][0]} ${pts[i][1]}`;if(close)d+=" Z";return d}
+function shaft(g,NS,x1,y1,x2,y2,w,BONE,DIM){ // bone shaft: dark under-stroke + bone stroke, round caps
+  const o=document.createElementNS(NS,"line");
+  o.setAttribute("x1",x1);o.setAttribute("y1",y1);o.setAttribute("x2",x2);o.setAttribute("y2",y2);
+  o.setAttribute("stroke",DIM);o.setAttribute("stroke-width",w+1.4);o.setAttribute("stroke-linecap","round");
+  g.appendChild(o);
+  const c=document.createElementNS(NS,"line");
+  c.setAttribute("x1",x1);c.setAttribute("y1",y1);c.setAttribute("x2",x2);c.setAttribute("y2",y2);
+  c.setAttribute("stroke",BONE);c.setAttribute("stroke-width",w);c.setAttribute("stroke-linecap","round");
+  g.appendChild(c);
+}
+function drawSchematic(svg,kind,overlays){
+  const NS="http://www.w3.org/2000/svg";
+  svg.setAttribute("viewBox",`0 0 ${CW} ${CH}`);
+  svg.innerHTML="";
+  const g=document.createElementNS(NS,"g");
+  svg.appendChild(g);
+  const BONE="#c9d2dd", DIM="#8b96a5", FAINT="#5b6675";
+  function add(el){g.appendChild(el);return el}
+  function shape(el,fill,stroke,w){el.setAttribute("fill",fill);if(stroke){el.setAttribute("stroke",stroke);el.setAttribute("stroke-width",w||0.7);el.setAttribute("stroke-linejoin","round")}return el}
+  // faint grid + vignette for radiograph feel
+  const grid=add(document.createElementNS(NS,"g"));
+  grid.setAttribute("stroke",FAINT);grid.setAttribute("stroke-width","0.15");grid.setAttribute("opacity","0.35");
+  for(let x=0;x<=CW;x+=10){const l=document.createElementNS(NS,"line");l.setAttribute("x1",x);l.setAttribute("y1",0);l.setAttribute("x2",x);l.setAttribute("y2",CH);grid.appendChild(l)}
+  for(let y=0;y<=CH;y+=10){const l=document.createElementNS(NS,"line");l.setAttribute("x1",0);l.setAttribute("y1",y);l.setAttribute("x2",CW);l.setAttribute("y2",y);grid.appendChild(l)}
+
+  if(kind==="footDP"||kind==="footObl"){
+    const oblique=(kind==="footObl")?0.10:0;
+    g.setAttribute("transform",oblique?`rotate(${-oblique*100/3} 50 55)`:"");
+    // phalanges (toes at top)
+    const toes=[[30,10],[38,7],[46,6],[54,7],[62,10]];
+    toes.forEach((t,i)=>{
+      const c=add(document.createElementNS(NS,"ellipse"));
+      shape(c,BONE,DIM,0.5);
+      c.setAttribute("cx",t[0]);c.setAttribute("cy",t[1]);c.setAttribute("rx",i===0?3.4:2.4);c.setAttribute("ry",i===0?5.5:4.2);
+    });
+    // metatarsals: from tarsal heads (y~34) to phalangeal bases (y~16)
+    const mt=[[31,16,30,36],[39,14,40,36],[47,13,49,36],[55,14,57,36],[63,16,65,37]];
+    mt.forEach(m=>{shaft(g,NS,m[0],m[1],m[2],m[3],m[0]===31?4.6:3.4,BONE,DIM);});
+    // sesamoids under 1st MT head
+    [[29,20],[33,20]].forEach(s=>{const c=add(document.createElementNS(NS,"circle"));shape(c,BONE,DIM,0.4);c.setAttribute("cx",s[0]);c.setAttribute("cy",s[1]);c.setAttribute("r",1.7)});
+    // tarsals block
+    const tars=[[26,42,10,7,-0.15],[40,41,9,6,0],[53,42,8,6,0.1],[64,44,7,6,0.25],[33,52,9,6,0],[46,52,9,6,0],[58,53,8,6,0],[40,62,14,7,0],[58,62,12,7,0.1]];
+    tars.forEach(t=>{const c=add(document.createElementNS(NS,"ellipse"));shape(c,BONE,DIM,0.6);c.setAttribute("cx",t[0]);c.setAttribute("cy",t[1]);c.setAttribute("rx",t[2]);c.setAttribute("ry",t[3]);c.setAttribute("transform",`rotate(${t[4]*57.3} ${t[0]} ${t[1]})`)});
+  }
+  else if(kind==="footLat"){
+    let c;
+    // tibia/fibula top-left vertical
+    shaft(g,NS,8,2,10,30,5,BONE,DIM);
+    shaft(g,NS,13,4,14,28,3,BONE,DIM);
+    // talus
+    c=add(document.createElementNS(NS,"ellipse"));shape(c,BONE,DIM,0.6);c.setAttribute("cx",17);c.setAttribute("cy",33);c.setAttribute("rx",6);c.setAttribute("ry",5);
+    // calcaneus
+    c=add(document.createElementNS(NS,"path"));c.setAttribute("d",polyD([[8,44],[20,42],[30,46],[34,52],[28,58],[12,58],[6,52]],true));c.setAttribute("fill",BONE);c.setAttribute("stroke",DIM);c.setAttribute("stroke-width",0.6);c.setAttribute("stroke-linejoin","round");
+    // navicular/cuneiforms midfoot
+    [[26,40],[32,41],[38,42]].forEach(p=>{const e=add(document.createElementNS(NS,"ellipse"));shape(e,BONE,DIM,0.5);e.setAttribute("cx",p[0]);e.setAttribute("cy",p[1]);e.setAttribute("rx",4);e.setAttribute("ry",3.4)});
+    // metatarsals to the right
+    [[44,43,58,44],[45,47,60,49],[46,51,62,54]].forEach(m=>{shaft(g,NS,m[0],m[1],m[2],m[3],3,BONE,DIM);});
+    // toes
+    [[64,45],[68,48],[70,52]].forEach((t,i)=>{const e=add(document.createElementNS(NS,"ellipse"));shape(e,BONE,DIM,0.4);e.setAttribute("cx",t[0]);e.setAttribute("cy",t[1]);e.setAttribute("rx",3.2-i*0.5);e.setAttribute("ry",2.4-i*0.4)});
+  }
+  else if(kind==="ankleLat"){
+    let c;
+    shaft(g,NS,10,0,12,34,6,BONE,DIM); // tibia
+    shaft(g,NS,17,2,18,30,3.2,BONE,DIM); // fibula
+    c=add(document.createElementNS(NS,"ellipse"));shape(c,BONE,DIM,0.6);c.setAttribute("cx",20);c.setAttribute("cy",38);c.setAttribute("rx",7);c.setAttribute("ry",5.4); // talus dome
+    c=add(document.createElementNS(NS,"path"));c.setAttribute("d",polyD([[10,48],[24,46],[38,50],[44,58],[36,66],[14,66],[6,58]],true));c.setAttribute("fill",BONE);c.setAttribute("stroke",DIM);c.setAttribute("stroke-width",0.6);c.setAttribute("stroke-linejoin","round"); // calcaneus
+    // midfoot/forefoot stubs
+    [[46,52,60,54],[47,58,64,62],[48,63,68,68]].forEach(m=>{shaft(g,NS,m[0],m[1],m[2],m[3],3,BONE,DIM);});
+    [[70,56],[74,61],[76,66]].forEach((t,i)=>{const e=add(document.createElementNS(NS,"ellipse"));shape(e,BONE,DIM,0.4);e.setAttribute("cx",t[0]);e.setAttribute("cy",t[1]);e.setAttribute("rx",3-i*0.5);e.setAttribute("ry",2.2-i*0.4)});
+  }
+  else if(kind==="sesAx"){
+    // 1st MT head arc + two sesamoids
+    const c=add(document.createElementNS(NS,"path"));shape(c,"none",DIM,0.8);
+    c.setAttribute("d",`M 30 40 A 20 20 0 0 1 70 40 L 70 30 L 30 30 Z`);c.setAttribute("fill",BONE);
+    [[38,48],[58,48]].forEach(s=>{const e=add(document.createElementNS(NS,"circle"));shape(e,BONE,DIM,0.6);e.setAttribute("cx",s[0]);e.setAttribute("cy",s[1]);e.setAttribute("r",7)});
+    const t=add(document.createElementNS(NS,"text"));t.setAttribute("x",50);t.setAttribute("y",72);t.setAttribute("fill",FAINT);t.setAttribute("font-size",4);t.setAttribute("text-anchor","middle");t.textContent="sesamoid axial view — 1st MTP";
+  }
+  // overlays
+  (overlays||[]).forEach(o=>{
+    if(o.t==="fxline"){const p=add(document.createElementNS(NS,"polyline"));p.setAttribute("points",o.pts.map(q=>q.join(",")).join(" "));p.setAttribute("fill","none");p.setAttribute("stroke","#f87171");p.setAttribute("stroke-width",o.w||2);p.setAttribute("stroke-linecap","round");p.setAttribute("opacity","0.95");}
+    else if(o.t==="axis"){const l=add(document.createElementNS(NS,"line"));l.setAttribute("x1",o.pts[0][0]);l.setAttribute("y1",o.pts[0][1]);l.setAttribute("x2",o.pts[1][0]);l.setAttribute("y2",o.pts[1][1]);l.setAttribute("stroke","#fbbf24");l.setAttribute("stroke-width","0.5");l.setAttribute("stroke-dasharray","2 1.4");}
+    else if(o.t==="gap"){const l=add(document.createElementNS(NS,"line"));l.setAttribute("x1",o.x1);l.setAttribute("y1",o.y1);l.setAttribute("x2",o.x2);l.setAttribute("y2",o.y2);l.setAttribute("stroke","#f87171");l.setAttribute("stroke-width","0.8");l.setAttribute("stroke-dasharray","1 1");}
+    else if(o.t==="fleck"){const e=add(document.createElementNS(NS,"circle"));e.setAttribute("cx",o.x);e.setAttribute("cy",o.y);e.setAttribute("r",o.r);e.setAttribute("fill","#f87171");}
+    else if(o.t==="ossicle"){const e=add(document.createElementNS(NS,"circle"));e.setAttribute("cx",o.x);e.setAttribute("cy",o.y);e.setAttribute("r",o.r);e.setAttribute("fill","none");e.setAttribute("stroke","#38bdf8");e.setAttribute("stroke-width","0.9");}
+    else if(o.t==="lytic"){const e=add(document.createElementNS(NS,"ellipse"));e.setAttribute("cx",o.x);e.setAttribute("cy",o.y);e.setAttribute("rx",o.r);e.setAttribute("ry",o.r*0.75);e.setAttribute("fill","#1a0505");e.setAttribute("stroke","#f87171");e.setAttribute("stroke-width","0.8");e.setAttribute("stroke-dasharray","1.6 1");}
+    else if(o.t==="periosteal"){const p=add(document.createElementNS(NS,"path"));p.setAttribute("d",`M ${o.x-6} ${o.y+6} Q ${o.x} ${o.y-4} ${o.x+6} ${o.y+6}`);p.setAttribute("fill","none");p.setAttribute("stroke","#f87171");p.setAttribute("stroke-width","0.8");}
+    else if(o.t==="spur"){const p=add(document.createElementNS(NS,"path"));const d=o.dir==="up"?`M ${o.x-3} ${o.y+3} L ${o.x} ${o.y-4} L ${o.x+3} ${o.y+3} Z`:`M ${o.x-3} ${o.y-3} L ${o.x} ${o.y+4} L ${o.x+3} ${o.y-3} Z`;p.setAttribute("d",d);p.setAttribute("fill",BONE);p.setAttribute("stroke",DIM);p.setAttribute("stroke-width","0.4");}
+    else if(o.t==="js"){const l=add(document.createElementNS(NS,"line"));l.setAttribute("x1",o.x-3);l.setAttribute("y1",o.y);l.setAttribute("x2",o.x+3);l.setAttribute("y2",o.y);l.setAttribute("stroke","#f87171");l.setAttribute("stroke-width","0.9");}
+    else if(o.t==="disorg"){const p=add(document.createElementNS(NS,"polyline"));p.setAttribute("points",o.pts.map(q=>q.join(",")).join(" "));p.setAttribute("fill","none");p.setAttribute("stroke","#f87171");p.setAttribute("stroke-width",o.w||2);p.setAttribute("stroke-linejoin","round");}
+    else if(o.t==="label"){const t=add(document.createElementNS(NS,"text"));t.setAttribute("x",o.x);t.setAttribute("y",o.y);t.setAttribute("fill","#ffd98a");t.setAttribute("font-size","3.6");t.setAttribute("font-family","sans-serif");t.textContent=o.text;}
+  });
+  // view label
+  const lab=add(document.createElementNS(NS,"text"));lab.setAttribute("x",2);lab.setAttribute("y",5);lab.setAttribute("fill",FAINT);lab.setAttribute("font-size",3.4);lab.textContent={footDP:"DP foot (schematic)",footObl:"Oblique foot (schematic)",footLat:"Lateral foot/ankle (schematic)",ankleLat:"Lateral ankle (schematic)",sesAx:"Sesamoid axial (schematic)"}[kind]||kind;
+  const note=add(document.createElementNS(NS,"text"));note.setAttribute("x",98);note.setAttribute("y",73);note.setAttribute("fill",FAINT);note.setAttribute("font-size",3);note.setAttribute("text-anchor","end");note.textContent="educational schematic — not a patient image";
+}
+
+/* ---------- navigation ---------- */
+function nav(name){
+  state.screen=name;
+  $$(".screen").forEach(s=>s.classList.toggle("active",s.id==="scr-"+name));
+  $$(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.nav===name));
+  if(name==="modules")renderModules();
+  if(name==="cases"){state.caseId=null;renderCaseList();renderCaseDetail();}
+  if(name==="quiz")renderQuizHome();
+  if(name==="progress")renderProgress();
+  if(name==="home")renderHome();
+  window.scrollTo({top:0});
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-nav]");if(b)nav(b.dataset.nav);});
+
+/* ---------- home ---------- */
+function renderHome(){
+  $("#kpi-cases").textContent=CASES.length;
+  $("#kpi-quiz").textContent=QUIZ.length;
+  $("#kpi-done").textContent=Math.round(overallProgress()*100)+"%";
+  updateChip();
+}
+function overallProgress(){
+  const doneCases=store.get("doneCases",[]);
+  const checks=store.get("checks",{});
+  const totalChecks=MODULES.reduce((n,m)=>n+m.checklist.length,0);
+  const doneChecks=Object.values(checks).filter(Boolean).length;
+  const q=store.get("quiz",{});
+  const qScore=QUIZ.length?Object.keys(q).filter(k=>q[k]&&q[k].reps>0).length/QUIZ.length:0;
+  return (doneCases.length/CASES.length*0.5)+(doneChecks/totalChecks*0.25)+(qScore*0.25);
+}
+function updateChip(){$("#progchip").innerHTML="<b>"+Math.round(overallProgress()*100)+"%</b> complete";}
+
+/* ---------- modules ---------- */
+function renderModules(){
+  const el=$("#module-list");el.innerHTML="";
+  const checks=store.get("checks",{});
+  MODULES.forEach(m=>{
+    const done=(checks[m.id]||[]).filter(Boolean).length;
+    const card=document.createElement("div");card.className="card";
+    card.innerHTML=`<h3>${m.title}</h3><p class="muted">${m.summary}</p>
+      <div class="row"><span class="tag">${m.time}</span><span class="tag">${m.tag}</span><span class="tag">${done}/${m.checklist.length} checklist</span></div>
+      <div style="margin-top:10px"><button class="btn small" data-open-module="${m.id}">Open module</button></div>`;
+    el.appendChild(card);
+  });
+  $("#module-detail").innerHTML="";
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-open-module]");if(!b)return;
+  const m=MODULES.find(x=>x.id===b.dataset.openModule);
+  const checks=store.get("checks",{});const arr=checks[m.id]||m.checklist.map(()=>false);
+  $("#module-detail").innerHTML=`<div class="card" style="margin-top:16px">
+    <h2>${m.title}</h2>${m.html}
+    <h3>Checklist</h3>
+    ${m.checklist.map((c,i)=>`<label class="checkitem"><input type="checkbox" data-check="${m.id}:${i}" ${arr[i]?"checked":""}><span>${c}</span></label>`).join("")}
+    <div class="row" style="margin-top:10px"><button class="btn secondary small" data-nav="modules">Back to modules</button></div>
+  </div>`;
+  const md=$("#module-detail");if(md&&md.scrollIntoView)md.scrollIntoView({behavior:"smooth"});
+});
+document.addEventListener("change",e=>{
+  const c=e.target.closest("[data-check]");if(!c)return;
+  const [mid,i]=c.dataset.check.split(":");const checks=store.get("checks",{});
+  const arr=checks[mid]||MODULES.find(m=>m.id===mid).checklist.map(()=>false);
+  arr[+i]=c.checked;checks[mid]=arr;store.set("checks",checks);updateChip();
+});
+
+/* ---------- cases ---------- */
+function diffTag(d){return `<span class="tag diff${d}">${["","Foundation","Intermediate","Advanced"][d]}</span>`}
+function renderCaseList(){
+  const topics=[...new Set(CASES.map(c=>c.topic))];
+  const f=$("#case-filter");
+  if(f.options.length<2+topics.length){topics.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;f.appendChild(o)})}
+  const tf=f.value, df=$("#case-diff").value;
+  const el=$("#case-list");el.innerHTML="";
+  const doneCases=store.get("doneCases",[]);
+  CASES.filter(c=>(tf==="all"||c.topic===tf)&&(df==="all"||String(c.diff)===df)).forEach(c=>{
+    const found=(store.get("hot_"+c.id,{}));
+    const n=Object.values(found).filter(Boolean).length;
+    const card=document.createElement("div");card.className="card";
+    card.innerHTML=`<h3>${c.title}</h3><div class="row"><span class="tag">${c.topic}</span>${diffTag(c.diff)}<span class="tag">${n}/${c.hotspots.length} found</span>${doneCases.includes(c.id)?'<span class="tag" style="color:var(--accent2);border-color:#1d4d3d">✓ completed</span>':""}</div>
+      <p class="muted" style="font-size:13px">${c.stem.slice(0,110)}…</p>
+      <button class="btn small" data-open-case="${c.id}">Open case</button>`;
+    el.appendChild(card);
+  });
+}
+$("#case-filter").addEventListener("change",renderCaseList);
+$("#case-diff").addEventListener("change",renderCaseList);
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-open-case]");if(!b)return;
+  state.caseId=b.dataset.openCase;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};state.measureOn=false;state.measurePts=[];
+  renderCaseDetail();
+  const cd=$("#case-detail");if(cd&&cd.scrollIntoView)cd.scrollIntoView({behavior:"smooth"});
+});
+function renderCaseDetail(){
+  const host=$("#case-detail");
+  if(!state.caseId){host.innerHTML="";return}
+  const c=CASES.find(x=>x.id===state.caseId);
+  const view=c.views[state.view];
+  const found=state.found;
+  const nFound=c.hotspots.filter((h,i)=>found[i]).length;
+  const allFound=nFound===c.hotspots.length;
+  if(allFound&&!store.get("doneCases",[]).includes(c.id)){const d=store.get("doneCases",[]);d.push(c.id);store.set("doneCases",d)}
+  host.innerHTML=`
+  <div class="card" style="margin-top:16px">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="border:none;margin:0">${c.title}</h2>
+      <span>${diffTag(c.diff)} <span class="tag">${c.topic}</span></span>
+    </div>
+    <p class="muted" style="margin-top:6px"><b>Presentation:</b> ${c.stem}</p>
+    <div class="viewtabs" role="tablist" aria-label="Views">
+      ${c.views.map((v,i)=>`<button class="viewtab ${i===state.view?"active":""}" data-view="${i}">${({footDP:"DP foot",footObl:"Oblique",footLat:"Lateral foot",ankleLat:"Lateral ankle",sesAx:"Sesamoid axial"}[v])}</button>`).join("")}
+    </div>
+    <div class="viewer">
+      <div class="viewport ${state.measureOn?"":"guess"}" id="vp" aria-label="Schematic radiograph viewer. Pinch or scroll to zoom, drag to pan.">
+        <div class="canvas" id="canvas"><svg id="xsvg" width="800" height="600" role="img" aria-label="Teaching schematic ${view}"></svg></div>
+      </div>
+    </div>
+    <div class="vcontrols">
+      <button class="toggle ${state.measureOn?"on":""}" id="btn-measure">📐 Measure</button>
+      <button class="toggle ${state.guessMode===false?"on":""}" id="btn-bright">${state.guessMode===false?"Show hotspots":"Hide hotspots"}</button>
+      <label>Brightness <input type="range" id="rng-b" min="60" max="160" value="100"></label>
+      <label>Contrast <input type="range" id="rng-c" min="60" max="160" value="100"></label>
+      <button class="toggle" id="btn-zoom-reset">Reset zoom</button>
+      <span class="muted" id="vp-hint">Click near a highlighted region to name the finding (${nFound}/${c.hotspots.length} found)</span>
+    </div>
+    <div class="feedback" id="fb"></div>
+    <div id="hot-list"></div>
+    ${c.measure?`<div class="callout warn"><b>Measure:</b> turn on Measure, then click 3 points — A, vertex B, C. ${c.measure.note} Expected: <b>${c.measure.expected}</b>.</div>`:""}
+    <h3>Findings &amp; discussion</h3>
+    ${c.hotspots.map((h,i)=>`<div class="callout" style="border-color:${found[i]?"var(--accent2)":"var(--line)"}"><b>${found[i]?"✓ Found — ":""}${h.label}</b><br><span class="muted">${found[i]?h.expl:"Find this on the image to reveal the explanation."}</span></div>`).join("")}
+    <h3>Differential diagnoses</h3><ul class="tight">${c.ddx.map(d=>`<li>${d}</li>`).join("")}</ul>
+    <h3>Management pearls (Australian practice)</h3><ul class="tight">${c.pearls.map(p=>`<li>${p}</li>`).join("")}</ul>
+    <p class="muted" style="font-size:13px"><b>References:</b> ${c.refs.join("; ")}</p>
+    <div class="row" style="margin-top:8px">
+      <button class="btn secondary small" data-nav="cases">← Case list</button>
+      <button class="btn secondary small" data-prev-case>Previous</button>
+      <button class="btn small" data-next-case>Next case →</button>
+    </div>
+  </div>`;
+  // render schematic
+  const svg=$("#xsvg");
+  drawSchematic(svg,view,(c.viewsData[view]||{}).overlays||[]);
+  // hotspot markers
+  const canvas=$("#canvas");
+  if(state.guessMode!==false){
+    c.hotspots.forEach((h,i)=>{
+      const d=document.createElement("div");
+      d.className="hotspot"+(found[i]?" found":"")+(found[i]?" show-label":"");
+      d.style.left=(h.x/100*100)+"%";d.style.top=(h.y/75*100)+"%";
+      d.innerHTML=(found[i]?"✓":"?")+`<span class="hs-label">${h.label}</span>`;
+      canvas.appendChild(d);
+    });
+  }
+  initViewer(c);
+  // view tabs
+  $$("#case-detail [data-view]").forEach(b=>b.addEventListener("click",()=>{state.view=+b.dataset.view;renderCaseDetail();}));
+  const idx=CASES.findIndex(x=>x.id===c.id);
+  const prev=$("#case-detail [data-prev-case]"),next=$("#case-detail [data-next-case]");
+  prev.disabled=idx<=0;next.disabled=idx>=CASES.length-1;
+  prev.onclick=()=>{state.caseId=CASES[idx-1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
+  next.onclick=()=>{state.caseId=CASES[idx+1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
+  $("#btn-measure").onclick=()=>{state.measureOn=!state.measureOn;state.measurePts=[];renderCaseDetail();};
+  $("#btn-bright").onclick=()=>{state.guessMode=(state.guessMode===false);renderCaseDetail();};
+  renderHotList();
+  updateChip();
+}
+function renderHotList(){
+  const c=CASES.find(x=>x.id===state.caseId);if(!c)return;
+  const host=$("#hot-list");if(!host)return;
+  host.innerHTML=`<h3>Hotspots (${Object.values(state.found).filter(Boolean).length}/${c.hotspots.length})</h3>`+
+    c.hotspots.map((h,i)=>`<div class="tag" style="${state.found[i]?"color:var(--accent2);border-color:#1d4d3d":""}">${state.found[i]?"✓ ":"○ "}${state.found[i]?h.label:"undiscovered"}</div>`).join(" ");
+}
+/* viewer: pan/zoom + guessing + measuring */
+function initViewer(c){
+  const vp=$("#vp"),canvas=$("#canvas");
+  let scale=1,tx=0,ty=0;
+  function apply(){canvas.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`}
+  function fit(){const r=vp.getBoundingClientRect();const s=Math.min(r.width/800,r.height/600);scale=s;tx=(r.width-800*s)/2;ty=(r.height-600*s)/2;apply()}
+  fit();window.addEventListener("resize",()=>{if(state.screen==="cases"&&state.caseId)fit()});
+  const pts=new Map();let drag=null;
+  function toLocal(e){const r=vp.getBoundingClientRect();return{x:(e.clientX-r.left-tx)/scale,y:(e.clientY-r.top-ty)/scale}}
+  function toCanvas(e){const l=toLocal(e);return{x:l.x/800*100,y:l.y/600*75}}
+  vp.addEventListener("pointerdown",e=>{
+    try{vp.setPointerCapture(e.pointerId)}catch(_){}
+    pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1){drag={x:e.clientX,y:e.clientY,tx,ty,moved:false}}
+    if(pts.size===2){drag=null}
+  });
+  vp.addEventListener("pointermove",e=>{
+    if(!pts.has(e.pointerId))return;
+    const prev=pts.get(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pts.size===1&&drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.moved=true;tx=drag.tx+dx;ty=drag.ty+dy;apply()}
+    else if(pts.size===2){
+      const arr=[...pts.values()];const p0=prev,p1=arr.find(p=>p!==prev)||arr[1];
+      const d0=Math.hypot(p0.x-arr[0].x,p0.y-arr[0].y),d1=Math.hypot(arr[0].x-arr[1].x,arr[0].y-arr[1].y);
+      if(d0>0&&d1>0){const ns=Math.min(6,Math.max(0.2,scale*d1/d0));tx=arr[0].x-400*ns;ty=arr[0].y-300*ns;scale=ns;apply()}
+    }
+  });
+  function up(e){
+    const wasDrag=pts.size===1&&drag&&!drag.moved;
+    pts.delete(e.pointerId);if(pts.size===0)drag=null;
+    if(wasDrag)handleTap(e);
+  }
+  vp.addEventListener("pointerup",up);vp.addEventListener("pointercancel",up);
+  vp.addEventListener("wheel",e=>{e.preventDefault();const l=toLocal(e);const f=e.deltaY<0?1.15:1/1.15;const ns=Math.min(6,Math.max(0.2,scale*f));tx=e.clientX-vp.getBoundingClientRect().left-(l.x)*ns;ty=e.clientY-vp.getBoundingClientRect().top-(l.y)*ns;scale=ns;apply()},{passive:false});
+  $("#btn-zoom-reset").onclick=fit;
+  $("#rng-b").oninput=e=>{canvas.style.filter=`brightness(${e.target.value}%) contrast(${$("#rng-c").value}%)`};
+  $("#rng-c").oninput=e=>{canvas.style.filter=`brightness(${$("#rng-b").value}%) contrast(${e.target.value}%)`};
+  function handleTap(e){
+    const p=toCanvas(e);
+    if(state.measureOn){
+      state.measurePts.push(p);
+      const dot=document.createElement("div");dot.className="measure-dot";
+      dot.style.left=(p.x)+"%";dot.style.top=(p.y/75*100)+"%";canvas.appendChild(dot);
+      if(state.measurePts.length===3){
+        const [A,B,C]=state.measurePts;
+        const ang=angleAt(A,B,C);
+        const mx=(A.x+B.x+C.x)/3,my=(A.y+B.y+C.y)/3;
+        const lbl=document.createElement("div");lbl.className="measure-label";
+        lbl.style.left=mx+"%";lbl.style.top=(my/75*100)+"%";
+        lbl.textContent=`∠ = ${ang.toFixed(1)}°`;
+        canvas.appendChild(lbl);
+        const fb=$("#fb");fb.className="feedback ok";
+        fb.textContent=`Measured angle = ${ang.toFixed(1)}°. ${c.measure?("Expected for this case: "+c.measure.expected):""}`;
+        state.measurePts=[];
+      }
+      return;
+    }
+    // guess: nearest unfound hotspot within 9 canvas units
+    let best=-1,bd=1e9;
+    c.hotspots.forEach((h,i)=>{if(state.found[i])return;const d=Math.hypot(h.x-p.x,h.y-p.y);if(d<bd){bd=d;best=i}});
+    const fb=$("#fb");
+    if(best>=0&&bd<=9){
+      state.found[best]=true;store.set("hot_"+c.id,state.found);
+      const allNow=c.hotspots.every((h,i)=>state.found[i]);
+      if(allNow){const d=store.get("doneCases",[]);if(!d.includes(c.id)){d.push(c.id);store.set("doneCases",d)}}
+      renderCaseDetail();
+      const fb2=$("#fb");
+      if(fb2){fb2.className="feedback ok";fb2.textContent="✓ Correct — "+c.hotspots[best].label+". "+c.hotspots[best].expl+(allNow?" Case complete!":"");}
+    }else if(best>=0){
+      fb.className="feedback no";fb.textContent="Close, but not the key finding — keep looking.";
+    }else{
+      fb.className="feedback no";fb.textContent="Nothing significant at that spot. Sweep the whole film systematically.";
+    }
+  }
+}
+function angleAt(A,B,C){
+  const v1={x:A.x-B.x,y:A.y-B.y},v2={x:C.x-B.x,y:C.y-B.y};
+  const dot=v1.x*v2.x+v1.y*v2.y,m1=Math.hypot(v1.x,v1.y),m2=Math.hypot(v2.x,v2.y);
+  return Math.acos(Math.max(-1,Math.min(1,dot/(m1*m2||1))))*180/Math.PI;
+}
+
+/* ---------- quiz with spaced repetition ---------- */
+function dueCount(){const q=store.get("quiz",{});const now=Date.now();return QUIZ.filter(x=>{const s=q[x.q];return s&&s.due<=now}).length}
+function renderQuizHome(){
+  $("#quiz-due").textContent=dueCount()+" question(s) due for review";
+  $("#quiz-area").innerHTML="";
+  $("#quiz-start").onclick=startQuiz;
+}
+function startQuiz(){
+  const q=store.get("quiz",{});const now=Date.now();
+  let items=QUIZ.map((x,i)=>({x,i,s:q[x.q]}));
+  items.sort((a,b)=>((a.s?a.s.due:0)-(b.s?b.s.due:0)));
+  const due=items.filter(it=>it.s&&it.s.due<=now);
+  const rest=items.filter(it=>!it.s||it.s.due>now).sort(()=>Math.random()-0.5);
+  const session=[...due,...rest].slice(0,10);
+  runSession(session,0,0,0);
+}
+function runSession(session,idx,correct,answered){
+  const host=$("#quiz-area");
+  if(idx>=session.length){
+    const acc=answered?Math.round(correct/answered*100):0;
+    host.innerHTML=`<div class="qcard"><h2>Session complete</h2>
+      <p>Score: <b>${correct}/${answered}</b> (${acc}%). Correct answers are scheduled for spaced review.</p>
+      <div class="row"><button class="btn" id="quiz-again">Another session</button><button class="btn secondary" data-nav="quiz">Quiz home</button></div></div>`;
+    $("#quiz-again").onclick=startQuiz;
+    $("#quiz-due").textContent=dueCount()+" question(s) due for review";
+    renderProgressSoon();return;
+  }
+  const {x}=session[idx];
+  host.innerHTML=`<div class="qcard">
+    <div class="muted" style="font-size:12.5px">Question ${idx+1}/${session.length} · <span class="tag">${x.tag}</span></div>
+    <h3 style="color:var(--ink)">${x.q}</h3>
+    <div id="opts">${x.opts.map((o,i)=>`<button class="opt" data-a="${i}">${o}</button>`).join("")}</div>
+    <div class="feedback" id="qfb"></div>
+    <div class="row" style="margin-top:10px"><button class="btn small" id="qnext" disabled>Next →</button></div>
+  </div>`;
+  $$("#opts .opt").forEach(b=>b.addEventListener("click",()=>{
+    const a=+b.dataset.a;const ok=a===x.a;
+    $$("#opts .opt").forEach(o=>{o.disabled=true;const i=+o.dataset.a;const cls=i===x.a?"correct":(i===a?"wrong":"");if(cls)o.classList.add(cls)});
+    const q=store.get("quiz",{});const now=Date.now();const s=q[x.q]||{ef:2.5,reps:0,interval:0,due:0};
+    if(ok){s.ef=Math.min(3,s.ef+0.1);s.reps++;s.interval=s.reps===1?1:(s.reps===2?3:Math.round(s.interval*s.ef));s.due=now+s.interval*86400000;}
+    else{s.ef=Math.max(1.3,s.ef-0.2);s.reps=0;s.interval=0;s.due=now+10*60000;}
+    q[x.q]=s;store.set("quiz",q);
+    const raw=store.get("quizRaw",{ans:0,corr:0});raw.ans++;if(ok)raw.corr++;store.set("quizRaw",raw);
+    const fb=$("#qfb");fb.className="feedback "+(ok?"ok":"no");
+    fb.textContent=(ok?"✓ Correct. ":"✗ Not quite — the answer is highlighted. ")+x.expl;
+    $("#qnext").disabled=false;
+    runSessionNext(session,idx,correct+(ok?1:0),answered+1);
+  }));
+}
+let pendingNext=null;
+function runSessionNext(session,idx,correct,answered){pendingNext=()=>runSession(session,idx+1,correct,answered);$("#qnext").onclick=pendingNext;}
+function renderProgressSoon(){if(state.screen==="progress")renderProgress();updateChip();}
+
+/* ---------- progress ---------- */
+function renderProgress(){
+  const done=store.get("doneCases",[]);
+  let hot=0;CASES.forEach(c=>{hot+=Object.values(store.get("hot_"+c.id,{})).filter(Boolean).length});
+  const q=store.get("quiz",{});let ans=0,corr=0;
+  Object.values(q).forEach(s=>{if(s.total){ans+=s.total;corr+=s.correct}});
+  // also count from stored raw tallies if present
+  const raw=store.get("quizRaw",{ans:0,corr:0});ans=raw.ans;corr=raw.corr;
+  $("#p-cases").textContent=done.length+" / "+CASES.length;
+  $("#p-hot").textContent=hot;
+  $("#p-acc").textContent=ans?Math.round(corr/ans*100)+"%":"–";
+  $("#p-bar").style.width=Math.round(overallProgress()*100)+"%";
+  const q2=store.get("quiz",{});const now=Date.now();
+  const due=QUIZ.map((x,i)=>({x,i,s:q2[x.q]})).filter(it=>it.s&&it.s.due<=now);
+  $("#p-due").innerHTML=due.length?due.map(it=>`<li>${it.x.q.slice(0,80)}…</li>`).join(""):"<li class='muted'>Nothing due — nice work.</li>";
+  const checks=store.get("checks",{});
+  $("#p-checks").innerHTML=MODULES.map(m=>{const arr=checks[m.id]||[];const d=arr.filter(Boolean).length;return `<li>${m.title.split("·")[0].trim()}: ${d}/${m.checklist.length}</li>`}).join("");
+}
+$("#p-reset").addEventListener("click",()=>{
+  if(!confirm("Reset all local progress? This cannot be undone."))return;
+  ["doneCases","hot_"+CASES.map(c=>c.id).join(","),"checks","quiz","quizRaw"].flat().forEach(k=>{try{localStorage.removeItem("fxr_"+k)}catch(e){}});
+  QUIZ.forEach(x=>{try{localStorage.removeItem("fxr_hot_"+x.q)}catch(e){}});
+  CASES.forEach(c=>{try{localStorage.removeItem("fxr_hot_"+c.id)}catch(e){}});
+  renderProgress();renderHome();
+});
+
+nav("home");
+})();
+</script>
+</body>
+</html>

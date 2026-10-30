@@ -42,3 +42,4 @@ Add a case entry in the `REAL_CASES` array in `app/FootAnkleXRayCoach.html` with
 ## Verification
 - `node --check` on the extracted script: pass.
 - jsdom smoke test: all 11 cases render SVG; hotspot tap registers "found"; measure tool computes angles; quiz feedback + spaced repetition persist; progress screen updates; zero runtime errors.
+x

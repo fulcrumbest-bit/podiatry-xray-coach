@@ -150,7 +150,7 @@ ul.tight li{margin:5px 0}
   <!-- CASES -->
   <section class="screen" id="scr-cases" aria-label="Cases">
     <h1>Case library</h1>
-    <p class="sub">All images are original teaching schematics (not patient films). Find every hotspot, measure angles where prompted, then read the discussion.</p>
+    <p class="sub">18 cases: original teaching schematics plus real clinical images (CC0 / CC BY / CC BY-SA from Wikimedia Commons, attribution shown per case). Find every hotspot, use the loupe and measure tool, then read the discussion.</p>
     <div class="row" style="margin:8px 0 14px">
       <label class="muted" for="case-filter">Filter:</label>
       <select id="case-filter" class="toggle" style="padding:8px 12px">
@@ -173,6 +173,7 @@ ul.tight li{margin:5px 0}
     <p class="sub">Mixed MCQs. Correct answers are scheduled for spaced review; due items appear first.</p>
     <div class="row" style="margin:8px 0 14px">
       <button class="btn small" id="quiz-start">Start session</button>
+      <button class="btn secondary small" id="quiz-osce">⏱ OSCE mode (10 min)</button>
       <span class="muted" id="quiz-due"></span>
     </div>
     <div id="quiz-area"></div>
@@ -480,6 +481,90 @@ const QUIZ = [
 {q:"Which is a normal variant that can be mistaken for a fracture at the anterior calcaneus on oblique views?",opts:["Os calcaneus secundarius","Os trigonum","Os peroneum","Os vesalianum"],a:0,tag:"ossicles",expl:"Os calcaneus secundarius is triangular and corticated at the anterior process — confused with anterior process fracture. Os trigonum is posterior talus; os peroneum is lateral midfoot; os vesalianum is 5th MT base."}
 ];
 
+/* ============ REAL CLINICAL IMAGE CASES ============
+   Images: app/images/*.jpg — all from Wikimedia Commons with open licences
+   (CC0 / CC BY / CC BY-SA). Attribution shown per case in the app.
+   Hotspot coords are in % of image width/height. */
+const REAL_CASES=[
+{
+  id:"r1", title:"Lisfranc dislocation — DP both feet", topic:"Trauma", diff:3,
+  img:"images/Lisfranc Dislocation Rupture.jpg", imgW:800, imgH:923,
+  attr:"Lisfranc Dislocation Rupture — Mark A. Dreyer, DPM, FACFAS, via Wikimedia Commons, CC BY 4.0",
+  stem:"DP weight-bearing view of both feet after twisting injury. Compare the 1st–2nd metatarsal base interval on each side.",
+  hotspots:[{x:35,y:45,label:"Widened 1st–2nd intermetatarsal interval",expl:"On the affected side the gap between the 1st and 2nd metatarsal bases is widened — Lisfranc ligament disruption with tarsometatarsal subluxation. Compare with the normal side. WB views are essential; NWB can look normal."}],
+  ddx:["Normal variant splaying — compare both feet","Midfoot sprain — stress views / MRI if X-ray subtle"],
+  pearls:["Get WB views; check alignment of medial 2nd MT base with intermediate cuneiform","Unstable Lisfranc → orthopaedic referral (ORIF)"],
+  refs:["Lisfranc injury reviews"], quizTag:"lisfranc"
+},
+{
+  id:"r2", title:"Lisfranc fracture-dislocation — lateral X-ray + CT", topic:"Trauma", diff:3,
+  img:"images/Lisfranc-Luxationsfraktur_55M.jpg", imgW:1430, imgH:1323,
+  attr:"Lisfranc-Luxationsfraktur 55M — Hellerhoff, via Wikimedia Commons, CC BY-SA 4.0",
+  stem:"55-year-old male, lateral foot X-ray (bottom) with sagittal CT (top). Find the tarsometatarsal disruption.",
+  hotspots:[{x:55,y:75,label:"Tarsometatarsal dislocation on lateral X-ray",expl:"The lateral view shows dorsal subluxation of the metatarsal bases relative to the cuneiforms — a fracture-dislocation (Lisfranc-Luxationsfraktur). CT (top) defines the comminution."}],
+  ddx:["Charcot midfoot — usually multiple joints, neuropathic","Midfoot sprain"],
+  pearls:["CT for surgical planning in fracture-dislocation","Check the whole film, not just the painful area"],
+  refs:["Lisfranc injury imaging"], quizTag:"lisfranc"
+},
+{
+  id:"r3", title:"Gout (podagra) — 1st MTP erosions", topic:"Inflammatory", diff:2,
+  img:"images/Gichtfuss_im_Roentgen.jpg", imgW:556, imgH:600,
+  attr:"Gichtfuss im Röntgen (gout foot X-ray) — Hellerhoff, via Wikimedia Commons, CC BY-SA 3.0",
+  stem:"Foot X-ray of a patient with recurrent first-MTP attacks. Look at the big-toe joint.",
+  hotspots:[{x:50,y:60,label:"Punched-out erosions with overhanging edges, 1st MTP",expl:"Well-defined erosions with sclerotic, overhanging margins at the 1st MTP are classic for gout. Joint space is relatively preserved until late — unlike OA, which narrows the joint."}],
+  ddx:["Hallux rigidus (OA) — joint space narrowing, dorsal osteophyte","Septic arthritis — rapid destruction, clinical sepsis"],
+  pearls:["Gout erosions spare joint space early; OA narrows it","Check urate-lowering therapy adherence in known gout"],
+  refs:["Gout imaging reviews"], quizTag:"oa"
+},
+{
+  id:"r4", title:"Sever's disease — calcaneal apophysitis", topic:"Paediatric", diff:1,
+  img:"images/Sever_calcaneal_apophysis.jpg", imgW:789, imgH:751,
+  compare:"images/X-ray_normal_right_foot_lateral.jpg",
+  attr:"Sclerosis and fragmentation of the calcaneal apophysis (Sever's disease) — Mikael Häggström, via Wikimedia Commons, CC0",
+  stem:"Adolescent athlete with heel pain worse with activity. Lateral calcaneal view.",
+  hotspots:[{x:75,y:70,label:"Fragmented, sclerotic calcaneal apophysis",expl:"The growth plate (apophysis) at the back of the calcaneus looks fragmented and dense. This is Sever's disease — a traction apophysitis, NOT a fracture. It is a clinical diagnosis; X-ray supports but the apophysis is normally irregular in this age group."}],
+  ddx:["Calcaneal stress fracture — sclerotic band in the body, Böhler preserved","Normal apophyseal irregularity in adolescents"],
+  pearls:["Treat clinically: heel raises, activity modification, calf stretching","Don't call it a fracture on X-ray alone"],
+  refs:["Sever's disease reviews"], quizTag:"ossicles"
+},
+{
+  id:"r5", title:"Normal lateral foot — anatomy reference", topic:"Normal anatomy", diff:1,
+  img:"images/X-ray_normal_right_foot_lateral.jpg", imgW:2638, imgH:1322,
+  compare:"images/X-ray_normal_right_foot_lateral.jpg",
+  attr:"X-ray of normal right foot, lateral projection — Mikael Häggström, M.D., via Wikimedia Commons, CC0",
+  stem:"Use this as your normal reference. Identify the calcaneus, talus, navicular and 1st metatarsal; note Meary's line and calcaneal pitch.",
+  hotspots:[
+    {x:20,y:60,label:"Calcaneus",expl:"Heel bone. On a lateral view assess Böhler angle (25–40°) for compression fractures."},
+    {x:38,y:40,label:"Talus",expl:"Sits in the ankle mortise; dome should be smooth. Check for osteochondral lesions / AVN."},
+    {x:50,y:45,label:"Navicular",expl:"Midfoot keystone. The “N spot” — tenderness here suggests navicular stress fracture (MRI if suspected)."},
+    {x:60,y:55,label:"1st metatarsal base / Meary's line",expl:"A line through the talus and 1st metatarsal should be straight (Meary ≈ 0°); deviation >4° indicates pes planus/cavus."}
+  ],
+  ddx:["—"],
+  pearls:["Always compare with the symptomatic side","Measure angles only on weight-bearing films"],
+  refs:["Normal foot & ankle radiographic anatomy (Christman)"], quizTag:"views"
+},
+{
+  id:"r6", title:"Foot X-ray — AP and oblique views", topic:"Normal anatomy", diff:1,
+  img:"images/X-ray_foot.jpg", imgW:500, imgH:601,
+  attr:"X-ray foot — Alex Khimich, via Wikimedia Commons, CC BY-SA 3.0",
+  stem:"Two views of a foot (AP top, oblique bottom). Identify the metatarsals, tarsometatarsal joints and any abnormality.",
+  hotspots:[{x:50,y:40,label:"Midfoot / 3rd metatarsal base region",expl:"On the AP view check alignment of each metatarsal base with its cuneiform (Lisfranc line) and the 1st–2nd intermetatarsal gap. The oblique view opens the tarsometatarsal joints best."}],
+  ddx:["—"],
+  pearls:["Systematic: soft tissues → bones → joints → alignment → measurements → compare"],
+  refs:["Systematic foot X-ray reading"], quizTag:"system"
+},
+{
+  id:"r7", title:"Lisfranc annotated diagram", topic:"Trauma", diff:2,
+  img:"images/LisFranc.png", imgW:384, imgH:621,
+  attr:"LisFranc.png — James Heilman, MD, via Wikimedia Commons, CC BY-SA 4.0",
+  stem:"Annotated-style reference image of Lisfranc anatomy/alignment on a foot X-ray. Use it to rehearse naming the tarsometatarsal joints.",
+  hotspots:[{x:50,y:45,label:"Tarsometatarsal (Lisfranc) joint line",expl:"The Lisfranc joint line runs from the medial cuneiform–1st MT to the lateral cuneiform–5th MT. Disruption here = Lisfranc injury."}],
+  ddx:["—"],
+  pearls:["Name the joints out loud before reading pathology — builds a fixed search pattern"],
+  refs:["Lisfranc anatomy"], quizTag:"lisfranc"
+}
+];
+
 /* ================= APP ENGINE ================= */
 (function(){
 "use strict";
@@ -488,7 +573,8 @@ const store={
   get(k,d){try{const v=localStorage.getItem("fxr_"+k);return v?JSON.parse(v):d}catch(e){return d}},
   set(k,v){try{localStorage.setItem("fxr_"+k,JSON.stringify(v))}catch(e){}}
 };
-const state={screen:"home",caseId:null,view:0,found:{},measureOn:false,quiz:store.get("quiz",{})};
+const state={screen:"home",caseId:null,view:0,found:{},measureOn:false,quiz:store.get("quiz",{}),loupe:false,compare:0,labelMode:false,labels:[]};
+const ALL_CASES=(typeof REAL_CASES!=="undefined")?CASES.concat(REAL_CASES):CASES;
 
 /* ---------- schematic X-ray renderer (original teaching diagrams) ---------- */
 const CW=100, CH=75;
@@ -605,7 +691,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-nav]");if(
 
 /* ---------- home ---------- */
 function renderHome(){
-  $("#kpi-cases").textContent=CASES.length;
+  $("#kpi-cases").textContent=ALL_CASES.length;
   $("#kpi-quiz").textContent=QUIZ.length;
   $("#kpi-done").textContent=Math.round(overallProgress()*100)+"%";
   updateChip();
@@ -617,7 +703,7 @@ function overallProgress(){
   const doneChecks=Object.values(checks).filter(Boolean).length;
   const q=store.get("quiz",{});
   const qScore=QUIZ.length?Object.keys(q).filter(k=>q[k]&&q[k].reps>0).length/QUIZ.length:0;
-  return (doneCases.length/CASES.length*0.5)+(doneChecks/totalChecks*0.25)+(qScore*0.25);
+  return (doneCases.length/ALL_CASES.length*0.5)+(doneChecks/totalChecks*0.25)+(qScore*0.25);
 }
 function updateChip(){$("#progchip").innerHTML="<b>"+Math.round(overallProgress()*100)+"%</b> complete";}
 
@@ -657,13 +743,13 @@ document.addEventListener("change",e=>{
 /* ---------- cases ---------- */
 function diffTag(d){return `<span class="tag diff${d}">${["","Foundation","Intermediate","Advanced"][d]}</span>`}
 function renderCaseList(){
-  const topics=[...new Set(CASES.map(c=>c.topic))];
+  const topics=[...new Set(ALL_CASES.map(c=>c.topic))];
   const f=$("#case-filter");
   if(f.options.length<2+topics.length){topics.forEach(t=>{const o=document.createElement("option");o.value=t;o.textContent=t;f.appendChild(o)})}
   const tf=f.value, df=$("#case-diff").value;
   const el=$("#case-list");el.innerHTML="";
   const doneCases=store.get("doneCases",[]);
-  CASES.filter(c=>(tf==="all"||c.topic===tf)&&(df==="all"||String(c.diff)===df)).forEach(c=>{
+  ALL_CASES.filter(c=>(tf==="all"||c.topic===tf)&&(df==="all"||String(c.diff)===df)).forEach(c=>{
     const found=(store.get("hot_"+c.id,{}));
     const n=Object.values(found).filter(Boolean).length;
     const card=document.createElement("div");card.className="card";
@@ -684,35 +770,44 @@ document.addEventListener("click",e=>{
 function renderCaseDetail(){
   const host=$("#case-detail");
   if(!state.caseId){host.innerHTML="";return}
-  const c=CASES.find(x=>x.id===state.caseId);
-  const view=c.views[state.view];
+  const c=ALL_CASES.find(x=>x.id===state.caseId);
+  const view=c.views?c.views[state.view]:null;
   const found=state.found;
   const nFound=c.hotspots.filter((h,i)=>found[i]).length;
   const allFound=nFound===c.hotspots.length;
   if(allFound&&!store.get("doneCases",[]).includes(c.id)){const d=store.get("doneCases",[]);d.push(c.id);store.set("doneCases",d)}
+  const isImg=!!c.img;
   host.innerHTML=`
   <div class="card" style="margin-top:16px">
     <div class="row" style="justify-content:space-between">
       <h2 style="border:none;margin:0">${c.title}</h2>
-      <span>${diffTag(c.diff)} <span class="tag">${c.topic}</span></span>
+      <span>${diffTag(c.diff)} <span class="tag">${c.topic}</span>${isImg?'<span class="tag" style="color:var(--accent);border-color:var(--accent)">real clinical image</span>':""}</span>
     </div>
     <p class="muted" style="margin-top:6px"><b>Presentation:</b> ${c.stem}</p>
-    <div class="viewtabs" role="tablist" aria-label="Views">
+    ${c.views?`<div class="viewtabs" role="tablist" aria-label="Views">
       ${c.views.map((v,i)=>`<button class="viewtab ${i===state.view?"active":""}" data-view="${i}">${({footDP:"DP foot",footObl:"Oblique",footLat:"Lateral foot",ankleLat:"Lateral ankle",sesAx:"Sesamoid axial"}[v])}</button>`).join("")}
-    </div>
+    </div>`:""}
     <div class="viewer">
-      <div class="viewport ${state.measureOn?"":"guess"}" id="vp" aria-label="Schematic radiograph viewer. Pinch or scroll to zoom, drag to pan.">
-        <div class="canvas" id="canvas"><svg id="xsvg" width="800" height="600" role="img" aria-label="Teaching schematic ${view}"></svg></div>
+      <div class="viewport ${state.measureOn?"":"guess"}" id="vp" ${isImg?`style="aspect-ratio:${c.imgW}/${c.imgH}"`:""} aria-label="Radiograph viewer. Pinch or scroll to zoom, drag to pan.">
+        <div class="canvas" id="canvas">${isImg
+          ?`<img id="ximg" src="${c.img}" width="800" alt="Clinical radiograph: ${c.title}" draggable="false" style="display:block;width:800px;height:auto">`
+          :`<svg id="xsvg" width="800" height="600" role="img" aria-label="Teaching schematic ${view}"></svg>`}</div>
+        ${isImg?`<div id="loupe" style="display:none;position:absolute;width:180px;height:180px;border-radius:50%;border:3px solid var(--accent);pointer-events:none;z-index:20;background-repeat:no-repeat"></div>`:""}
+        ${isImg&&c.compare?`<input type="range" id="cmp" min="0" max="100" value="50" style="position:absolute;left:0;right:0;bottom:0;z-index:15" aria-label="Compare slider">`:""}
       </div>
     </div>
     <div class="vcontrols">
-      <button class="toggle ${state.measureOn?"on":""}" id="btn-measure">📐 Measure</button>
+      ${isImg?`<button class="toggle ${state.loupe?"on":""}" id="btn-loupe">🔍 Loupe</button>`:""}
+      ${c.compare?`<button class="toggle ${state.compare?"on":""}" id="btn-compare">⇄ Compare with normal</button>`:""}
+      ${isImg&&c.hotspots.length>1?`<button class="toggle ${state.labelMode?"on":""}" id="btn-label">🏷 Label mode</button>`:""}
+      ${c.views?`<button class="toggle ${state.measureOn?"on":""}" id="btn-measure">📐 Measure</button>`:""}
       <button class="toggle ${state.guessMode===false?"on":""}" id="btn-bright">${state.guessMode===false?"Show hotspots":"Hide hotspots"}</button>
       <label>Brightness <input type="range" id="rng-b" min="60" max="160" value="100"></label>
       <label>Contrast <input type="range" id="rng-c" min="60" max="160" value="100"></label>
       <button class="toggle" id="btn-zoom-reset">Reset zoom</button>
       <span class="muted" id="vp-hint">Click near a highlighted region to name the finding (${nFound}/${c.hotspots.length} found)</span>
     </div>
+    ${isImg?`<p class="muted" style="font-size:12px;margin:4px 0"><b>Image:</b> ${c.attr}</p>`:""}
     <div class="feedback" id="fb"></div>
     <div id="hot-list"></div>
     ${c.measure?`<div class="callout warn"><b>Measure:</b> turn on Measure, then click 3 points — A, vertex B, C. ${c.measure.note} Expected: <b>${c.measure.expected}</b>.</div>`:""}
@@ -727,16 +822,27 @@ function renderCaseDetail(){
       <button class="btn small" data-next-case>Next case →</button>
     </div>
   </div>`;
-  // render schematic
-  const svg=$("#xsvg");
-  drawSchematic(svg,view,(c.viewsData[view]||{}).overlays||[]);
-  // hotspot markers
+  // render schematic or real image
+  if(c.img){
+    const img=$("#ximg");
+    // compare overlay: normal lateral reference
+    if(c.compare){
+      const cmp=document.createElement("img");
+      cmp.src=c.compare;cmp.id="ximg-cmp";cmp.alt="";cmp.setAttribute("aria-hidden","true");cmp.draggable=false;
+      cmp.style.cssText="display:block;width:800px;height:auto;position:absolute;left:0;top:0;clip-path:inset(0 0 0 "+state.compare+"%);opacity:.85;pointer-events:none";
+      canvas.appendChild(cmp);
+    }
+  } else {
+    const svg=$("#xsvg");
+    drawSchematic(svg,view,(c.viewsData[view]||{}).overlays||[]);
+  }
+  // hotspot markers (% coords work for both SVG schematics and real images)
   const canvas=$("#canvas");
   if(state.guessMode!==false){
     c.hotspots.forEach((h,i)=>{
       const d=document.createElement("div");
       d.className="hotspot"+(found[i]?" found":"")+(found[i]?" show-label":"");
-      d.style.left=(h.x/100*100)+"%";d.style.top=(h.y/75*100)+"%";
+      d.style.left=h.x+"%";d.style.top=h.y+"%";
       d.innerHTML=(found[i]?"✓":"?")+`<span class="hs-label">${h.label}</span>`;
       canvas.appendChild(d);
     });
@@ -744,23 +850,27 @@ function renderCaseDetail(){
   initViewer(c);
   // view tabs
   $$("#case-detail [data-view]").forEach(b=>b.addEventListener("click",()=>{state.view=+b.dataset.view;renderCaseDetail();}));
-  const idx=CASES.findIndex(x=>x.id===c.id);
+  const idx=ALL_CASES.findIndex(x=>x.id===c.id);
   const prev=$("#case-detail [data-prev-case]"),next=$("#case-detail [data-next-case]");
-  prev.disabled=idx<=0;next.disabled=idx>=CASES.length-1;
-  prev.onclick=()=>{state.caseId=CASES[idx-1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
-  next.onclick=()=>{state.caseId=CASES[idx+1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
-  $("#btn-measure").onclick=()=>{state.measureOn=!state.measureOn;state.measurePts=[];renderCaseDetail();};
+  prev.disabled=idx<=0;next.disabled=idx>=ALL_CASES.length-1;
+  prev.onclick=()=>{state.caseId=ALL_CASES[idx-1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
+  next.onclick=()=>{state.caseId=ALL_CASES[idx+1].id;state.view=0;state.found={...(store.get("hot_"+state.caseId,{}))};renderCaseDetail()};
+  const bm=$("#btn-measure");if(bm)bm.onclick=()=>{state.measureOn=!state.measureOn;state.measurePts=[];renderCaseDetail();};
+  const bl=$("#btn-loupe");if(bl)bl.onclick=()=>{state.loupe=!state.loupe;renderCaseDetail();};
+  const bc=$("#btn-compare");if(bc)bc.onclick=()=>{state.compare=state.compare?0:50;renderCaseDetail();};
+  const blb=$("#btn-label");if(blb)blb.onclick=()=>{state.labelMode=!state.labelMode;renderCaseDetail();};
   $("#btn-bright").onclick=()=>{state.guessMode=(state.guessMode===false);renderCaseDetail();};
+  const cmps=$("#cmp");if(cmps)cmps.oninput=e=>{state.compare=+e.target.value;const o=$("#ximg-cmp");if(o)o.style.clipPath=`inset(0 0 0 ${state.compare}%)`;};
   renderHotList();
   updateChip();
 }
 function renderHotList(){
-  const c=CASES.find(x=>x.id===state.caseId);if(!c)return;
+  const c=ALL_CASES.find(x=>x.id===state.caseId);if(!c)return;
   const host=$("#hot-list");if(!host)return;
   host.innerHTML=`<h3>Hotspots (${Object.values(state.found).filter(Boolean).length}/${c.hotspots.length})</h3>`+
     c.hotspots.map((h,i)=>`<div class="tag" style="${state.found[i]?"color:var(--accent2);border-color:#1d4d3d":""}">${state.found[i]?"✓ ":"○ "}${state.found[i]?h.label:"undiscovered"}</div>`).join(" ");
 }
-/* viewer: pan/zoom + guessing + measuring */
+/* viewer: pan/zoom + guessing + measuring + loupe + label mode */
 function initViewer(c){
   const vp=$("#vp"),canvas=$("#canvas");
   let scale=1,tx=0,ty=0;
@@ -769,7 +879,8 @@ function initViewer(c){
   fit();window.addEventListener("resize",()=>{if(state.screen==="cases"&&state.caseId)fit()});
   const pts=new Map();let drag=null;
   function toLocal(e){const r=vp.getBoundingClientRect();return{x:(e.clientX-r.left-tx)/scale,y:(e.clientY-r.top-ty)/scale}}
-  function toCanvas(e){const l=toLocal(e);return{x:l.x/800*100,y:l.y/600*75}}
+  // percent coords that work for both 800x600 schematics and real images
+  function toCanvas(e){const l=toLocal(e);const img=$("#ximg");const w=img?800:800,h=img?img.naturalHeight*800/img.naturalWidth||600:600;return{x:l.x/800*100,y:l.y/(h)*100}}
   vp.addEventListener("pointerdown",e=>{
     try{vp.setPointerCapture(e.pointerId)}catch(_){}
     pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -793,11 +904,38 @@ function initViewer(c){
   }
   vp.addEventListener("pointerup",up);vp.addEventListener("pointercancel",up);
   vp.addEventListener("wheel",e=>{e.preventDefault();const l=toLocal(e);const f=e.deltaY<0?1.15:1/1.15;const ns=Math.min(6,Math.max(0.2,scale*f));tx=e.clientX-vp.getBoundingClientRect().left-(l.x)*ns;ty=e.clientY-vp.getBoundingClientRect().top-(l.y)*ns;scale=ns;apply()},{passive:false});
+  // hover loupe for real images
+  const loupe=$("#loupe"),ximg=$("#ximg");
+  if(loupe&&ximg&&state.loupe){
+    vp.addEventListener("pointermove",e=>{
+      if(pts.size>0)return;
+      const r=vp.getBoundingClientRect();
+      const mx=e.clientX-r.left,my=e.clientY-r.top;
+      loupe.style.display="block";
+      loupe.style.left=(mx-90)+"px";loupe.style.top=(my-90)+"px";
+      const l=toLocal(e);
+      loupe.style.backgroundImage=`url(${c.img})`;
+      loupe.style.backgroundSize=`${800*3*scale}px ${ximg.naturalHeight*800/ximg.naturalWidth*3*scale}px`;
+      loupe.style.backgroundPosition=`${-(l.x*3*scale-90+ (800*3*scale-800*scale)/2*0)}px ${-(l.y*3*scale-90)}px`;
+    });
+    vp.addEventListener("pointerleave",()=>{loupe.style.display="none"});
+  }
   $("#btn-zoom-reset").onclick=fit;
   $("#rng-b").oninput=e=>{canvas.style.filter=`brightness(${e.target.value}%) contrast(${$("#rng-c").value}%)`};
   $("#rng-c").oninput=e=>{canvas.style.filter=`brightness(${$("#rng-b").value}%) contrast(${e.target.value}%)`};
   function handleTap(e){
     const p=toCanvas(e);
+    if(state.labelMode){
+      let best=-1,bd=1e9;
+      c.hotspots.forEach((h,i)=>{const d=Math.hypot(h.x-p.x,h.y-p.y);if(d<bd){bd=d;best=i}});
+      if(best>=0&&bd<=10&&!state.found[best]){
+        state.found[best]=true;store.set("hot_"+c.id,state.found);
+        renderCaseDetail();
+        const fb2=$("#fb");
+        if(fb2){fb2.className="feedback ok";fb2.textContent="🏷 Label placed: "+c.hotspots[best].label+". "+c.hotspots[best].expl;}
+      }
+      return;
+    }
     if(state.measureOn){
       state.measurePts.push(p);
       const dot=document.createElement("div");dot.className="measure-dot";
@@ -816,11 +954,11 @@ function initViewer(c){
       }
       return;
     }
-    // guess: nearest unfound hotspot within 9 canvas units
+    // guess: nearest unfound hotspot within 10% of image
     let best=-1,bd=1e9;
     c.hotspots.forEach((h,i)=>{if(state.found[i])return;const d=Math.hypot(h.x-p.x,h.y-p.y);if(d<bd){bd=d;best=i}});
     const fb=$("#fb");
-    if(best>=0&&bd<=9){
+    if(best>=0&&bd<=10){
       state.found[best]=true;store.set("hot_"+c.id,state.found);
       const allNow=c.hotspots.every((h,i)=>state.found[i]);
       if(allNow){const d=store.get("doneCases",[]);if(!d.includes(c.id)){d.push(c.id);store.set("doneCases",d)}}
@@ -846,6 +984,7 @@ function renderQuizHome(){
   $("#quiz-due").textContent=dueCount()+" question(s) due for review";
   $("#quiz-area").innerHTML="";
   $("#quiz-start").onclick=startQuiz;
+  const ob=$("#quiz-osce");if(ob)ob.onclick=startOsce;
 }
 function startQuiz(){
   const q=store.get("quiz",{});const now=Date.now();
@@ -855,6 +994,41 @@ function startQuiz(){
   const rest=items.filter(it=>!it.s||it.s.due>now).sort(()=>Math.random()-0.5);
   const session=[...due,...rest].slice(0,10);
   runSession(session,0,0,0);
+}
+function startOsce(){
+  const pool=QUIZ.slice().sort(()=>Math.random()-0.5).slice(0,10);
+  const end=Date.now()+10*60*1000;
+  const host=$("#quiz-area");
+  host.innerHTML=`<div class="qcard"><h2>⏱ OSCE mode</h2><p>10 questions, 10 minutes. No hints, no explanations until the end. Score is saved.</p>
+  <div class="row"><button class="btn" id="osce-go">Start</button><span class="muted" id="osce-timer"></span></div></div>`;
+  $("#osce-go").onclick=()=>{
+    let i=0,score=0,done=false;
+    const tick=setInterval(()=>{const left=Math.max(0,end-Date.now());$("#osce-timer").textContent=Math.floor(left/60000)+":"+String(Math.floor(left%60000/1000)).padStart(2,"0");if(left<=0){done=true;clearInterval(tick);finish()}},1000);
+    function renderQ(){
+      if(i>=pool.length||done)return finish();
+      const x=pool[i];
+      host.innerHTML=`<div class="qcard"><div class="muted" style="font-size:12.5px">OSCE ${i+1}/${pool.length} · <span id="osce-timer"></span></div>
+      <h3 style="color:var(--ink)">${x.q}</h3>
+      <div id="opts">${x.opts.map((o,k)=>`<button class="opt" data-a="${k}">${o}</button>`).join("")}</div>
+      <div class="row" style="margin-top:10px"><button class="btn small" id="qnext" disabled>Next →</button></div></div>`;
+      $$("#opts .opt").forEach(b=>b.addEventListener("click",()=>{
+        const a=+b.dataset.a;const ok=a===x.a;if(ok)score++;
+        $$("#opts .opt").forEach(o=>{o.disabled=true;const k=+o.dataset.a;if(k===x.a)o.classList.add("correct");else if(k===a)o.classList.add("wrong")});
+        $("#qnext").disabled=false;$("#qnext").onclick=()=>{i++;renderQ()};
+      }));
+    }
+    function finish(){
+      if(done&&i<pool.length&&!host.querySelector(".qcard h2")){}
+      const pct=Math.round(score/pool.length*100);
+      host.innerHTML=`<div class="qcard"><h2>OSCE complete</h2><p>Score: <b>${score}/${pool.length}</b> (${pct}%). ${pct>=80?"Excellent — exam-ready.":pct>=60?"Good — review the missed topics below.":"Keep practising — work through the case library again."} </p>
+      <h3>Review</h3><ul class="tight">${pool.map((x,k)=>`<li>${x.q.slice(0,90)}… — <b>${x.opts[x.a]}</b></li>`).join("")}</ul>
+      <div class="row"><button class="btn" data-nav="quiz">Back to quiz</button></div></div>`;
+      const raw=store.get("quizRaw",{ans:0,corr:0});raw.ans+=pool.length;raw.corr+=score;store.set("quizRaw",raw);
+      const os=store.get("osce",[]);os.push({t:Date.now(),score,pct});store.set("osce",os);
+      renderProgressSoon();
+    }
+    renderQ();
+  };
 }
 function runSession(session,idx,correct,answered){
   const host=$("#quiz-area");
@@ -896,12 +1070,12 @@ function renderProgressSoon(){if(state.screen==="progress")renderProgress();upda
 /* ---------- progress ---------- */
 function renderProgress(){
   const done=store.get("doneCases",[]);
-  let hot=0;CASES.forEach(c=>{hot+=Object.values(store.get("hot_"+c.id,{})).filter(Boolean).length});
+  let hot=0;ALL_CASES.forEach(c=>{hot+=Object.values(store.get("hot_"+c.id,{})).filter(Boolean).length});
   const q=store.get("quiz",{});let ans=0,corr=0;
   Object.values(q).forEach(s=>{if(s.total){ans+=s.total;corr+=s.correct}});
   // also count from stored raw tallies if present
   const raw=store.get("quizRaw",{ans:0,corr:0});ans=raw.ans;corr=raw.corr;
-  $("#p-cases").textContent=done.length+" / "+CASES.length;
+  $("#p-cases").textContent=done.length+" / "+ALL_CASES.length;
   $("#p-hot").textContent=hot;
   $("#p-acc").textContent=ans?Math.round(corr/ans*100)+"%":"–";
   $("#p-bar").style.width=Math.round(overallProgress()*100)+"%";
@@ -913,9 +1087,9 @@ function renderProgress(){
 }
 $("#p-reset").addEventListener("click",()=>{
   if(!confirm("Reset all local progress? This cannot be undone."))return;
-  ["doneCases","hot_"+CASES.map(c=>c.id).join(","),"checks","quiz","quizRaw"].flat().forEach(k=>{try{localStorage.removeItem("fxr_"+k)}catch(e){}});
+  ["doneCases","hot_"+ALL_CASES.map(c=>c.id).join(","),"checks","quiz","quizRaw"].flat().forEach(k=>{try{localStorage.removeItem("fxr_"+k)}catch(e){}});
   QUIZ.forEach(x=>{try{localStorage.removeItem("fxr_hot_"+x.q)}catch(e){}});
-  CASES.forEach(c=>{try{localStorage.removeItem("fxr_hot_"+c.id)}catch(e){}});
+  ALL_CASES.forEach(c=>{try{localStorage.removeItem("fxr_hot_"+c.id)}catch(e){}});
   renderProgress();renderHome();
 });
 

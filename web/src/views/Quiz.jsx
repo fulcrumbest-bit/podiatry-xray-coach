@@ -2,8 +2,18 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore, patch, srsUpdate, addXp, awardBadge, dueCount, XP } from '../store.js';
 import { QUIZ, MODULES } from '../data/content.js';
-import { CASES } from '../data/cases.js';
+import { CASES, useCaseImage } from '../data/cases.js';
 import { Card, Tag, Btn, ProgressBar } from '../ui.jsx';
+
+function AnatomyImg({ c }) {
+  const src = useCaseImage(c);
+  if (!src) return <div className="mb-4 flex h-56 items-center justify-center rounded-xl border border-white/10 bg-base-800 text-xs text-muted">loading film…</div>;
+  return (
+    <div className="mb-4 overflow-hidden rounded-xl border border-white/10 bg-black">
+      <img src={src} alt={c.title} className="max-h-72 w-full object-contain" />
+    </div>
+  );
+}
 
 function shuffle(a) { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; }
 
@@ -221,11 +231,7 @@ export default function Quiz({ toast, fire }) {
                 {mode === 'anatomy' && q.imgCase && <Tag tone="img">real film</Tag>}
               </div>
               <div className="mb-4 mt-2 text-[15px] font-semibold leading-relaxed">{q.q}</div>
-              {mode === 'anatomy' && q.imgCase && (
-                <div className="mb-4 overflow-hidden rounded-xl border border-white/10 bg-black">
-                  <img src={q.imgCase.resolved} alt={q.imgCase.title} className="max-h-72 w-full object-contain" />
-                </div>
-              )}
+              {mode === 'anatomy' && q.imgCase && <AnatomyImg c={q.imgCase} />}
               <div className="grid gap-2">
                 {q.opts.map((o, oi) => (
                   <button key={oi} onClick={() => answerPractice(oi, conf)}

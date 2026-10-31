@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useStore, patch } from '../store.js';
 import { CASES as REAL_CASES } from '../data/cases.js';
-import { Card, Tag, DiffTag } from '../ui.jsx';
+import { Card } from '../ui.jsx';
+import CaseCard from './CaseCard.jsx';
 
 const TOPICS = ['All', ...[...new Set(REAL_CASES.map(c => c.topic))]];
 const DIFFS = [0, 1, 2, 3];
@@ -48,25 +49,7 @@ export default function Cases() {
 
       <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((c, i) => (
-          <motion.div key={c.id} layout initial={{ opacity: 0, scale: .96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.03 }}>
-            <Card className="group cursor-pointer overflow-hidden p-0" onClick={() => patch({ screen: c.id })}>
-              <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                <img src={c.resolved} alt={c.title} loading="lazy"
-                  className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.06]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                {s.done.includes(c.id)
-                  ? <span className="absolute right-2 top-2 rounded-full border border-emerald-300/60 bg-emerald-500/90 px-2 py-0.5 text-[11px] font-bold text-base-950">✓ completed</span>
-                  : <span className="absolute right-2 top-2 rounded-full border border-sky-400/50 bg-sky-500/20 px-2 py-0.5 text-[11px] font-semibold text-sky-200 backdrop-blur">{c.hotspots.length} finding{c.hotspots.length === 1 ? '' : 's'}</span>}
-              </div>
-              <div className="p-3.5">
-                <div className="mb-1.5 flex flex-wrap gap-1.5">
-                  <Tag tone="topic">{c.topic}</Tag><DiffTag d={c.diff} />
-                </div>
-                <div className="text-sm font-bold leading-snug">{c.title}</div>
-                <div className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">{c.stem}</div>
-              </div>
-            </Card>
-          </motion.div>
+          <CaseCard key={c.id} c={c} index={i} done={s.done.includes(c.id)} onOpen={() => patch({ screen: c.id })} />
         ))}
       </motion.div>
       {list.length === 0 && <Card className="py-10 text-center text-muted">No cases match — try clearing the search.</Card>}

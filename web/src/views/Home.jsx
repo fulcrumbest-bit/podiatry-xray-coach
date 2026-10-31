@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { useStore, patch, level, levelName, xpProgress, dueCount, overall, addXp, awardBadge } from '../store.js';
 import { QUIZ, MODULES } from '../data/content.js';
 import { CASES as REAL_CASES } from '../data/cases.js';
-import { Card, Tag, Btn, Kpi, ProgressBar, DiffTag } from '../ui.jsx';
+import { Card, Tag, Btn, Kpi, ProgressBar } from '../ui.jsx';
+import CaseCard from './CaseCard.jsx';
 
 const stagger = { animate: { transition: { staggerChildren: 0.06 } } };
 const item = { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 } };
@@ -58,22 +59,11 @@ export default function Home({ toast }) {
 
       <motion.h2 variants={item} initial="initial" animate="animate" className="mb-3 text-lg font-extrabold">Featured cases</motion.h2>
       <div className="grid gap-4 sm:grid-cols-3">
-        {[0, 7, 10].map(i => {
+        {[0, 7, 10].map((i, k) => {
           const c = REAL_CASES[i];
           return (
             <motion.div key={c.id} variants={item} initial="initial" animate="animate">
-              <Card className="group cursor-pointer overflow-hidden p-0" onClick={() => patch({ screen: c.id })}>
-                <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                  <img src={c.resolved} alt={c.title} className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
-                  {s.done.includes(c.id) && <span className="absolute right-2 top-2 rounded-full border border-emerald-300/60 bg-emerald-500/90 px-2 py-0.5 text-[11px] font-bold text-base-950">✓ done</span>}
-                </div>
-                <div className="p-3.5">
-                  <div className="mb-1.5 flex flex-wrap gap-1.5">
-                    <Tag tone="topic">{c.topic}</Tag><DiffTag d={c.diff} />
-                  </div>
-                  <div className="text-sm font-bold leading-snug">{c.title}</div>
-                </div>
-              </Card>
+              <CaseCard c={c} done={s.done.includes(c.id)} onOpen={() => patch({ screen: c.id })} />
             </motion.div>
           );
         })}

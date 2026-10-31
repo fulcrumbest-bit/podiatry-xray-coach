@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:split": "vite build --mode split",
+    "test": "node test-smoke.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

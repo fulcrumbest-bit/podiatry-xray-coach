@@ -14,6 +14,59 @@
 </head>
 <body>
   <div id="root"></div>
+  <noscript>
+    <div style="max-width:34rem;margin:3rem auto;padding:1.5rem;font-family:system-ui;color:#eef2fa;background:#0a101f;border:1px solid #26334f;border-radius:1rem">
+      <b>Foot &amp; Ankle X-Ray Coach needs JavaScript.</b> Please enable JavaScript in your browser and reload.
+    </div>
+  </noscript>
+  <script>
+    // Boot guard: if the module script fails to load/run (e.g. stale service worker,
+    // blocked module, old cached shell), show a recovery UI instead of a blank page.
+    (function () {
+      var done = false;
+      window.addEventListener('error', function (e) {
+        if (done) return;
+        var t = e.target;
+        if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) {
+          done = true;
+          showRecovery('A script or stylesheet failed to load (possibly an old cached version).');
+        }
+      }, true);
+      window.addEventListener('unhandledrejection', function (e) {
+        if (done) return;
+        done = true;
+        showRecovery('The app failed to start: ' + (e.reason && e.reason.message || e.reason));
+      });
+      setTimeout(function () {
+        if (done) return;
+        var root = document.getElementById('root');
+        if (root && !root.childNodes.length) showRecovery('The app is taking too long to start (stale cache is the usual cause).');
+      }, 8000);
+      function showRecovery(msg) {
+        var root = document.getElementById('root');
+        if (!root) return;
+        root.innerHTML = '';
+        var d = document.createElement('div');
+        d.style.cssText = 'max-width:36rem;margin:3rem auto;padding:1.5rem;font-family:system-ui;color:#eef2fa;background:#0a101f;border:1px solid #26334f;border-radius:1rem;line-height:1.5';
+        d.innerHTML = '<b style="font-size:1.1rem">Foot &amp; Ankle X-Ray Coach could not start.</b><br>' +
+          '<span style="color:#93a0b8">' + String(msg).replace(/</g, '&lt;') + '</span><br><br>' +
+          '<button id="fxr-reload" style="padding:.6rem 1.2rem;border-radius:.6rem;border:0;background:#38bdf8;color:#070b14;font-weight:700;cursor:pointer">Reload page</button> ' +
+          '<button id="fxr-nuke" style="padding:.6rem 1.2rem;border-radius:.6rem;border:1px solid #f43f5e;background:transparent;color:#fda4af;cursor:pointer">Clear cache &amp; reload</button>';
+        root.appendChild(d);
+        document.getElementById('fxr-reload').onclick = function () { location.reload(); };
+        document.getElementById('fxr-nuke').onclick = async function () {
+          try {
+            if (navigator.serviceWorker) {
+              var regs = await navigator.serviceWorker.getRegistrations();
+              await Promise.all(regs.map(function (r) { return r.unregister(); }));
+            }
+            if (window.caches) { var ks = await caches.keys(); await Promise.all(ks.map(function (k) { return caches.delete(k); })); }
+          } catch (e) {}
+          location.reload();
+        };
+      }
+    })();
+  </script>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

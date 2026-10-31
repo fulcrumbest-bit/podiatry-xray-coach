@@ -102,7 +102,39 @@ export const MODULES=[
  <tr><td>Mueller-Weiss</td><td>Adult</td><td>Fragmented, sclerotic navicular, lateral compression</td><td>Spontaneous osteonecrosis of navicular — NOT Köhler's</td></tr>
  <tr><td>Tarsal coalition</td><td>child–adolescent</td><td>Calcaneonavicular "anteater nose" sign; C-sign (talocalcaneal)</td><td>CT best; rigid flatfoot with peroneal spasm</td></tr></table>
  <div class="callout warn"><b>Rule:</b> in a child, a sclerotic/fragmented apophysis or ossification centre is usually a normal variant or apophysitis — correlate clinically before calling fracture.</div>`,
- checklist:["I can name 5 paediatric foot conditions and their X-ray signs","I know Sever's is a clinical diagnosis, not a fracture","I know tarsal coalition needs CT","I know the difference between Köhler's and Mueller-Weiss"]}
+ checklist:["I can name 5 paediatric foot conditions and their X-ray signs","I know Sever's is a clinical diagnosis, not a fracture","I know tarsal coalition needs CT","I know the difference between Köhler's and Mueller-Weiss"]},
+{id:"m9",title:"9 · Fractures of the foot & ankle: patterns to know",time:"12 min",tag:"Trauma",
+ summary:"Weber ankle fractures, Maisonneuve, Jones vs avulsion, fleck sign — the trauma patterns podiatry students must recognise and refer appropriately.",
+ html:`<h2>Ankle fractures — Weber classification (level of fibular fracture)</h2>
+ <table class="ref"><tr><th>Type</th><th>Level</th><th>Mechanism</th><th>Stability</th></tr>
+ <tr><td><b>Weber A</b></td><td>Below the syndesmosis</td><td>Supination-adduction</td><td>Usually stable (syndesmosis + deltoid intact)</td></tr>
+ <tr><td><b>Weber B</b></td><td>At the level of the syndesmosis</td><td>Supination-external rotation</td><td>Variable — check medial clear space &amp; syndesmosis</td></tr>
+ <tr><td><b>Weber C</b></td><td>Above the syndesmosis</td><td>Pronation-external rotation</td><td>Unstable — syndesmosis disrupted</td></tr></table>
+ <div class="callout warn"><b>Maisonneuve fracture:</b> proximal 1/3 fibula fracture + syndesmotic disruption + medial injury. If you see medial ankle tenderness with a widened syndesmosis, <b>X-ray the whole fibula</b>.</div>
+ <h3>Stability checks on every ankle film</h3>
+ <ul class="tight"><li><b>Medial clear space</b> ≤ 4 mm on mortise (widening = deltoid torn, unstable even without medial malleolus fracture).</li>
+ <li><b>Tibiofibular clear space / overlap</b> — widening = syndesmotic injury (high-ankle sprain).</li>
+ <li><b>Talar shift/tilt</b> — tibiotalar incongruity = unstable.</li></ul>
+ <h2>5th metatarsal base</h2>
+ <table class="ref"><tr><th>Injury</th><th>Location</th><th>Prognosis</th></tr>
+ <tr><td><b>Avulsion (pseudo-Jones)</b></td><td>Tuberosity, at peroneus brevis insertion</td><td>Usually heals conservatively</td></tr>
+ <tr><td><b>Jones fracture</b></td><td>Metaphyseal–diaphyseal junction (watershed zone)</td><td>High non-union risk — orthopaedic referral</td></tr></table>
+ <div class="callout"><b>Fleck sign:</b> a small avulsion fragment at the Lisfranc interval (medial cuneiform – 2nd MT base) is pathognomonic for Lisfranc ligament rupture.</div>`,
+ checklist:["I can classify an ankle fracture as Weber A/B/C","I know when to X-ray the proximal fibula (Maisonneuve)","I can distinguish Jones from avulsion at the 5th MT base","I know the medial clear space and syndesmosis stability checks"]},
+{id:"m10",title:"10 · Imaging the diabetic / high-risk foot",time:"12 min",tag:"High-risk foot",
+ summary:"IWGDF/IDSA 2023 pathway: plain film first, PTB + labs, MRI when in doubt; osteomyelitis vs Charcot; Charcot stage 0 has a NORMAL X-ray.",
+ html:`<h2>Suspected diabetes-related foot osteomyelitis (IWGDF/IDSA 2023)</h2>
+ <ol class="tight"><li><b>Probe-to-bone (PTB)</b> test at the ulcer.</li>
+ <li><b>Plain X-ray</b> (cheap, available): focal cortical loss, periosteal reaction, sequestrum; serial films (changes take 2–3 weeks).</li>
+ <li><b>Bloods:</b> ESR/CRP (ESR > 70 mm/h strongly suggestive), WCC often normal.</li>
+ <li><b>MRI</b> when the diagnosis remains in doubt after the above — best soft-tissue + bone detail (sens/spec ~90/83%).</li></ol>
+ <h2>Osteomyelitis vs Charcot on plain film</h2>
+ <table class="ref"><tr><th>Osteomyelitis</th><th>Charcot neuro-osteoarthropathy</th></tr>
+ <tr><td>Focal cortical destruction, periosteal reaction, usually contiguous with an ulcer</td><td>Diffuse midfoot disorganisation, fragmentation, subluxation (often TMT/naviculocuneiform)</td></tr>
+ <tr><td>Later: sequestrum, involucrum</td><td>Rocker-bottom deformity when healed</td></tr></table>
+ <div class="callout danger"><b>Charcot stage 0 (Eichenholtz):</b> hot, swollen neuropathic foot with a <b>NORMAL plain X-ray</b> — MRI shows the osseous injury. Never reassure a diabetic with a swollen foot on a normal film; offload and refer urgently.</div>
+ <div class="callout"><b>Clinical pearl:</b> bone exposed in an ulcer → high probability of osteomyelitis (probe-to-bone may be redundant). The two conditions can coexist — MRI + labs when in doubt.</div>`,
+ checklist:["I know the IWGDF/IDSA 2023 osteomyelitis work-up sequence (PTB, X-ray, ESR/CRP, MRI)","I can describe stage-0 Charcot and why a normal X-ray does not exclude it","I can differentiate osteomyelitis from Charcot on plain film","I know exposed bone = high osteomyelitis probability"]}
 ];
 
 export const QUIZ=[
@@ -144,6 +176,25 @@ export const QUIZ=[
 {q:"Rigid flatfoot with peroneal spasm in a 13-year-old suggests:",opts:["Tarsal coalition","Sever's disease","Normal variant","Flexible pes planus"],a:0,tag:"ossicles",expl:"Classic presentation of tarsal coalition — get CT."},
 {q:"Lisfranc injury on WB films: the key measurement is:",opts:["1st-2nd intermetatarsal interval > 2 mm","HVA > 15 deg","Medial clear space > 6 mm","Bohler < 20 deg"],a:0,tag:"lisfranc",expl:"Widening at the Lisfranc interval = ligament disruption."},
 {q:"Gout vs OA at the 1st MTP on X-ray:",opts:["Gout = punched-out erosions with overhanging edges, joint space preserved early; OA = narrowing + dorsal osteophyte","Gout = joint space narrowing","OA = erosions","They look identical"],a:0,tag:"oa",expl:"Erosions with overhanging edges and preserved space = gout; narrowing + dorsal spur = OA."}
+,
+{q:"A 45-year-old with diabetes and a neuropathic ulcer has probe-to-bone positive and X-ray showing cortical erosion at the 1st MT head. IWGDF/IDSA 2023 approach:",opts:["Start IV antibiotics immediately without further imaging","PTB + X-ray + ESR/CRP support osteomyelitis; MRI if doubt remains","Order a bone scan first","Treat as cellulitis only"],a:1,tag:"dfi",expl:"IWGDF/IDSA 2023: combine probe-to-bone, plain X-ray and ESR/CRP; MRI when diagnosis remains in doubt. Serial X-ray changes take 2-3 weeks."},
+{q:"Plain-film features most suggestive of diabetic foot osteomyelitis (vs Charcot) are:",opts:["Diffuse periarticular osteopenia","Focal cortical loss + periosteal reaction, often at a pressure point/ulcer site","Broad midfoot collapse with disorganisation","Subchondral cysts in the talus"],a:1,tag:"dfi",expl:"Osteomyelitis: focal cortical destruction, periosteal reaction, usually contiguous with an ulcer. Charcot: diffuse disorganisation, fragmentation, midfoot collapse - often with NORMAL early X-ray (stage 0 -> MRI)."},
+{q:"Active Charcot neuro-osteoarthropathy stage 0 (Eichenholtz) is characterised by:",opts:["Normal plain X-ray but MRI shows osseous oedema; hot swollen foot","Established midfoot dislocation on X-ray","Healed rocker-bottom deformity","Gas in soft tissues"],a:0,tag:"charcot",expl:"IWGDF 2023 Charcot guideline: stage 0 = clinical signs of active CNO with NORMAL plain radiographs; MRI demonstrates the osseous injury. Do not reassure on a normal X-ray."},
+{q:"Charcot vs osteomyelitis on plain film - the most helpful distinguishing pattern is:",opts:["Both always show gas","Distribution: Charcot = diffuse midfoot disorganisation/fragmentation; osteomyelitis = focal cortical loss at the ulcer site","Both identical","Charcot never affects bone"],a:1,tag:"charcot",expl:"Use distribution and ulcer contiguity. When in doubt: MRI (and labs) - the two can coexist."},
+{q:"Weber classification: a fibular fracture BELOW the syndesmosis (Weber A) is usually:",opts:["Always unstable, needs ORIF","Usually stable - often treated conservatively","A Maisonneuve pattern","Always a trimalleolar fracture"],a:1,tag:"ankle",expl:"Weber A = below the syndesmosis, typically from supination-adduction; usually stable (intact syndesmosis/deltoid). Weber B at the level, Weber C above = potentially unstable - assess medial clear space and syndesmosis."},
+{q:"Maisonneuve fracture consists of:",opts:["Proximal fibula fracture + syndesmotic disruption + medial injury (deltoid/medial malleolus)","Distal fibula fracture only","Calcaneal fracture + tibial shaft","Talar neck fracture"],a:0,tag:"trauma",expl:"Maisonneuve = proximal 1/3 fibula fracture with syndesmosis disruption and medial-sided injury. Always X-ray the proximal fibula when there is medial ankle tenderness + syndesmosis widening."},
+{q:"Jones fracture (5th MT) vs pseudo-Jones (avulsion) - the distinguishing feature is:",opts:["Location: Jones = metaphyseal-diaphyseal junction (watershed zone, higher non-union risk); avulsion = tuberosity at peroneus brevis insertion","Pain level","Patient age","Nothing - identical"],a:0,tag:"trauma",expl:"Jones fracture at the metaphyseal-diaphyseal junction has poor blood supply -> higher non-union; often needs orthopaedic referral. Avulsion (pseudo-Jones) at the tuberosity usually heals conservatively."},
+{q:"On a mortise view, the normal medial clear space is:",opts:["< 4 mm (or less than the superior tibiofibular clear space)","> 8 mm","Equal to the joint space","Not measurable"],a:0,tag:"ankle",expl:"Medial clear space <=4 mm on the mortise (and <= tibiofibular clear space). Widening = deltoid ligament disruption -> unstable ankle even without a medial malleolus fracture."},
+{q:"Ottawa ankle rules EXCLUDE which group from rule-based imaging decisions?",opts:["Children under 5 (and those who can't cooperate, intoxicated, head-injured, neuropathic)","Everyone over 65","Pregnant women only","All diabetics"],a:0,tag:"ottawa",expl:"OAR validated >=5-6 years; exclusions include inability to cooperate, intoxication, head injury, neuropathy/neurologic disorder, pregnancy. When rules can't be applied, image on clinical suspicion."},
+{q:"Hallux valgus severity is graded by the HVA (hallux valgus angle); severe is generally:",opts:["> 40 deg","15-20 deg","< 15 deg","30-40 deg"],a:0,tag:"hallux",expl:"HVA <15 normal, 15-30 mild-moderate, >30-40 moderate-severe, >40 severe. IMA also graded (<9 normal, >15 severe). Measure on WB DP films."},
+{q:"First-MTP osteoarthritis (hallux rigidus) on X-ray typically shows:",opts:["Dorsal osteophyte + joint space narrowing + subchondral sclerosis","Erosions with overhanging edges","Normal joint","Dislocation"],a:0,tag:"oa",expl:"Hallux rigidus: dorsal osteophyte (blocking dorsiflexion), joint space narrowing, sclerosis - unlike gout (erosions, preserved space early)."},
+{q:"A 6-year-old with a limp and navicular pain after jumping - most likely diagnosis:",opts:["Kohler's disease (navicular osteonecrosis)","Osgood-Schlatter","Sever's","Transient synovitis of hip"],a:0,tag:"ossicles",expl:"Kohler's = osteonecrosis of the navicular in 3-7 y/o, self-limiting; X-ray shows flattened/sclerotic navicular. (Sever's = calcaneal apophysis; Osgood-Schlatter = tibial tubercle, knee.)"},
+{q:"Accessory navicular (os tibiale externum) is associated with:",opts:["Flatfoot and posterior tibial tendon dysfunction","High arches only","Hallux valgus","Nothing"],a:0,tag:"ossicles",expl:"Type II accessory navicular within the posterior tibial tendon - associated with pes planus and PTTD; can be a pain source (accessory navicular syndrome)."},
+{q:"The lisfranc ligament specifically connects:",opts:["Medial cuneiform to the base of the 2nd metatarsal","1st to 2nd metatarsal bases","Talus to navicular","Calcaneus to cuboid"],a:0,tag:"lisfranc",expl:"Medial cuneiform -> 2nd MT base. There is NO interosseous ligament between 1st and 2nd MT bases, which is why the 2nd MT base is the 'keystone' that displaces in Lisfranc injuries."},
+{q:"Best plain-film view to assess the Lisfranc (1st-2nd TMT) interval is:",opts:["Weight-bearing DP (and medial oblique) foot","Lateral only","AP ankle","Harris axial"],a:0,tag:"lisfranc",expl:"WB DP + oblique open the TMT joints. Look for >2 mm widening of the 1st-2nd interval, fleck sign (avulsion at Lisfranc ligament), and loss of 2nd MT - intermediate cuneiform alignment."},
+{q:"MBS item 57527 covers podiatrist-requested radiography of:",opts:["Foot and ankle (with 57521 foot, 57523 ankle) - specific views per region","Knee","Lumbar spine","Chest"],a:0,tag:"mbs",expl:"Podiatrists can request: 57521 foot, 57523 ankle, 57527 foot+ankle series (also 55834/55835 ultrasound items). Know the item descriptors and documentation requirements."},
+{q:"A podiatrist requests an ankle series under MBS 57523 - the standard views are:",opts:["AP, mortise (15-20 deg internal rotation), lateral","AP and lateral only","Mortise only","Stress views routinely"],a:0,tag:"views",expl:"AP + mortise + lateral. The mortise view (15-20 deg internal rotation) shows the joint without malleolar overlap - essential for medial clear space measurement."},
+{q:"Which measurement requires a weight-bearing lateral foot film?",opts:["Meary angle, calcaneal pitch, HVA/IMA","Bohler angle only","Medial clear space","Tibiofibular clear space"],a:0,tag:"views",expl:"Meary, calcaneal pitch, HVA and IMA all change with loading - always quote WB vs NWB. Bohler/Gissane and clear spaces are measured on their standard views."}
 ];
 
 export const REAL_CASES=[
@@ -152,7 +203,9 @@ export const REAL_CASES=[
   img:"images/Lisfranc Dislocation Rupture.jpg", imgW:800, imgH:923,
   attr:"Lisfranc Dislocation Rupture — Mark A. Dreyer, DPM, FACFAS, via Wikimedia Commons, CC BY 4.0",
   stem:"DP weight-bearing view of both feet after twisting injury. Compare the 1st–2nd metatarsal base interval on each side.",
-  hotspots:[{x:35,y:45,label:"Widened 1st–2nd intermetatarsal interval",expl:"On the affected side the gap between the 1st and 2nd metatarsal bases is widened — Lisfranc ligament disruption with tarsometatarsal subluxation. Compare with the normal side. WB views are essential; NWB can look normal."}],
+  hotspots:[{x:25,y:40,label:"Widened Lisfranc (1st–2nd TMT) interval on affected side",hint:"Look at the gap between the 1st and 2nd metatarsal bases on the abnormal foot",expl:"Gap between the 1st and 2nd metatarsal bases is widened (>2 mm) on the affected side — the hallmark of Lisfranc ligament disruption. Compare side-to-side."},
+{x:25,y:45,label:"Dorsally displaced 2nd metatarsal base",hint:"Follow the shaft of the 2nd metatarsal to its base on the abnormal foot",expl:"The 2nd MT base is subluxed dorsally out of the cuneiform — loss of the normal medial border alignment of the 2nd MT with the intermediate cuneiform."},
+{x:75,y:45,label:"Normal contralateral foot — compare",hint:"Compare the same region on the other foot",expl:"The opposite foot shows a normal, narrow 1st–2nd interval and congruent TMT joints. Always compare both feet on WB films."}],
   ddx:["Normal variant splaying — compare both feet","Midfoot sprain — stress views / MRI if X-ray subtle"],
   pearls:["Get WB views; check alignment of medial 2nd MT base with intermediate cuneiform","Unstable Lisfranc → orthopaedic referral (ORIF)"],
   refs:["Lisfranc injury reviews"], quizTag:"lisfranc",
@@ -164,7 +217,8 @@ export const REAL_CASES=[
   img:"images/Lisfranc-Luxationsfraktur_55M.jpg", imgW:1430, imgH:1323,
   attr:"Lisfranc-Luxationsfraktur 55M — Hellerhoff, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"55-year-old male, lateral foot X-ray (bottom) with sagittal CT (top). Find the tarsometatarsal disruption.",
-  hotspots:[{x:55,y:75,label:"Tarsometatarsal dislocation on lateral X-ray",expl:"The lateral view shows dorsal subluxation of the metatarsal bases relative to the cuneiforms — a fracture-dislocation (Lisfranc-Luxationsfraktur). CT (top) defines the comminution."}],
+  hotspots:[{x:40,y:60,label:"Dorsal dislocation of metatarsal bases (lateral view)",hint:"On the lateral film, trace the plantar line of the tarsus vs the metatarsal bases",expl:"The plantar cortex of the metatarsal bases no longer aligns with the plantar line of the cuneiforms/cuboid — dorsal TMT dislocation, the lateral-view equivalent of the DP widening."},
+{x:70,y:30,label:"CT confirms TMT fracture-dislocation",hint:"The CT slice on the right shows the disrupted tarsometatarsal joints in cross-section",expl:"CT delineates the exact TMT joints involved and any avulsion fragments — used when plain films are equivocal or for surgical planning."}],
   ddx:["Charcot midfoot — usually multiple joints, neuropathic","Midfoot sprain"],
   pearls:["CT for surgical planning in fracture-dislocation","Check the whole film, not just the painful area"],
   refs:["Lisfranc injury imaging"], quizTag:"lisfranc",
@@ -176,7 +230,10 @@ export const REAL_CASES=[
   img:"images/Gichtfuss_im_Roentgen.jpg", imgW:556, imgH:600,
   attr:"Gichtfuss im Röntgen (gout foot X-ray) — Hellerhoff, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Foot X-ray of a patient with recurrent first-MTP attacks. Look at the big-toe joint.",
-  hotspots:[{x:50,y:60,label:"Punched-out erosions with overhanging edges, 1st MTP",expl:"Well-defined erosions with sclerotic, overhanging margins at the 1st MTP are classic for gout. Joint space is relatively preserved until late — unlike OA, which narrows the joint."}],
+  hotspots:[{x:30,y:40,label:"Punched-out erosion with overhanging edge, 1st MTP",hint:"Focus on the 1st metatarsophalangeal joint margin",expl:"Classic gouty erosion: well-defined 'punched-out' lytic defect with an overhanging (sclerotic) edge at the 1st MTP joint margin."},
+{x:25,y:35,label:"Soft-tissue swelling / tophus at 1st MTP",hint:"Look at the soft tissues around the 1st MTP joint",expl:"Eccentric soft-tissue density (tophus) adjacent to the joint — gout typically causes swelling despite preserved joint space early on."},
+{x:50,y:50,label:"Preserved joint space (early gout)",hint:"Compare the 1st MTP joint space to the midfoot joints",expl:"Joint space is preserved until late — this distinguishes gout from OA, where space narrows early."},
+{x:55,y:55,label:"Midfoot — no erosions (distribution matters)",hint:"Check the midfoot joints for comparison",expl:"Gout favours the 1st MTP and midfoot/hindfoot; absence of erosions elsewhere helps pattern recognition."}],
   ddx:["Hallux rigidus (OA) — joint space narrowing, dorsal osteophyte","Septic arthritis — rapid destruction, clinical sepsis"],
   pearls:["Gout erosions spare joint space early; OA narrows it","Check urate-lowering therapy adherence in known gout"],
   refs:["Gout imaging reviews"], quizTag:"oa",
@@ -189,7 +246,9 @@ export const REAL_CASES=[
   compare:"images/X-ray_normal_right_foot_lateral.jpg",
   attr:"Sclerosis and fragmentation of the calcaneal apophysis (Sever's disease) — Mikael Häggström, via Wikimedia Commons, CC0",
   stem:"Adolescent athlete with heel pain worse with activity. Lateral calcaneal view.",
-  hotspots:[{x:75,y:70,label:"Fragmented, sclerotic calcaneal apophysis",expl:"The growth plate (apophysis) at the back of the calcaneus looks fragmented and dense. This is Sever's disease — a traction apophysitis, NOT a fracture. It is a clinical diagnosis; X-ray supports but the apophysis is normally irregular in this age group."}],
+  hotspots:[{x:75,y:70,label:"Fragmented, sclerotic calcaneal apophysis",hint:"Posterior-inferior corner of the calcaneus",expl:"The apophysis (growth plate at the back of the heel) appears fragmented and dense — Sever's calcaneal apophysitis, a traction injury in active children."},
+{x:85,y:80,label:"Posterior soft-tissue swelling",hint:"Soft tissues just behind the heel",expl:"Swelling over the posterior calcaneus supports symptomatic apophysitis (heel pain in a growing child, worse with activity)."},
+{x:60,y:55,label:"Normal talocalcaneal (subtalar) joint for comparison",hint:"The joint just in front of the apophysis",expl:"The subtalar joint is normal — in Sever's the pain is at the apophysis, not the joint. Clinical correlation, not the film alone, makes the diagnosis."}],
   ddx:["Calcaneal stress fracture — sclerotic band in the body, Böhler preserved","Normal apophyseal irregularity in adolescents"],
   pearls:["Treat clinically: heel raises, activity modification, calf stretching","Don't call it a fracture on X-ray alone"],
   refs:["Sever's disease reviews"], quizTag:"ossicles",
@@ -219,7 +278,8 @@ export const REAL_CASES=[
   img:"images/X-ray_foot.jpg", imgW:500, imgH:601,
   attr:"X-ray foot — Alex Khimich, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Two views of a foot (AP top, oblique bottom). Identify the metatarsals, tarsometatarsal joints and any abnormality.",
-  hotspots:[{x:50,y:40,label:"Midfoot / 3rd metatarsal base region",expl:"On the AP view check alignment of each metatarsal base with its cuneiform (Lisfranc line) and the 1st–2nd intermetatarsal gap. The oblique view opens the tarsometatarsal joints best."}],
+  hotspots:[{x:30,y:45,label:"DP/AP view — forefoot & metatarsals",hint:"Top half of the image",expl:"DP view: assess metatarsal alignment, HVA/IMA, phalanges, and the 1st–2nd intermetatarsal interval."},
+{x:30,y:80,label:"Oblique view — midfoot & TMT (Lisfranc) joints open",hint:"Bottom half of the image",expl:"The oblique view opens the tarsometatarsal joints — the best plain view for the Lisfranc interval and the cuboid/5th MT base."}],
   ddx:["—"],
   pearls:["Systematic: soft tissues → bones → joints → alignment → measurements → compare"],
   refs:["Systematic foot X-ray reading"], quizTag:"system",
@@ -231,7 +291,8 @@ export const REAL_CASES=[
   img:"images/LisFranc.png", imgW:384, imgH:621,
   attr:"LisFranc.png — James Heilman, MD, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"Annotated-style reference image of Lisfranc anatomy/alignment on a foot X-ray. Use it to rehearse naming the tarsometatarsal joints.",
-  hotspots:[{x:50,y:45,label:"Tarsometatarsal (Lisfranc) joint line",expl:"The Lisfranc joint line runs from the medial cuneiform–1st MT to the lateral cuneiform–5th MT. Disruption here = Lisfranc injury."}],
+  hotspots:[{x:50,y:45,label:"Lisfranc (tarsometatarsal) joint line",hint:"Between the cuneiforms and the metatarsal bases",expl:"The Lisfranc joint complex spans the 1st–3rd TMT joints; the 2nd MT base has no direct ligament to the medial cuneiform — the 'keystone' held by the Lisfranc ligament from the medial cuneiform to the 2nd MT base."},
+{x:50,y:30,label:"2nd metatarsal base — the keystone",hint:"The base of the middle metatarsal in the mortise",expl:"The 2nd MT base sits in a mortise formed by the three cuneiforms. Displacement here = Lisfranc injury — the most commonly missed midfoot fracture."}],
   ddx:["—"],
   pearls:["Name the joints out loud before reading pathology — builds a fixed search pattern"],
   refs:["Lisfranc anatomy"], quizTag:"lisfranc",
@@ -244,10 +305,9 @@ REAL_CASES.push({
   img:"images/Bimalleolar_fracture.jpg", imgW:455, imgH:469,
   attr:"Bimalleolar fracture legend — Steven Fruitsmaak, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Adult ankle injury, AP view. Identify both malleolar fracture lines.",
-  hotspots:[
-    {x:30,y:40,label:"Lateral malleolus fracture",expl:"Fracture line through the distal fibula — the lateral component of a bimalleolar (both-malleoli) fracture."},
-    {x:60,y:50,label:"Medial malleolus fracture",expl:"Fracture at the medial malleolus. Both malleoli + widened medial clear space = unstable ankle → orthopaedic referral."}
-  ],
+  hotspots:[{x:30,y:40,label:"Transverse lateral malleolus fracture",hint:"The fibular (outer) malleolus",expl:"Transverse fracture of the lateral malleolus at the level of the joint line — a component of the bimalleolar injury."},
+{x:60,y:45,label:"Medial malleolus fracture",hint:"The inner malleolus of the tibia",expl:"Fracture of the medial malleolus — together with the lateral fracture this is a 'bimalleolar' ankle fracture."},
+{x:50,y:52,label:"Talar dome — check for shift/tilt",hint:"Centre of the ankle joint",expl:"Assess tibiotalar congruity: any lateral talar shift or widened medial clear space indicates instability and often needs surgery."}],
   ddx:["Unimalleolar fracture with deltoid sprain","Maisonneuve fracture — check proximal fibula and image the leg"],
   pearls:["Assess stability: medial clear space > 6 mm or tibiofibular widening = unstable","Always X-ray the whole leg if proximal fibula tenderness (Maisonneuve)"],
   refs:["Ankle fracture classification"], quizTag:"ankle",
@@ -259,10 +319,9 @@ REAL_CASES.push({
   img:"images/Left_ankle_AP.jpg", imgW:1306, imgH:2330,
   attr:"Left ankle x-ray, adult male — US Government work (public domain), via Wikimedia Commons",
   stem:"AP ankle view after inversion injury. What is fractured, and what does the medial clear space tell you?",
-  hotspots:[
-    {x:50,y:40,label:"Lateral malleolus fracture",expl:"Distal fibula fracture line — the bony injury."},
-    {x:30,y:45,label:"Widened medial clear space",expl:"Medial clear space widening indicates deltoid ligament disruption — the ankle is unstable even though the medial malleolus is intact. Compare with the mortise view."}
-  ],
+  hotspots:[{x:50,y:40,label:"Fibular fracture at syndesmosis level (Weber B)",hint:"Outer malleolus, at the level of the ankle joint",expl:"Spiral/oblique fibular fracture starting at the joint line — Weber B, the most common unstable ankle fracture pattern."},
+{x:60,y:60,label:"Widened medial clear space (deltoid disruption)",hint:"Space between the medial malleolus and the talus",expl:"Medial clear space >4–5 mm (or > talar dome width) means the deltoid ligament is torn — the ankle is unstable even if the medial malleolus is intact."},
+{x:55,y:35,label:"Tibiofibular (syndesmosis) clear space",hint:"Between the distal tibia and fibula above the talus",expl:"Widening here indicates syndesmotic injury (high-ankle sprain) — check on every ankle fracture; drives fixation decisions."}],
   ddx:["Isolated lateral ligament sprain — no fracture, no widening","Syndesmotic injury — also widened tibiofibular clear space"],
   pearls:["Measure medial clear space on the mortise view; > 6 mm = unstable","Gravity-stress views can confirm instability"],
   refs:["Ankle instability imaging"], quizTag:"ankle",
@@ -274,11 +333,9 @@ REAL_CASES.push({
   img:"images/Left_ankle_lat.jpg", imgW:1318, imgH:2330,
   attr:"Left ankle x-ray, adult male, side view — US Government work (public domain), via Wikimedia Commons",
   stem:"Normal lateral ankle. Identify the talar dome, posterior talus (os trigonum region) and calcaneus.",
-  hotspots:[
-    {x:50,y:60,label:"Talar dome",expl:"Smooth dome of the talus articulating with the tibia. Check for osteochondral lesions (often lateral/medial dome)."},
-    {x:55,y:55,label:"Posterior talus — os trigonum region",expl:"A corticated ossicle here is a normal os trigonum (7–10%), NOT a fracture. Shepherd's fracture would be jagged and non-corticated."},
-    {x:40,y:70,label:"Calcaneus",expl:"Assess Böhler angle (25–40°) here for compression fractures."}
-  ],
+  hotspots:[{x:65,y:20,label:"Lateral malleolus — intact fibula",hint:"Outer ankle bone",expl:"Normal lateral malleolus — compare with fracture cases r8/r9."},
+{x:50,y:50,label:"Tibiotalar joint — congruent, normal space",hint:"The ankle joint line",expl:"Normal tibiotalar joint: even space, no talar shift."},
+{x:40,y:70,label:"Calcaneus — normal Böhler region",hint:"Heel bone on the lateral",expl:"Normal calcaneal contour — compare with Böhler/Gissane angle cases r11/r12."}],
   ddx:["—"],
   pearls:["Corticated + round = ossicle; jagged + lucent = fracture","Compare both ankles if unsure"],
   refs:["Normal ankle anatomy"], quizTag:"views",
@@ -290,7 +347,9 @@ REAL_CASES.push({
   img:"images/Calcaneus_Bohler_angle.jpg", imgW:818, imgH:1274,
   attr:"Böhler's angle — Thomas Steiner, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Lateral calcaneus with Böhler angle drawn. Vertex at the highest point of the posterior facet; arms to the anterior process and posterior tuberosity.",
-  hotspots:[{x:50,y:50,label:"Böhler angle vertex (posterior facet)",expl:"Normal Böhler 25–40°. < 20° means loss of calcaneal height — compression fracture. This image shows the normal measurement technique."}],
+  hotspots:[{x:50,y:50,label:"Böhler angle apex — posterior facet highest point",hint:"The peak of the angle drawn on the calcaneus",expl:"Böhler angle = line from anterior process highest point to posterior facet highest point, then to posterior tuberosity. Normal 20–40°."},
+{x:35,y:35,label:"Line 1: anterior process → posterior facet",hint:"The upper line of the drawn angle",expl:"First limb of Böhler's angle."},
+{x:65,y:75,label:"Line 2: posterior facet → posterior tuberosity",hint:"The lower line of the drawn angle",expl:"Second limb. A flattened angle (<20°) indicates calcaneal compression fracture with posterior facet collapse."}],
   ddx:["—"],
   pearls:["Böhler < 20° = compression fracture, not simple avulsion","CT for intra-articular extension; check spine/other heel in fall-from-height"],
   refs:["Calcaneal fracture measurements"], quizTag:"calcaneus",
@@ -302,7 +361,9 @@ REAL_CASES.push({
   img:"images/Gissane_angle.jpg", imgW:749, imgH:979,
   attr:"Gissane angle — Benoudina samir, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"Lateral calcaneus, Gissane angle drawn at the posterior facet. Normal 120–145°.",
-  hotspots:[{x:50,y:60,label:"Gissane angle vertex",expl:"Formed by the posterior facet and the anterior process. Increased (> 145°) in intra-articular calcaneal fractures with posterior facet depression."}],
+  hotspots:[{x:50,y:45,label:"Gissane (critical) angle apex",hint:"The angle drawn over the posterior facet region",expl:"Gissane angle between the downward slope of the anterior process and the upward slope of the posterior facet. Normal 120–145°."},
+{x:40,y:30,label:"Anterior (inferior) process slope",hint:"Front part of the calcaneus",expl:"Line along the anterior process — one limb of Gissane's angle."},
+{x:60,y:70,label:"Posterior facet slope",hint:"The back part of the calcaneus",expl:"Line along the posterior facet. Angle >130–145° suggests fracture through the posterior facet (intra-articular calcaneal fracture)."}],
   ddx:["—"],
   pearls:["Böhler + Gissane together assess calcaneal compression","CT defines articular step-off for surgery"],
   refs:["Calcaneal fracture measurements"], quizTag:"calcaneus",
@@ -314,7 +375,9 @@ REAL_CASES.push({
   img:"images/Calcaneal_pitch.jpg", imgW:2230, imgH:751,
   attr:"Calcaneal pitch — Mikael Häggström, via Wikimedia Commons, CC0",
   stem:"Weight-bearing lateral foot with calcaneal pitch drawn. Normal 18–25°; reduced in pes planus.",
-  hotspots:[{x:70,y:40,label:"Calcaneal pitch angle",expl:"Angle between the inferior calcaneal surface and the horizontal. 18–25° normal; < 18° suggests flatfoot (pes planus). Only valid on WB films."}],
+  hotspots:[{x:20,y:75,label:"Calcaneal pitch angle vertex",hint:"Where the two drawn lines meet at the back-bottom of the heel",expl:"Calcaneal pitch = angle between the floor and a line along the inferior calcaneus. Normal ~18–25°."},
+{x:50,y:60,label:"Inferior calcaneal line",hint:"The line along the bottom of the calcaneus",expl:"Low pitch (<18°) = flatfoot/pes planus; high pitch = pes cavus. Always quote WB status — pitch changes with loading."},
+{x:80,y:45,label:"Forefoot — assess Meary angle region",hint:"Midfoot arch region",expl:"On the WB lateral, also check Meary's angle (talar — 1st MT axis): normal ~0°, apex plantar = cavus, apex dorsal = flatfoot."}],
   ddx:["—"],
   pearls:["Pair with Meary's angle for arch assessment","Always measure on weight-bearing films"],
   refs:["Foot alignment angles (JAPMA)"], quizTag:"hallux",
@@ -326,13 +389,9 @@ REAL_CASES.push({
   img:"images/Accessory_sesamoid_DP.jpg", imgW:1219, imgH:2500,
   attr:"Accessory and sesamoid bones of the foot, dorsoplantar projection — Mikael Häggström, via Wikimedia Commons, CC0",
   stem:"DP foot showing many normal variants at once. Tap each one you can recognise — none of these are fractures.",
-  hotspots:[
-    {x:48,y:0,label:"Hallux (MTP) sesamoids",expl:"Two sesamoids under the 1st metatarsal head — normal. Bipartite (both corticated, often bilateral) is a variant, not a fracture."},
-    {x:45,y:0,label:"Accessory navicular",expl:"Corticated ossicle at the medial navicular (4–14%). Symptomatic = accessory navicular syndrome (PTT traction, often flatfoot)."},
-    {x:48,y:0,label:"Os peroneum",expl:"Round corticated ossicle in peroneus longus near the cuboid (5–11%; bipartite 30%, bilateral 60%)."},
-    {x:51,y:2,label:"Os intermetatarseum",expl:"Between 1st and 2nd metatarsal bases — rare variant; don't call it a fleck fracture."},
-    {x:47,y:3,label:"Os vesalianum",expl:"Small corticated ossicle at the 5th metatarsal base — vs avulsion fracture (which is jagged, non-corticated)."}
-  ],
+  hotspots:[{x:45,y:60,label:"Bipartite (accessory) medial sesamoid, 1st MTP",hint:"Under the 1st MTP joint head",expl:"Two ossified halves of the medial sesamoid — a normal variant, NOT a fracture. Fractures have irregular non-corticated edges; bipartite sesamoids are corticated and bilateral in ~25%."},
+{x:47,y:62,label:"Lateral sesamoid — normal single ossicle",hint:"Just beside the medial sesamoid",expl:"The lateral sesamoid is normally single — useful comparison."},
+{x:75,y:65,label:"Os peroneum at cuboid/5th MT base",hint:"Outer midfoot, near the cuboid",expl:"Accessory ossicle within the peroneus longus tendon — present in ~5–30%, usually asymptomatic; can fracture in lateral ankle injuries."}],
   ddx:["Avulsion fractures — jagged lucent lines, non-corticated margins"],
   pearls:["Rule of thumb: corticated + round = variant; jagged + lucent = fracture","Compare with the other foot; old films help"],
   refs:["Accessory ossicles (AJR 2019)"], quizTag:"ossicles",
@@ -344,10 +403,8 @@ REAL_CASES.push({
   img:"images/Accessory_sesamoid_lat.jpg", imgW:2500, imgH:1061,
   attr:"Accessory and sesamoid bones of the foot, lateral projection — Mikael Häggström, via Wikimedia Commons, CC0",
   stem:"Lateral foot showing os trigonum, os calcaneus secundarius and others. All corticated = normal variants.",
-  hotspots:[
-    {x:55,y:45,label:"Os trigonum region (posterior talus)",expl:"Corticated ossicle behind the talus — normal variant (7–10%). Os trigonum syndrome causes posterior impingement pain."},
-    {x:60,y:60,label:"Os calcaneus secundarius",expl:"Triangular corticated ossicle at the anterior calcaneus — mimics anterior process fracture. Fracture would be jagged and non-corticated."}
-  ],
+  hotspots:[{x:88,y:25,label:"Os trigonum — posterior to talus",hint:"Behind the back of the talus",expl:"Accessory ossicle behind the talus (unfused posterior talar process). Usually asymptomatic; can cause posterior ankle impingement (os trigonum syndrome) in plantarflexion."},
+{x:80,y:65,label:"Os peroneum — lateral midfoot",hint:"Outer border of the midfoot",expl:"Sesamoid within peroneus longus — differentiate from a fracture at the 5th MT base (Jones zone): ossicles are round/corticated, fractures are jagged."}],
   ddx:["Shepherd's fracture (lateral talar process) — jagged, acute","Anterior process calcaneal fracture — non-corticated"],
   pearls:["Same rule on lateral: corticated = variant","MRI if symptomatic ossicle (oedema at interface)"],
   refs:["Accessory ossicles (AJR 2019)"], quizTag:"ossicles",
@@ -359,11 +416,9 @@ REAL_CASES.push({
   img:"images/Normal_foot_oblique.jpg", imgW:1077, imgH:2029,
   attr:"X-ray of normal right foot by oblique projection — Mikael Häggström, via Wikimedia Commons, CC0",
   stem:"Normal oblique view — the best view for the tarsometatarsal (Lisfranc) joints. Check alignment here.",
-  hotspots:[
-    {x:35,y:45,label:"1st–2nd metatarsal base interval (Lisfranc)",expl:"Should be ≤ 2 mm and aligned. Widening here on WB films = Lisfranc injury."},
-    {x:55,y:35,label:"Cuboid",expl:"Lateral midfoot bone; check for cuboid fractures / os peroneum nearby."},
-    {x:45,y:25,label:"Navicular",expl:"Medial midfoot; the “N spot” for navicular stress fracture tenderness."}
-  ],
+  hotspots:[{x:55,y:35,label:"Lisfranc interval (1st–2nd TMT joint) — normal",hint:"Between the medial cuneiform and 2nd MT base",expl:"On this normal oblique view the 1st–2nd TMT interval is narrow and aligned — the oblique view opens the TMT joints and is the best plain-film check for Lisfranc injury."},
+{x:58,y:32,label:"2nd metatarsal base — medial border aligns with intermediate cuneiform",hint:"The base of the 2nd MT",expl:"The medial edge of the 2nd MT base should line up with the medial edge of the intermediate cuneiform — loss of this line = Lisfranc subluxation."},
+{x:75,y:40,label:"Cuboid & 5th MT base (Jones/avulsion zone)",hint:"Outer midfoot",expl:"Always include the 5th MT base on foot films — the classic site of avulsion (pseudo-Jones) and Jones fractures."}],
   ddx:["—"],
   pearls:["Oblique view opens the TMT joints — use it for suspected Lisfranc","WB oblique stress views can reveal instability"],
   refs:["Foot views guide"], quizTag:"lisfranc",
@@ -375,11 +430,9 @@ REAL_CASES.push({
   img:"images/Ankle_foot_DP_Dispe.jpg", imgW:1199, imgH:1980,
   attr:"Radiografia tibiotarsica, proiezione dorsoplantare — Dispe, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"AP ankle+foot. Identify the mortise, talar dome, distal fibula and the Lisfranc interval. (Lateral and oblique views of the same foot are also in this library.)",
-  hotspots:[
-    {x:50,y:25,label:"Ankle mortise / medial clear space",expl:"Medial clear space should be ≤ 6 mm and equal to the superior clear space. Widening = deltoid/syndesmotic injury."},
-    {x:70,y:20,label:"Distal fibula (lateral malleolus)",expl:"Check the cortex for fracture lines; on the mortise view the fibula should not overlap the talus."},
-    {x:50,y:50,label:"1st–2nd MT base interval",expl:"Lisfranc interval — compare both feet on WB films."}
-  ],
+  hotspots:[{x:50,y:25,label:"AP ankle view — mortise & medial clear space",hint:"Top portion of the composite",expl:"AP ankle: check the mortise, medial clear space (≤4 mm) and tibiofibular overlap."},
+{x:50,y:55,label:"Lateral view — tibiotalar joint & posterior talus",hint:"Middle portion",expl:"Lateral: tibiotalar congruity, posterior talus/calcaneus, os trigonum region."},
+{x:50,y:85,label:"Oblique/DP foot view — TMT (Lisfranc) interval",hint:"Bottom portion",expl:"Foot view: metatarsals, TMT joints (Lisfranc), 5th MT base — a complete ankle+foot series covers all three regions."}],
   ddx:["—"],
   pearls:["Three views minimum for trauma: AP/mortise, lateral, oblique","Check soft tissues for swelling/gas first"],
   refs:["Ankle series guide"], quizTag:"views",
@@ -391,11 +444,10 @@ REAL_CASES.push({
   img:"images/Ankle_foot_lat_Dispe.jpg", imgW:2336, imgH:2476,
   attr:"Radiografia tibiotarsica, proiezione laterale — Dispe, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"Lateral ankle+foot. Identify talar dome, calcaneus, navicular and midfoot. Use for Böhler/Gissane and arch angles.",
-  hotspots:[
-    {x:45,y:40,label:"Talar dome",expl:"Smooth; check for osteochondral lesions."},
-    {x:35,y:60,label:"Calcaneus body",expl:"Böhler angle 25–40° here; flattened = compression fracture."},
-    {x:50,y:45,label:"Navicular",expl:"Midfoot keystone; N-spot tenderness → navicular stress fracture (MRI)."}
-  ],
+  hotspots:[{x:55,y:30,label:"Tibiotalar joint — lateral view",hint:"Upper ankle region",expl:"Tibiotalar joint space and alignment on the lateral."},
+{x:55,y:45,label:"Posterior talus / os trigonum region",hint:"Behind the talus",expl:"Check for os trigonum and posterior impingement."},
+{x:35,y:65,label:"Calcaneal body — Bohler/Gissane region",hint:"The heel bone",expl:"Calcaneus: assess Böhler/Gissane angles if trauma suspected."},
+{x:30,y:75,label:"5th metatarsal base (Jones zone)",hint:"Outer forefoot base",expl:"5th MT base — include fully on every lateral foot film; Jones/avulsion fractures here."}],
   ddx:["—"],
   pearls:["Lateral view is where you measure Böhler, Gissane, calcaneal pitch, Meary","WB lateral for functional angles"],
   refs:["Lateral foot anatomy"], quizTag:"views",
@@ -407,7 +459,9 @@ REAL_CASES.push({
   img:"images/Syndesmosis_postop.jpg", imgW:356, imgH:368,
   attr:"2 years after syndesmosis surgery — Personalo, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Follow-up film 2 years after syndesmotic fixation for a high-ankle sprain. What was the injury and what does the film show?",
-  hotspots:[{x:50,y:45,label:"Syndesmosis region (distal tibiofibular joint)",expl:"High-ankle (syndesmotic) injuries disrupt the tibiofibular ligaments; unstable ones need screw fixation. On follow-up, check the tibiofibular clear space and medial clear space are restored."}],
+  hotspots:[{x:50,y:35,label:"Distal tibiofibular syndesmosis region",hint:"Between the distal tibia and fibula, above the talus",expl:"The syndesmosis (tibiofibular ligaments) stabilises the ankle mortise — the region injured in 'high ankle sprain' and fixed with a syndesmotic screw."},
+{x:50,y:60,label:"Medial clear space — check it is restored",hint:"Between medial malleolus and talus",expl:"On this follow-up film the medial clear space is normal (≤4 mm) — a sign the ankle mortise is stable after fixation."},
+{x:50,y:48,label:"Ankle mortise — congruent",hint:"The ankle joint itself",expl:"Tibiotalar joint congruent with no talar shift — compare with the acute injury films."}],
   ddx:["Isolated lateral ligament sprain — normal syndesmosis","Maisonneuve fracture — proximal fibula fracture with syndesmotic disruption"],
   pearls:["High ankle sprain: pain above the joint, worse with external rotation/squeeze","Normal X-ray does not exclude syndesmotic injury — stress views/MRI"],
   refs:["Syndesmotic injury"], quizTag:"ankle",
@@ -419,7 +473,8 @@ REAL_CASES.push({
   img:"images/Foot_xrays_pair.jpg", imgW:500, imgH:500,
   attr:"Foot x-rays — Hamelin de Guettelet, via Wikimedia Commons, Public domain",
   stem:"Foot radiograph for systematic practice: soft tissues → bones → joints → alignment → compare.",
-  hotspots:[{x:50,y:45,label:"Midfoot / metatarsal region",expl:"Run the systematic checklist here: cortices of each metatarsal, TMT joint alignment (Lisfranc line), joint spaces, alignment angles."}],
+  hotspots:[{x:40,y:45,label:"Midfoot / metatarsal region — run the systematic checklist",hint:"Central foot",expl:"Use this film for systematic practice: soft tissues → each cortex → joints → alignment (HVA/IMA/Meary) → compare views."},
+{x:70,y:60,label:"Calcaneus & subtalar joint",hint:"Heel region",expl:"Check the calcaneus, subtalar joint and Bohler region — then the whole film, not just the painful area."}],
   ddx:["—"],
   pearls:["Fixed order every time prevents misses","Check the whole film, not just the painful area"],
   refs:["Systematic reading checklist"], quizTag:"system",

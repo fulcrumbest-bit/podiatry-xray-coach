@@ -81,8 +81,8 @@ export function mastery(tag, QUIZ) {
 }
 export function overall(QUIZ) {
   const done = state.done.length / CASES.length;
-  const totalChecks = 24; // modules checklists
-  const dc = Object.values(state.checks).flat().filter(Boolean).length / totalChecks;
+  const moduleChecks = 40; // sum of all module checklist lengths
+  const dc = Math.min(1, Object.values(state.checks).flat().filter(Boolean).length / moduleChecks);
   const topics = [...new Set(CASES.map(c => c.quizTag).concat(QUIZ.map(q => q.tag)))];
   const tm = topics.reduce((n, t) => n + mastery(t, QUIZ), 0) / topics.length / 100;
   return done * .45 + dc * .2 + tm * .35;

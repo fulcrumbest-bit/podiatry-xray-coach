@@ -44,6 +44,16 @@ export const CURRICULUM = [
     ]
   },
   {
+    id: 'cap45', domain: 'Domain 4/5 — Trauma patterns & high-risk foot escalation',
+    capabilities: ['Weber/Maisonneuve recognition', 'Jones vs avulsion', 'Osteomyelitis vs Charcot', 'Urgent referral'],
+    items: [
+      { label: 'Classify ankle fractures Weber A/B/C; know stability checks (medial clear space, syndesmosis, talar shift)', ref: 'Weber classification; ACR acute ankle trauma variants', links: { quiz: 'ankle', cases: ['Trauma'] } },
+      { label: 'Recognise Maisonneuve (proximal fibula + syndesmosis) and Jones vs 5th-MT avulsion', ref: 'Trauma patterns; referral thresholds', links: { quiz: 'trauma' } },
+      { label: 'Work up suspected diabetic foot osteomyelitis: PTB + X-ray + ESR/CRP, MRI if doubt', ref: 'IWGDF/IDSA 2023 infection guideline', links: { quiz: 'dfi' } },
+      { label: 'Charcot stage 0 has a normal X-ray — never reassure on plain film alone', ref: 'IWGDF 2023 Charcot guideline; Eichenholtz staging', links: { quiz: 'charcot' } }
+    ]
+  },
+  {
     id: 'cap5', domain: 'Domain 5 — Reporting & communication',
     capabilities: ['Document findings, structured report, refer appropriately'],
     items: [

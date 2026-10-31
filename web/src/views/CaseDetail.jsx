@@ -59,7 +59,8 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
     const next = c.hotspots.findIndex((_, i) => !found[i]);
     if (next < 0) { toast('All findings already located.'); return; }
     setHintsUsed(h => h + 1);
-    toast(`Hint: look ${c.hotspots[next].hint || 'near the marked region'} — the marker is pulsing.`);
+    const h = c.hotspots[next];
+    toast(`Hint ${hintsUsed + 1}: ${h.hint || 'scan the region the marker indicates'}`);
   };
 
   const answer = (qi, oi) => {

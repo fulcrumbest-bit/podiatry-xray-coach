@@ -1,6 +1,7 @@
 import { Suspense, lazy, useCallback, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { useStore, patch } from './store.js';
+import { useStore, patch, overall } from './store.js';
+import { QUIZ } from './data/content.js';
 import { useInstallPrompt } from './pwa.js';
 import { Page, Toasts, Confetti, useToasts, Btn } from './ui.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -57,6 +58,9 @@ export default function App() {
               className="hidden rounded-full border border-white/10 bg-base-700/80 px-3 py-1.5 text-xs text-muted hover:border-sky-400/50 md:block">
               ⌘K
             </button>
+            <span className="hidden rounded-full border border-white/10 bg-base-700/80 px-3 py-1.5 text-xs text-muted md:block">
+              <b className="text-emerald-300">{Math.round(overall(QUIZ) * 100)}%</b> mastery
+            </span>
           </div>
         </header>
 

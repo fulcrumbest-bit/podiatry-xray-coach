@@ -30,11 +30,12 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
   const [reflection, setReflection] = useState('');
   const [finished, setFinished] = useState(() => s.done.includes(caseId));
 
-  const found = (c && s.found[caseId]) || {};
+  const found = (c && s.found[caseId]) || {}; // keyed by stable hotspot id
+  const foundById = (hid) => !!found[hid];
   const fixes = (c && s.hotspotFix[caseId]) || {};
-  const effHotspots = c ? c.hotspots.map((h, i) => (fixes[i] ? { ...h, ...fixes[i] } : h)) : [];
+  const effHotspots = c ? c.hotspots.map((h, i) => (fixes[h.hid] ? { ...h, ...fixes[h.hid] } : h)) : [];
   const [editMode, setEditMode] = useState(false);
-  const foundCount = Object.keys(found).length;
+  const foundCount = effHotspots.filter(h => found[h.hid]).length;
   const report = (c && s.reports[caseId]) || '';
   const caseQuiz = useMemo(() => (c ? QUIZ.filter(q => q.tag === c.quizTag).slice(0, mode === 'exam' ? 5 : 3) : []), [c, mode]);
   const linkedModule = useMemo(() => {
@@ -48,18 +49,19 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
   const allAnswered = caseQuiz.length > 0 && caseQuiz.every((_, qi) => answered[qi] !== undefined);
 
   const reveal = (i) => {
-    if (found[i]) return;
-    patchDeep('found', { [caseId]: { ...found, [i]: true } });
+    const hid = effHotspots[i].hid;
+    if (found[hid]) return;
+    patchDeep('found', { [caseId]: { ...found, [hid]: true } });
     addXp(XP.hotspot, 'hotspot');
     toast(`Finding located: ${c.hotspots[i].label} (+${XP.hotspot} XP)`);
-    if (Object.keys({ ...found, [i]: true }).length === c.hotspots.length) {
+    if (Object.keys({ ...found, [hid]: true }).length === effHotspots.length) {
       awardBadge('all_' + caseId, 'Full sweep', `Found every finding in “${c.title}”`);
       toast('All findings located — nice systematic sweep.');
     }
   };
 
   const hint = () => {
-    const next = c.hotspots.findIndex((_, i) => !found[i]);
+    const next = effHotspots.findIndex((h) => !found[h.hid]);
     if (next < 0) { toast('All findings already located.'); return; }
     setHintsUsed(h => h + 1);
     const h = c.hotspots[next];
@@ -152,8 +154,8 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
             <div>
               <Viewer
                 img={img} imgW={c.imgW} imgH={c.imgH}
-                hotspots={effHotspots} found={found} onReveal={reveal}
-                onMoveHotspot={editMode ? (i, x, y) => moveHotspot(caseId, i, x, y) : undefined}
+                hotspots={effHotspots} found={Object.fromEntries(effHotspots.map((h,i)=>[i, !!found[h.hid]]))} onReveal={reveal}
+                onMoveHotspot={editMode ? (i, x, y) => moveHotspot(caseId, effHotspots[i].hid, x, y) : undefined}
                 showHotspots={showHotspots && (mode === 'guided' || editMode)}
                 tools={{
                   loupe: tools.loupe, measure: tools.measure,
@@ -165,7 +167,7 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
               {cmpImg && (
                 <div className="mt-4">
                   <div className="mb-1.5 text-xs font-bold uppercase tracking-wide text-muted">Comparison view</div>
-                  <Viewer img={cmpImg} imgW={c.imgW} imgH={c.imgH} hotspots={[]} found={{}} onReveal={() => {}} showHotspots={false}
+                  <Viewer img={cmpImg} imgW={c.compareW || c.imgW} imgH={c.compareH || c.imgH} hotspots={[]} found={{}} onReveal={() => {}} showHotspots={false}
                     tools={{ loupe: false, measure: false, toggleLoupe: () => {}, toggleMeasure: () => {}, toggleHotspots: () => {} }} />
                 </div>
               )}
@@ -183,18 +185,18 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
                 </div>
                 <ProgressBar value={c.hotspots.length ? foundCount / c.hotspots.length * 100 : 0} className="mb-3" />
                 <div className="space-y-2">
-                  {c.hotspots.map((h, i) => (
-                    <div key={i} className={`rounded-xl border p-3 text-[13px] transition-colors ${found[i] ? 'border-emerald-400/40 bg-emerald-500/10' : 'border-white/10 bg-base-700/60'}`}>
+                  {effHotspots.map((h, i) => (
+                    <div key={h.hid} className={`rounded-xl border p-3 text-[13px] transition-colors ${found[h.hid] ? 'border-emerald-400/40 bg-emerald-500/10' : 'border-white/10 bg-base-700/60'}`}>
                       <div className="flex items-center gap-2 font-bold">
-                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] ${found[i] ? 'bg-emerald-400 text-base-950' : 'bg-sky-400/30 text-sky-200'}`}>{found[i] ? '✓' : i + 1}</span>
-                        {found[i] ? h.label : (mode === 'exam' ? 'Hidden in exam mode — find it on the film' : 'Undiscovered finding — tap the pulsing marker on the film')}
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] ${found[h.hid] ? 'bg-emerald-400 text-base-950' : 'bg-sky-400/30 text-sky-200'}`}>{found[h.hid] ? '✓' : i + 1}</span>
+                        {found[h.hid] ? h.label : (mode === 'exam' ? 'Hidden in exam mode — find it on the film' : 'Undiscovered finding — tap the pulsing marker on the film')}
                       </div>
-                      {found[i] && <p className="mt-1.5 leading-relaxed text-ink/85">{h.expl}</p>}
+                      {found[h.hid] && <p className="mt-1.5 leading-relaxed text-ink/85">{h.expl}</p>}
                     </div>
                   ))}
                 </div>
-                <Btn className="mt-3 w-full" onClick={() => setStep(1)} disabled={mode === 'guided' && foundCount === 0}>
-                  {mode === 'guided' && foundCount === 0 ? 'Locate at least one finding to continue' : 'Continue to case questions →'}
+                <Btn className="mt-3 w-full" onClick={() => setStep(1)} disabled={mode === 'guided' && foundCount === 0 && effHotspots.length > 0}>
+                  {mode === 'guided' && foundCount === 0 && effHotspots.length > 0 ? 'Locate at least one finding to continue' : 'Continue to case questions →'}
                 </Btn>
               </Card>
               {linkedModule && (

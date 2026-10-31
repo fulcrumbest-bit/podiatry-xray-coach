@@ -53,4 +53,7 @@ export function useCompareImage(c) {
   return src;
 }
 
-export const CASES = REAL_CASES;
+export const CASES = REAL_CASES.map(c => ({
+  ...c,
+  hotspots: c.hotspots.map((h, i) => ({ ...h, hid: c.id + '-' + i, r: h.r || (h.label.toLowerCase().includes('os ') || h.label.toLowerCase().includes('sesamoid') || h.label.toLowerCase().includes('ossicle') ? 0.02 : 0.035) }))
+}));

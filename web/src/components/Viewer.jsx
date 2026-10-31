@@ -139,6 +139,16 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
     if (used) { e.preventDefault(); setView(v); apply(v); }
   };
 
+  // image-space point: percentages -> the 800-wide internal image coordinates
+  const toImg = (p) => ({ x: p.x / 100 * W, y: p.y / 100 * H });
+  function internalAngleDeg(A, B, C) {
+    const a = toImg(A), b = toImg(B), c = toImg(C);
+    const u = { x: a.x - b.x, y: a.y - b.y }, v = { x: c.x - b.x, y: c.y - b.y };
+    const den = Math.hypot(u.x, u.y) * Math.hypot(v.x, v.y);
+    if (den < 1e-9) return null; // coincident points
+    return Math.acos(Math.max(-1, Math.min(1, (u.x * v.x + u.y * v.y) / den))) * 180 / Math.PI;
+  }
+
   function handleTap(e) {
     const p = toPct(e);
     if (tools.measure) {
@@ -146,16 +156,32 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
       setMpts(pts);
       if (pts.length === 3) {
         const [A, B, C] = pts;
-        const v1 = { x: A.x - B.x, y: A.y - B.y }, v2 = { x: C.x - B.x, y: C.y - B.y };
-        const ang = Math.acos(Math.max(-1, Math.min(1, (v1.x * v2.x + v1.y * v2.y) / (Math.hypot(v1.x, v1.y) * Math.hypot(v2.x, v2.y) || 1)))) * 180 / Math.PI;
-        setAngle(ang);
+        const internal = internalAngleDeg(A, B, C);
+        // B\u00f6hler-style acute angle = supplement of the large internal angle at the vertex;
+        // Gissane-style uses the internal angle itself. Show both, labelled.
+        const acute = internal === null ? null : Math.min(internal, 180 - internal);
+        setAngle(internal === null ? null : { internal, acute });
         setMpts([]);
       }
       return;
     }
+    // hit test in image pixels: dx=(t.x-p.x)*W/100 etc.; per-marker radius (default 3.5% of min(W,H), ossicle-scale markers smaller)
+    const pi = toImg(p);
     let best = -1, bd = 1e9;
-    hotspots.forEach((h, i) => { if (found[i]) return; const d = Math.hypot(h.x - p.x, h.y - p.y); if (d < bd) { bd = d; best = i; } });
-    if (best >= 0 && bd <= 12) onReveal(best);
+    hotspots.forEach((h, i) => {
+      if (found[i]) return;
+      const hi = toImg(h);
+      const d = Math.hypot(hi.x - pi.x, hi.y - pi.y);
+      const r = (h.r || 0.035) * Math.min(W, H); // fraction of min image dimension
+      if (d < bd) { bd = d; best = i; }
+      if (d <= r && bd > r) {} // noop; nearest within radius wins below
+    });
+    if (best >= 0) {
+      const h = hotspots[best];
+      const hi = toImg(h);
+      const r = (h.r || 0.035) * Math.min(W, H);
+      if (bd <= r) onReveal(best);
+    }
   }
 
   const filter = `brightness(${wl}%) contrast(100%)${invert ? ' invert(1)' : ''}`;
@@ -189,7 +215,7 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
               onClick={(e) => { e.stopPropagation(); if (dragHs !== null) return; onReveal(i); }}
               onPointerDown={onMoveHotspot ? (e) => onHotspotPointerDown(e, i) : undefined}
               title={onMoveHotspot ? 'Drag to correct this marker\u2019s position' : undefined}
-              className={`absolute z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-sm font-extrabold transition-transform ${
+              className={`absolute z-10 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-[11px] font-extrabold transition-transform ${
                 dragHs === i ? 'scale-125 border-2 border-amber-300 bg-amber-400 text-base-950 shadow-[0_0_16px_rgba(251,191,36,.8)]'
                 : found[i]
                   ? 'border-2 border-emerald-300 bg-emerald-400 text-base-950 shadow-[0_0_14px_rgba(52,211,153,.7)]'
@@ -213,9 +239,11 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
               style={{ left: `${p.x}%`, top: `${p.y}%` }} />
           ))}
         </div>
-        {angle !== null && (
+        {angle !== null && angle !== undefined && (
           <span className="absolute left-1/2 top-[8%] z-20 -translate-x-1/2 whitespace-nowrap rounded-lg border border-amber-400/70 bg-amber-950/95 px-2 py-1 font-mono text-xs text-amber-200">
-            ∠ {angle.toFixed(1)}° — R to clear
+            {angle && angle.internal !== null && angle.internal !== undefined
+              ? <>∠ internal {angle.internal.toFixed(1)}° · acute {angle.acute.toFixed(1)}° — R to clear</>
+              : 'coincident points — angle undefined, R to clear'}
           </span>
         )}
         {tools.loupe && loupe && img && (

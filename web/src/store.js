@@ -13,7 +13,7 @@ const defaults = () => ({
   checks: {},        // moduleId -> [bool]
   found: {},         // caseId -> {hotspotIndex: true}
   reports: {},       // caseId -> user's report text
-  hotspotFix: {},    // caseId -> {hotspotIndex: {x, y}} user-corrected marker positions
+  hotspotFix: {},    // caseId -> {hotspotId: {x, y}} user-corrected marker positions (stable ids)
   screen: null
 });
 
@@ -88,8 +88,8 @@ export function overall(QUIZ) {
   const tm = topics.reduce((n, t) => n + mastery(t, QUIZ), 0) / topics.length / 100;
   return done * .45 + dc * .2 + tm * .35;
 }
-export function moveHotspot(caseId, idx, x, y) {
-  patchDeep('hotspotFix', { [caseId]: { ...(state.hotspotFix[caseId] || {}), [idx]: { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 } } });
+export function moveHotspot(caseId, hid, x, y) {
+  patchDeep('hotspotFix', { [caseId]: { ...(state.hotspotFix[caseId] || {}), [hid]: { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 } } });
 }
 export function exportFixes() {
   return JSON.stringify(state.hotspotFix, null, 1);

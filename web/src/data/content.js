@@ -22,7 +22,7 @@ export const MODULES=[
  <li><b>Alignment &amp; measurements</b> — HVA, IMA, Meary, calcaneal pitch, Böhler, Gissane, medial clear space.</li>
  <li><b>Comparison</b> — other side / prior films; the whole film, not just the painful area.</li>
  <li><b>Report</b> — indication/technique → findings → impression → recommendations.</li></ol>
- <div class="callout warn"><b>Classic misses:</b> Lisfranc (1st–2nd MT base widening on WB films), syndesmotic injury (medial clear space &gt; 6 mm), navicular stress fracture (“N spot”), talar lateral process fracture, ossicles mistaken for fractures. A normal X-ray does not exclude ligament injury or early osteomyelitis.</div>
+ <div class="callout warn"><b>Classic misses:</b> Lisfranc (1st–2nd MT base widening on WB films), syndesmotic injury (medial clear space &gt; 4 mm), navicular stress fracture (“N spot”), talar lateral process fracture, ossicles mistaken for fractures. A normal X-ray does not exclude ligament injury or early osteomyelitis.</div>
  <h3>Structured reporting</h3>
  <p>Model your report: <b>technique</b> (views, WB/NWB) → <b>findings</b> (systematic, descriptive, no diagnosis words) → <b>impression</b> (numbered, most important first) → <b>recommendations</b>. Never put a diagnosis in the impression that is not in the findings.</p>`,
  checklist:["I use the same fixed order every time","I check soft tissues first","I measure alignment, not just look","I compare with the other side / prior films","I write findings before impression"]},
@@ -30,7 +30,7 @@ export const MODULES=[
  summary:"The measurements podiatrists quote: HVA, IMA, Meary, calcaneal pitch, Böhler, Gissane, Kite, medial clear space.",
  html:`<h2>Measurements you must know</h2>
  <table class="ref"><tr><th>Measurement</th><th>View</th><th>Normal</th><th>Used for</th></tr>
- <tr><td>Hallux valgus angle (HVA)</td><td>WB AP/DP</td><td>&lt; 15°</td><td>Bunion severity: mild 15–25°, moderate 25–40°, severe &gt; 40°</td></tr>
+ <tr><td>Hallux valgus angle (HVA)</td><td>WB AP/DP</td><td>&lt; 15°</td><td>Bunion severity (Coughlin/Mann): mild &lt; 20°, moderate 20–40°, severe &gt; 40° (IMA &lt; 11 / 11–16 / &gt; 16°)</td></tr>
  <tr><td>Intermetatarsal angle (IMA 1–2)</td><td>WB AP/DP</td><td>&lt; 9°</td><td>Hallux valgus, metatarsus primus varus</td></tr>
  <tr><td>Meary's angle (talo–1st MT)</td><td>WB lateral</td><td>≈ 0°</td><td>Pes planus (&gt; 4° convex down) vs cavus</td></tr>
  <tr><td>Calcaneal pitch</td><td>WB lateral</td><td>18–25°</td><td>Arch height; reduced in flatfoot</td></tr>
@@ -38,13 +38,13 @@ export const MODULES=[
  <tr><td>Gissane (critical) angle</td><td>Lateral calcaneus</td><td>120–145°</td><td>Increased with posterior facet depression</td></tr>
  <tr><td>Medial clear space</td><td>Mortise</td><td>≤ 6 mm, = superior clear space</td><td>Deltoid/syndesmotic injury — instability</td></tr></table>
  <div class="callout"><b>Technique matters:</b> alignment angles are only valid on <b>weight-bearing</b> films. Rotation changes the measurement — always use the standardised view.</div>`,
- checklist:["I can name normal ranges for HVA, IMA, Meary, calcaneal pitch, Böhler, Gissane, medial clear space","I know which view each measurement needs","I know these require WB films","I know the instability thresholds (medial clear space &gt; 6 mm)"]},
+ checklist:["I can name normal ranges for HVA, IMA, Meary, calcaneal pitch, Böhler, Gissane, medial clear space","I know which view each measurement needs","I know these require WB films","I know the instability threshold (medial clear space &gt; 4 mm on mortise)"]},
 {id:"m4",title:"4 · When to image: Ottawa rules & requesting",time:"10 min",tag:"Applied",
  summary:"Clinical decision rules that reduce unnecessary radiography, and how podiatrists request imaging in Australia.",
  html:`<h2>Ottawa ankle rules (sensitivity ~100%)</h2>
  <ul class="tight"><li><b>Ankle X-ray</b> only if malleolar-zone pain <b>AND</b> any of: bony tenderness distal 6 cm posterior edge/tip of lateral malleolus; same for medial malleolus; inability to bear weight 4 steps immediately and in clinic.</li>
  <li><b>Foot X-ray</b> only if midfoot-zone pain <b>AND</b> any of: tenderness at 5th MT base; tenderness at navicular; inability to bear weight 4 steps.</li>
- <li>Validated in children &gt; 6 (98.5% sensitivity). Exclusions: pregnancy, intoxication, head injury, injuries &gt; 10 days old; calcaneal body not covered by the midfoot rule.</li></ul>
+ <li>Validated in children ≥ 5 y (98.5% sensitivity in > 6 y cohorts). Exclusions: pregnancy, intoxication/altered mental status, head injury, multiple painful injuries, diminished sensation/neuropathy, > 10 days post-injury.</li></ul>
  <h2>Ottawa knee rules</h2>
  <p>Knee X-ray after acute injury if any of: age ≥ 55; isolated patellar tenderness; fibular head tenderness; cannot flex to 90°; cannot bear weight 4 steps.</p>
  <h2>Requesting imaging (Australia)</h2>
@@ -53,13 +53,13 @@ export const MODULES=[
  <li>Podiatrist CT/MRI referrals are generally <b>not</b> MBS-rebatable; refer via a medical practitioner for advanced imaging.</li></ul>`,
  checklist:["I can apply the Ottawa ankle and foot rules","I know the common exclusions","I can write a useful imaging request with a clinical question","I know which MBS items podiatrists can request"]},
 {id:"m5",title:"5 · Pitfalls: normal variants & accessory ossicles",time:"10 min",tag:"Intermediate",
- summary:"The classic trap: mistaking a normal ossicle for a fracture. ~2.7% of accessory ossicles are misdiagnosed as avulsion fractures.",
+ summary:"The classic trap: mistaking a normal ossicle for a fracture. a notable minority of accessory ossicles get misdiagnosed as avulsion fractures.",
  html:`<h2>Know these before you call a fracture</h2>
  <table class="ref"><tr><th>Variant</th><th>Where</th><th>Clue it is normal</th><th>Common confusion</th></tr>
- <tr><td>Os trigonum (7–10%)</td><td>Posterior talus, lateral</td><td>Oval, fully corticated</td><td>Shepherd's fracture (lateral talar process)</td></tr>
+ <tr><td>Os trigonum (~7–25%)</td><td>Posterior talus, lateral</td><td>Oval, fully corticated</td><td>Shepherd's fracture (lateral talar process)</td></tr>
  <tr><td>Accessory navicular (4–14%)</td><td>Medial navicular, DP/oblique</td><td>Round, corticated, often bilateral</td><td>Navicular tuberosity avulsion</td></tr>
- <tr><td>Os peroneum (5–11%)</td><td>In peroneus longus tendon, lateral foot</td><td>Corticated; bipartite 30%, bilateral 60%</td><td>Cuboid fracture</td></tr>
- <tr><td>Bipartite sesamoid (10–30%)</td><td>Medial hallux sesamoid</td><td>Two parts, <b>both</b> corticated, bilateral</td><td>Sesamoid fracture</td></tr>
+ <tr><td>Os peroneum (~5–30%)</td><td>In peroneus longus tendon, lateral foot</td><td>Corticated; bipartite 30%, bilateral 60%</td><td>Cuboid fracture</td></tr>
+ <tr><td>Bipartite sesamoid (~10–30%, bilateral ~60–80%)</td><td>Medial hallux sesamoid</td><td>Two parts, <b>both</b> corticated, bilateral</td><td>Sesamoid fracture</td></tr>
  <tr><td>Os calcaneus secundarius</td><td>Anterior calcaneus, oblique</td><td>Triangular, corticated</td><td>Anterior process fracture</td></tr>
  <tr><td>Os vesalianum</td><td>5th MT base</td><td>Small, corticated</td><td>Avulsion fracture</td></tr></table>
  <div class="callout warn"><b>Rule of thumb:</b> acute fracture lines are <b>lucent and jagged with non-corticated margins</b>; ossicles are <b>round/oval with a smooth cortical rim</b>. In doubt: compare the other side, check old films, CT/MRI.</div>`,
@@ -86,12 +86,12 @@ export const MODULES=[
  <li><b>Step 1 — check the study:</b> WB DP both feet. Adequate? Both feet included for comparison — yes.</li>
  <li><b>Step 2 — soft tissues:</b> swelling over the midfoot; no gas, no foreign body.</li>
  <li><b>Step 3 — bones:</b> follow each metatarsal cortex from head to base. No cortical break on the metatarsals themselves.</li>
- <li><b>Step 4 — joints & alignment:</b> at the tarsometatarsal joints, the 1st–2nd intermetatarsal interval is widened on the affected side (> 2 mm) and the medial 2nd MT base is not aligned with the intermediate cuneiform.</li>
+ <li><b>Step 4 — joints & alignment:</b> at the tarsometatarsal joints, the C1–M2 gap is widened (> 2 mm) and the medial border of the 2nd MT base is not aligned with the medial border of the intermediate cuneiform.</li>
  <li><b>Step 5 — measurements:</b> interval widening is the measurement here; angles less relevant acutely.</li>
  <li><b>Step 6 — impression:</b> Lisfranc ligament disruption with tarsometatarsal subluxation.</li>
  <li><b>Step 7 — recommend:</b> orthopaedic referral if unstable; CT if comminution; compare WB views.</li></ol>
  <div class="callout"><b>Now you try:</b> open case r1 and work the same 7 steps yourself before revealing the answer.</div>`,
- checklist:["I can run the 7-step read on a real film unaided","I know what makes a WB DP both-feet study adequate","I know the >2 mm Lisfranc threshold"]},
+ checklist:["I can run the 7-step read on a real film unaided","I know what makes a WB DP both-feet study adequate","I know the >2 mm C1–M2 Lisfranc threshold"]},
 {id:"m8",title:"8 · Paediatric foot & growth-plate pitfalls",time:"10 min",tag:"Paediatric",
  summary:"Apophysitis vs fracture in children: Sever's, Köhler's, Freiberg's, Mueller-Weiss, tarsal coalition.",
  html:`<h2>Paediatric foot X-ray pitfalls</h2>
@@ -139,17 +139,17 @@ export const MODULES=[
 
 export const QUIZ=[
 {q:"A 28-year-old twists her ankle playing netball: midfoot pain, no malleolar pain, tender at the 5th metatarsal base, can bear weight 4 steps. Ottawa foot rules say:",opts:["No X-ray needed","Foot X-ray series","Ankle X-ray series only","Knee X-ray"],a:1,tag:"ottawa",expl:"Midfoot pain + 5th-MT-base tenderness = foot X-ray. Weight-bearing ability does not override tenderness."},
-{q:"Ottawa ankle rules are best described as:",opts:["High sensitivity, moderate specificity — a rule-out tool","High specificity, low sensitivity","100% sensitive and 100% specific","Only valid over 55"],a:0,tag:"ottawa",expl:"~100% sensitivity, modest specificity; cuts imaging 30–40%. Validated in children > 6."},
-{q:"Which MBS item covers a podiatrist-requested X-ray of foot/ankle/leg/femur?",opts:["57521","57523","55834","63311"],a:0,tag:"mbs",expl:"57521 = foot/ankle/femur/leg; 57523 = knee; 57527 = combined; 55834/55835 = ultrasound; 63311 = MRI (not podiatrist-rebatable)."},
+{q:"Ottawa ankle rules are best described as:",opts:["High sensitivity, moderate specificity — a rule-out tool","High specificity, low sensitivity","100% sensitive and 100% specific","Only valid over 55"],a:0,tag:"ottawa",expl:"~100% sensitivity, modest specificity; cuts imaging ~30–40%. Validated in children ≥ 5–6 y."},
+{q:"Which MBS item covers a podiatrist-requested X-ray of the FOOT, ANKLE, LEG or FEMUR?",opts:["57521","57523","55834","63311"],a:0,tag:"mbs",expl:"57521 = foot/ankle/leg/femur; 57523 = KNEE; 57527 = combined regions (foot+ankle, ankle+leg, knee+leg/femur); 55834/55835/55840 = ultrasound; CT/MRI (e.g. 63311) not podiatrist-rebatable."},
 {q:"Transverse fracture at the metaphyseal–diaphyseal junction of the 5th MT base =",opts:["Jones fracture","Avulsion (pseudo-Jones)","Dancer's fracture","Stress fracture"],a:0,tag:"trauma",expl:"Jones = junction, intra-articular, non-union risk. Avulsion = tuberosity, extra-articular."},
 {q:"5th-MT tuberosity avulsion is caused by pull of:",opts:["Peroneus brevis + plantar aponeurosis","Extensor digitorum longus","Flexor hallucis longus","Achilles"],a:0,tag:"trauma",expl:"Peroneus brevis inserts on the tuberosity; plantar aponeurosis also attaches."},
-{q:"WB AP foot film: widening > 2 mm between 1st and 2nd MT bases suggests:",opts:["Lisfranc ligament injury","Normal variant","Hallux valgus","Pes cavus"],a:0,tag:"lisfranc",expl:"Lisfranc ligament connects medial cuneiform to 2nd MT base. Also look for the fleck sign and cuneiform–2nd MT malalignment."},
+{q:"WB AP foot film: C1–M2 gap > 2 mm (or M1–M2 diastasis) suggests:",opts:["Lisfranc ligament injury","Normal variant","Hallux valgus","Pes cavus"],a:0,tag:"lisfranc",expl:"Lisfranc ligament connects medial cuneiform to 2nd MT base. Also look for the fleck sign and cuneiform–2nd MT malalignment."},
 {q:"The “fleck sign” in Lisfranc injury is:",opts:["Avulsion fragment at the Lisfranc interval","Medial malleolus fracture","A gout sign","Soft-tissue gas"],a:0,tag:"lisfranc",expl:"Pathognomonic ossific fleck between medial cuneiform and 2nd MT base."},
-{q:"Normal HVA on a WB AP film is:",opts:["< 15°","< 30°","< 45°","< 9°"],a:0,tag:"hallux",expl:"HVA < 15° normal; IMA < 9° normal. Mild 15–25°, moderate 25–40°, severe > 40°."},
+{q:"Normal HVA on a WB AP film is:",opts:["< 15°","< 30°","< 45°","< 9°"],a:0,tag:"hallux",expl:"HVA < 15° normal; IMA < 9° normal. Severity (Coughlin/Mann): mild HVA < 20°, moderate 20–40°, severe > 40°."},
 {q:"Hallux rigidus on X-ray typically shows:",opts:["Dorsal osteophyte + 1st MTP joint space narrowing","Widened 1st MTP joint","Overhanging-edge erosions","No bony change"],a:0,tag:"oa",expl:"1st MTP OA: dorsal osteophyte blocks dorsiflexion. Gout = punched-out erosions with overhanging edges."},
-{q:"Böhler angle 15° on a lateral calcaneal film indicates:",opts:["Compression fracture (flattened; normal 25–40°)","Normal calcaneus","Sever's disease","Avulsion only"],a:0,tag:"calcaneus",expl:"Böhler 25–40° normal; < 20° = height loss from compression. CT for articular extent."},
+{q:"Böhler angle 15° on a lateral calcaneal film indicates:",opts:["Compression fracture (flattened; normal 25–40°)","Normal calcaneus","Sever's disease","Avulsion only"],a:0,tag:"calcaneus",expl:"Böhler normal 20–40° (25–40° also quoted); < 20° = height loss from compression fracture. CT for articular extent."},
 {q:"Gissane angle > 145° suggests:",opts:["Posterior facet depression in intra-articular calcaneal fracture","Normal calcaneus","Os trigonum","Ankle sprain"],a:0,tag:"calcaneus",expl:"Gissane (critical) angle 120–145° normal; increased with posterior facet depression."},
-{q:"Oval fully-corticated ossicle posterior to the talus on lateral ankle = most likely:",opts:["Os trigonum","Shepherd's fracture","OA loose body","Achilles avulsion"],a:0,tag:"ossicles",expl:"Os trigonum in 7–10%. Shepherd's = jagged non-corticated lateral talar process fragment."},
+{q:"Oval fully-corticated ossicle posterior to the talus on lateral ankle = most likely:",opts:["Os trigonum","Shepherd's fracture","OA loose body","Achilles avulsion"],a:0,tag:"ossicles",expl:"Os trigonum in ~7–25% of adults (reported 1.7–32.5%). Shepherd's = jagged non-corticated lateral talar process fragment."},
 {q:"Bipartite sesamoid vs sesamoid fracture — the distinguishing feature:",opts:["Both parts corticated in bipartite; fracture margins are not","Location under 5th MTP","Size > 2 cm","Soft-tissue swelling"],a:0,tag:"ossicles",expl:"Bipartite: both fragments have smooth cortical rims, often bilateral (10–30%). Fracture: lucent jagged line."},
 {q:"Accessory navicular prevalence ≈",opts:["4–14%","< 1%","50%","90%"],a:0,tag:"ossicles",expl:"4–14%; can cause symptomatic accessory navicular syndrome via the posterior tibial tendon, often with flatfoot."},
 {q:"IWGDF/IDSA 2023 initial bundle for suspected diabetic foot osteomyelitis:",opts:["Probe-to-bone + plain X-ray + ESR/CRP (± PCT)","MRI first always","Bone biopsy first","X-ray alone"],a:0,tag:"dfi",expl:"PTB + X-ray + markers first; MRI when doubt remains; plain film insensitive in first 2–3 weeks."},
@@ -159,7 +159,7 @@ export const QUIZ=[
 {q:"Soft-tissue gas on a foot X-ray is:",opts:["Surgical emergency (necrotising infection)","Normal","Gout sign","Artefact"],a:0,tag:"dfi",expl:"Gas in soft tissues = necrotising fasciitis until proven otherwise — urgent debridement."},
 {q:"WB films matter because:",opts:["Angles (HVA, IMA, Meary, calcaneal pitch) change with loading","Less radiation","Better soft tissue","Required for rebate"],a:0,tag:"views",expl:"WB shows functional alignment; NWB under-reports deformity and Lisfranc instability."},
 {q:"Mortise view ≈",opts:["15–20° internal rotation","45° external rotation","No rotation","Full plantarflexion"],a:0,tag:"views",expl:"15–20° internal rotation opens the mortise so the lateral malleolus doesn't overlap the talus."},
-{q:"Medial clear space > 6 mm on mortise view suggests:",opts:["Syndesmotic/deltoid disruption — unstable ankle","Normal ankle","Lateral ligament sprain only","OA"],a:0,tag:"ankle",expl:"Widened medial or tibiofibular clear space > 6 mm = unstable; consider Maisonneuve — image the leg."},
+{q:"Medial clear space > 4 mm on a mortise view suggests:",opts:["Deltoid disruption / lateral talar shift — unstable ankle","Normal ankle","Lateral ligament sprain only","OA"],a:0,tag:"ankle",expl:"Normal medial clear space is <= 4 mm and should not exceed the superior clear space. Widening = deltoid disruption; consider Maisonneuve — image the whole fibula."},
 {q:"Comminuted intra-articular calcaneal fracture after fall from height →",opts:["CT for surgical planning + check bilateral injury and lumbar spine","Symptomatic care only","MRI ankle","No further imaging"],a:0,tag:"calcaneus",expl:"~10% bilateral; axial-load lumbar injuries common. CT defines posterior facet involvement."},
 {q:"In the systematic checklist, assess soft tissues first because:",opts:["Gas, foreign bodies, swelling change urgency and differential","Bones are easier to see","It is faster","Joints depend on it"],a:0,tag:"system",expl:"Soft-tissue gas = emergency; foreign bodies/swelling alter the differential before you read bones."},
 {q:"Structured radiology reporting means:",opts:["Technique → findings → impression → recommendations; no impression-only diagnoses","Writing fast","Only abnormal findings","Skipping technique"],a:0,tag:"system",expl:"Findings describe; impression concludes. Never a diagnosis in the impression that isn't in the findings."},
@@ -174,7 +174,7 @@ export const QUIZ=[
 {q:"Mueller-Weiss differs from Kohler's because:",opts:["It occurs in adults (spontaneous navicular osteonecrosis)","It is an apophysitis","It always needs surgery","It affects the calcaneus"],a:0,tag:"ossicles",expl:"Adult spontaneous navicular osteonecrosis with lateral compression — different population and prognosis."},
 {q:"Tarsal coalition is best confirmed on:",opts:["CT (bony coalition)","Plain X-ray alone","MRI","Ultrasound"],a:0,tag:"ossicles",expl:"Anteater-nose sign (calcaneonavicular, oblique) and C-sign (talocalcaneal, lateral) on plain films; CT confirms."},
 {q:"Rigid flatfoot with peroneal spasm in a 13-year-old suggests:",opts:["Tarsal coalition","Sever's disease","Normal variant","Flexible pes planus"],a:0,tag:"ossicles",expl:"Classic presentation of tarsal coalition — get CT."},
-{q:"Lisfranc injury on WB films: the key measurement is:",opts:["1st-2nd intermetatarsal interval > 2 mm","HVA > 15 deg","Medial clear space > 6 mm","Bohler < 20 deg"],a:0,tag:"lisfranc",expl:"Widening at the Lisfranc interval = ligament disruption."},
+{q:"Lisfranc injury on WB films: the key measurement is:",opts:["C1–M2 gap > 2 mm (M1–M2 diastasis also used)","HVA > 15 deg","Medial clear space > 4 mm","Bohler < 20 deg"],a:0,tag:"lisfranc",expl:"C1–M2 > 2 mm + loss of 2nd MT–middle cuneiform alignment = ligament disruption."},
 {q:"Gout vs OA at the 1st MTP on X-ray:",opts:["Gout = punched-out erosions with overhanging edges, joint space preserved early; OA = narrowing + dorsal osteophyte","Gout = joint space narrowing","OA = erosions","They look identical"],a:0,tag:"oa",expl:"Erosions with overhanging edges and preserved space = gout; narrowing + dorsal spur = OA."}
 ,
 {q:"A 45-year-old with diabetes and a neuropathic ulcer has probe-to-bone positive and X-ray showing cortical erosion at the 1st MT head. IWGDF/IDSA 2023 approach:",opts:["Start IV antibiotics immediately without further imaging","PTB + X-ray + ESR/CRP support osteomyelitis; MRI if doubt remains","Order a bone scan first","Treat as cellulitis only"],a:1,tag:"dfi",expl:"IWGDF/IDSA 2023: combine probe-to-bone, plain X-ray and ESR/CRP; MRI when diagnosis remains in doubt. Serial X-ray changes take 2-3 weeks."},
@@ -185,15 +185,15 @@ export const QUIZ=[
 {q:"Maisonneuve fracture consists of:",opts:["Proximal fibula fracture + syndesmotic disruption + medial injury (deltoid/medial malleolus)","Distal fibula fracture only","Calcaneal fracture + tibial shaft","Talar neck fracture"],a:0,tag:"trauma",expl:"Maisonneuve = proximal 1/3 fibula fracture with syndesmosis disruption and medial-sided injury. Always X-ray the proximal fibula when there is medial ankle tenderness + syndesmosis widening."},
 {q:"Jones fracture (5th MT) vs pseudo-Jones (avulsion) - the distinguishing feature is:",opts:["Location: Jones = metaphyseal-diaphyseal junction (watershed zone, higher non-union risk); avulsion = tuberosity at peroneus brevis insertion","Pain level","Patient age","Nothing - identical"],a:0,tag:"trauma",expl:"Jones fracture at the metaphyseal-diaphyseal junction has poor blood supply -> higher non-union; often needs orthopaedic referral. Avulsion (pseudo-Jones) at the tuberosity usually heals conservatively."},
 {q:"On a mortise view, the normal medial clear space is:",opts:["< 4 mm (or less than the superior tibiofibular clear space)","> 8 mm","Equal to the joint space","Not measurable"],a:0,tag:"ankle",expl:"Medial clear space <=4 mm on the mortise (and <= tibiofibular clear space). Widening = deltoid ligament disruption -> unstable ankle even without a medial malleolus fracture."},
-{q:"Ottawa ankle rules EXCLUDE which group from rule-based imaging decisions?",opts:["Children under 5 (and those who can't cooperate, intoxicated, head-injured, neuropathic)","Everyone over 65","Pregnant women only","All diabetics"],a:0,tag:"ottawa",expl:"OAR validated >=5-6 years; exclusions include inability to cooperate, intoxication, head injury, neuropathy/neurologic disorder, pregnancy. When rules can't be applied, image on clinical suspicion."},
-{q:"Hallux valgus severity is graded by the HVA (hallux valgus angle); severe is generally:",opts:["> 40 deg","15-20 deg","< 15 deg","30-40 deg"],a:0,tag:"hallux",expl:"HVA <15 normal, 15-30 mild-moderate, >30-40 moderate-severe, >40 severe. IMA also graded (<9 normal, >15 severe). Measure on WB DP films."},
+{q:"Ottawa ankle rules EXCLUDE which group from rule-based imaging decisions?",opts:["Children under 5, plus intoxicated/altered, head-injured, multiple injuries, neuropathic, > 10 days old, pregnancy","Everyone over 65","Pregnant women only","All diabetics"],a:0,tag:"ottawa",expl:"OAR validated >=5-6 years; Exclusions: intoxication/altered mental status, head injury, multiple painful injuries, diminished sensation/neuropathy, pregnancy, > 10 days post-injury. If rules can't be applied, image on clinical suspicion."},
+{q:"Hallux valgus severity is graded by the HVA (hallux valgus angle); severe is generally:",opts:["> 40 deg","15-20 deg","< 15 deg","30-40 deg"],a:0,tag:"hallux",expl:"HVA <15 normal, mild <20°, moderate 20–40°, severe >40° (Coughlin & Mann). IMA <9° normal; mild <11, moderate 11–16, severe >16. Measure on WB DP films."},
 {q:"First-MTP osteoarthritis (hallux rigidus) on X-ray typically shows:",opts:["Dorsal osteophyte + joint space narrowing + subchondral sclerosis","Erosions with overhanging edges","Normal joint","Dislocation"],a:0,tag:"oa",expl:"Hallux rigidus: dorsal osteophyte (blocking dorsiflexion), joint space narrowing, sclerosis - unlike gout (erosions, preserved space early)."},
 {q:"A 6-year-old with a limp and navicular pain after jumping - most likely diagnosis:",opts:["Kohler's disease (navicular osteonecrosis)","Osgood-Schlatter","Sever's","Transient synovitis of hip"],a:0,tag:"ossicles",expl:"Kohler's = osteonecrosis of the navicular in 3-7 y/o, self-limiting; X-ray shows flattened/sclerotic navicular. (Sever's = calcaneal apophysis; Osgood-Schlatter = tibial tubercle, knee.)"},
 {q:"Accessory navicular (os tibiale externum) is associated with:",opts:["Flatfoot and posterior tibial tendon dysfunction","High arches only","Hallux valgus","Nothing"],a:0,tag:"ossicles",expl:"Type II accessory navicular within the posterior tibial tendon - associated with pes planus and PTTD; can be a pain source (accessory navicular syndrome)."},
 {q:"The lisfranc ligament specifically connects:",opts:["Medial cuneiform to the base of the 2nd metatarsal","1st to 2nd metatarsal bases","Talus to navicular","Calcaneus to cuboid"],a:0,tag:"lisfranc",expl:"Medial cuneiform -> 2nd MT base. There is NO interosseous ligament between 1st and 2nd MT bases, which is why the 2nd MT base is the 'keystone' that displaces in Lisfranc injuries."},
 {q:"Best plain-film view to assess the Lisfranc (1st-2nd TMT) interval is:",opts:["Weight-bearing DP (and medial oblique) foot","Lateral only","AP ankle","Harris axial"],a:0,tag:"lisfranc",expl:"WB DP + oblique open the TMT joints. Look for >2 mm widening of the 1st-2nd interval, fleck sign (avulsion at Lisfranc ligament), and loss of 2nd MT - intermediate cuneiform alignment."},
-{q:"MBS item 57527 covers podiatrist-requested radiography of:",opts:["Foot and ankle (with 57521 foot, 57523 ankle) - specific views per region","Knee","Lumbar spine","Chest"],a:0,tag:"mbs",expl:"Podiatrists can request: 57521 foot, 57523 ankle, 57527 foot+ankle series (also 55834/55835 ultrasound items). Know the item descriptors and documentation requirements."},
-{q:"A podiatrist requests an ankle series under MBS 57523 - the standard views are:",opts:["AP, mortise (15-20 deg internal rotation), lateral","AP and lateral only","Mortise only","Stress views routinely"],a:0,tag:"views",expl:"AP + mortise + lateral. The mortise view (15-20 deg internal rotation) shows the joint without malleolar overlap - essential for medial clear space measurement."},
+{q:"MBS item 57527 covers podiatrist-requested radiography of:",opts:["Combined regions — foot+ankle, ankle+leg, knee+leg, knee+femur (57521 = foot/ankle/leg/femur; 57523 = knee)","Lumbar spine","Chest","Shoulder"],a:0,tag:"mbs",expl:"Podiatrist MBS X-ray items: 57521 (foot/ankle/leg/femur), 57523 (knee), 57527 (two combined regions). Ultrasound 55834/55835/55840. CT/MRI are not podiatrist-rebatable."},
+{q:"A podiatrist requests an ANKLE series under MBS 57521 - the standard views are:",opts:["AP, mortise (15-20 deg internal rotation), lateral","AP and lateral only","Mortise only","Stress views routinely"],a:0,tag:"views",expl:"AP + mortise (15-20 deg internal rotation) + lateral. The mortise view shows the joint without malleolar overlap - essential for medial clear space measurement. (57523 is the KNEE item.)"},
 {q:"Which measurement requires a weight-bearing lateral foot film?",opts:["Meary angle, calcaneal pitch, HVA/IMA","Bohler angle only","Medial clear space","Tibiofibular clear space"],a:0,tag:"views",expl:"Meary, calcaneal pitch, HVA and IMA all change with loading - always quote WB vs NWB. Bohler/Gissane and clear spaces are measured on their standard views."}
 ];
 
@@ -203,9 +203,9 @@ export const REAL_CASES=[
   img:"images/Lisfranc Dislocation Rupture.jpg", imgW:800, imgH:923,
   attr:"Lisfranc Dislocation Rupture — Mark A. Dreyer, DPM, FACFAS, via Wikimedia Commons, CC BY 4.0",
   stem:"DP weight-bearing view of both feet after twisting injury. Compare the 1st–2nd metatarsal base interval on each side.",
-  hotspots:[{x:25,y:40,label:"Widened Lisfranc (1st–2nd TMT) interval on affected side",hint:"Look at the gap between the 1st and 2nd metatarsal bases on the abnormal foot",expl:"Gap between the 1st and 2nd metatarsal bases is widened (>2 mm) on the affected side — the hallmark of Lisfranc ligament disruption. Compare side-to-side."},
-{x:25,y:45,label:"Dorsally displaced 2nd metatarsal base",hint:"Follow the shaft of the 2nd metatarsal to its base on the abnormal foot",expl:"The 2nd MT base is subluxed dorsally out of the cuneiform — loss of the normal medial border alignment of the 2nd MT with the intermediate cuneiform."},
-{x:75,y:45,label:"Normal contralateral foot — compare",hint:"Compare the same region on the other foot",expl:"The opposite foot shows a normal, narrow 1st–2nd interval and congruent TMT joints. Always compare both feet on WB films."}],
+  hotspots:[{x:25,y:52,label:"Widened Lisfranc (1st–2nd TMT) interval — affected foot",hint:"On the image-left foot, the gap between the 1st and 2nd metatarsal bases",expl:"Gap between the 1st and 2nd metatarsal bases is widened (>2 mm vs the other side) — the hallmark of Lisfranc ligament disruption. Always compare both feet on WB films."},
+{x:28,y:52,label:"2nd metatarsal base — loses alignment with intermediate cuneiform",hint:"Just lateral to the widened gap",expl:"The medial border of the 2nd MT base should line up with the medial border of the intermediate (middle) cuneiform — here it is offset, confirming TMT subluxation."},
+{x:67,y:52,label:"Normal contralateral foot — compare",hint:"Same region on the image-right foot",expl:"The opposite foot shows a normal, narrow 1st–2nd interval and congruent TMT joints. Side-to-side comparison on WB views is the single most useful check."}],
   ddx:["Normal variant splaying — compare both feet","Midfoot sprain — stress views / MRI if X-ray subtle"],
   pearls:["Get WB views; check alignment of medial 2nd MT base with intermediate cuneiform","Unstable Lisfranc → orthopaedic referral (ORIF)"],
   refs:["Lisfranc injury reviews"], quizTag:"lisfranc",
@@ -262,7 +262,7 @@ export const REAL_CASES=[
   attr:"X-ray of normal right foot, lateral projection — Mikael Häggström, M.D., via Wikimedia Commons, CC0",
   stem:"Use this as your normal reference. Identify the calcaneus, talus, navicular and 1st metatarsal; note Meary's line and calcaneal pitch.",
   hotspots:[
-    {x:20,y:60,label:"Calcaneus",expl:"Heel bone. On a lateral view assess Böhler angle (25–40°) for compression fractures."},
+    {x:20,y:60,label:"Calcaneus",expl:"Heel bone. On a lateral view assess Böhler angle (normal 20–40°) for compression fractures."},
     {x:38,y:40,label:"Talus",expl:"Sits in the ankle mortise; dome should be smooth. Check for osteochondral lesions / AVN."},
     {x:50,y:45,label:"Navicular",expl:"Midfoot keystone. The “N spot” — tenderness here suggests navicular stress fracture (MRI if suspected)."},
     {x:60,y:55,label:"1st metatarsal base / Meary's line",expl:"A line through the talus and 1st metatarsal should be straight (Meary ≈ 0°); deviation >4° indicates pes planus/cavus."}
@@ -270,7 +270,7 @@ export const REAL_CASES=[
   ddx:["—"],
   pearls:["Always compare with the symptomatic side","Measure angles only on weight-bearing films"],
   refs:["Normal foot & ankle radiographic anatomy (Christman)"], quizTag:"views",
-  report:"TECHNIQUE: WB lateral foot.\nFINDINGS: Normal alignment; Meary line straight; calcaneal pitch normal; Bohler 25-40 deg.\nIMPRESSION: Normal lateral foot.\nRECOMMENDATION: Use as the reference for abnormal films.",
+  report:"TECHNIQUE: WB lateral foot.\nFINDINGS: Normal alignment; Meary line straight; calcaneal pitch normal; Bohler 20-40 deg.\nIMPRESSION: Normal lateral foot.\nRECOMMENDATION: Use as the reference for abnormal films.",
   teach:["Measure Bohler on every lateral calcaneus after trauma", "WB lateral is where arch angles are valid"],
 },
 {
@@ -309,10 +309,10 @@ REAL_CASES.push({
 {x:60,y:45,label:"Medial malleolus fracture",hint:"The inner malleolus of the tibia",expl:"Fracture of the medial malleolus — together with the lateral fracture this is a 'bimalleolar' ankle fracture."},
 {x:50,y:52,label:"Talar dome — check for shift/tilt",hint:"Centre of the ankle joint",expl:"Assess tibiotalar congruity: any lateral talar shift or widened medial clear space indicates instability and often needs surgery."}],
   ddx:["Unimalleolar fracture with deltoid sprain","Maisonneuve fracture — check proximal fibula and image the leg"],
-  pearls:["Assess stability: medial clear space > 6 mm or tibiofibular widening = unstable","Always X-ray the whole leg if proximal fibula tenderness (Maisonneuve)"],
+  pearls:["Assess stability: medial clear space > 4 mm on mortise (or talar shift) = unstable","Always X-ray the whole leg if proximal fibula tenderness (Maisonneuve)"],
   refs:["Ankle fracture classification"], quizTag:"ankle",
   report:"TECHNIQUE: AP ankle.\nFINDINGS: Fracture lines through both lateral and medial malleoli.\nIMPRESSION: Bimalleolar ankle fracture.\nRECOMMENDATION: Assess stability (medial clear space); orthopaedic referral; check proximal fibula (Maisonneuve).",
-  teach:["Both malleoli + widened medial clear space = unstable", "Always image the leg if proximal fibular tenderness"],
+  teach:["Both malleoli + widened medial clear space (>4 mm) = unstable", "Always image the leg if proximal fibular tenderness"],
 },
 {
   id:"r9", title:"Lateral malleolus fracture with widened medial clear space", topic:"Trauma", diff:2,
@@ -320,13 +320,13 @@ REAL_CASES.push({
   attr:"Left ankle x-ray, adult male — US Government work (public domain), via Wikimedia Commons",
   stem:"AP ankle view after inversion injury. What is fractured, and what does the medial clear space tell you?",
   hotspots:[{x:50,y:40,label:"Fibular fracture at syndesmosis level (Weber B)",hint:"Outer malleolus, at the level of the ankle joint",expl:"Spiral/oblique fibular fracture starting at the joint line — Weber B, the most common unstable ankle fracture pattern."},
-{x:60,y:60,label:"Widened medial clear space (deltoid disruption)",hint:"Space between the medial malleolus and the talus",expl:"Medial clear space >4–5 mm (or > talar dome width) means the deltoid ligament is torn — the ankle is unstable even if the medial malleolus is intact."},
-{x:55,y:35,label:"Tibiofibular (syndesmosis) clear space",hint:"Between the distal tibia and fibula above the talus",expl:"Widening here indicates syndesmotic injury (high-ankle sprain) — check on every ankle fracture; drives fixation decisions."}],
+{x:60,y:60,label:"Widened medial clear space (deltoid disruption)",hint:"Space between the medial malleolus and the talus",expl:"Medial clear space > 4 mm on the mortise (normal <= 4 mm and <= superior clear space) means deltoid disruption — unstable even if the medial malleolus is intact."},
+{x:55,y:35,label:"Tibiofibular (syndesmosis) clear space",hint:"Between the distal tibia and fibula above the talus",expl:"Tibiofibular clear space measured 1 cm above the plafond; normal < 6 mm; overlap > 1 mm on mortise. Widening = syndesmotic injury (high-ankle sprain)."}],
   ddx:["Isolated lateral ligament sprain — no fracture, no widening","Syndesmotic injury — also widened tibiofibular clear space"],
-  pearls:["Measure medial clear space on the mortise view; > 6 mm = unstable","Gravity-stress views can confirm instability"],
+  pearls:["Measure medial clear space on the mortise view; > 4 mm (or talar shift) = deltoid disruption/unstable","Gravity-stress views can confirm instability"],
   refs:["Ankle instability imaging"], quizTag:"ankle",
   report:"TECHNIQUE: AP ankle.\nFINDINGS: Lateral malleolus fracture; medial clear space widened.\nIMPRESSION: Unstable ankle injury - fibula fracture with deltoid disruption.\nRECOMMENDATION: Mortise + stress views; orthopaedic referral.",
-  teach:["Medial clear space > 6 mm = unstable", "Gravity-stress views can confirm"],
+  teach:["Medial clear space > 4 mm on mortise = deltoid disruption", "Gravity-stress views can confirm"],
 },
 {
   id:"r10", title:"Normal lateral ankle — reference", topic:"Normal anatomy", diff:1,
@@ -347,13 +347,13 @@ REAL_CASES.push({
   img:"images/Calcaneus_Bohler_angle.jpg", imgW:818, imgH:1274,
   attr:"Böhler's angle — Thomas Steiner, via Wikimedia Commons, CC BY-SA 3.0",
   stem:"Lateral calcaneus with Böhler angle drawn. Vertex at the highest point of the posterior facet; arms to the anterior process and posterior tuberosity.",
-  hotspots:[{x:50,y:50,label:"Böhler angle apex — posterior facet highest point",hint:"The peak of the angle drawn on the calcaneus",expl:"Böhler angle = line from anterior process highest point to posterior facet highest point, then to posterior tuberosity. Normal 20–40°."},
+  hotspots:[{x:50,y:50,label:"Böhler angle apex — posterior facet highest point",hint:"The peak of the angle drawn on the calcaneus",expl:"Böhler angle = line from anterior process highest point to posterior facet highest point, then to posterior tuberosity. Normal 20–40° (25–40° also quoted); < 20° = flattened by compression fracture."},
 {x:35,y:35,label:"Line 1: anterior process → posterior facet",hint:"The upper line of the drawn angle",expl:"First limb of Böhler's angle."},
 {x:65,y:75,label:"Line 2: posterior facet → posterior tuberosity",hint:"The lower line of the drawn angle",expl:"Second limb. A flattened angle (<20°) indicates calcaneal compression fracture with posterior facet collapse."}],
   ddx:["—"],
   pearls:["Böhler < 20° = compression fracture, not simple avulsion","CT for intra-articular extension; check spine/other heel in fall-from-height"],
   refs:["Calcaneal fracture measurements"], quizTag:"calcaneus",
-  report:"TECHNIQUE: Lateral calcaneus.\nFINDINGS: Bohler angle measured at posterior facet vertex - within 25-40 deg in this reference.\nIMPRESSION: Normal Bohler measurement technique.\nRECOMMENDATION: < 20 deg in trauma = compression fracture.",
+  report:"TECHNIQUE: Lateral calcaneus.\nFINDINGS: Bohler angle measured at posterior facet vertex - normal 20-40 deg in this reference.\nIMPRESSION: Normal Bohler measurement technique.\nRECOMMENDATION: < 20 deg in trauma = compression fracture.",
   teach:["Vertex = highest point of posterior facet", "Pair with Gissane (120-145 deg)"],
 },
 {
@@ -374,14 +374,14 @@ REAL_CASES.push({
   id:"r13", title:"Calcaneal pitch — WB lateral foot", topic:"Measurements", diff:1,
   img:"images/Calcaneal_pitch.jpg", imgW:2230, imgH:751,
   attr:"Calcaneal pitch — Mikael Häggström, via Wikimedia Commons, CC0",
-  stem:"Weight-bearing lateral foot with calcaneal pitch drawn. Normal 18–25°; reduced in pes planus.",
-  hotspots:[{x:20,y:75,label:"Calcaneal pitch angle vertex",hint:"Where the two drawn lines meet at the back-bottom of the heel",expl:"Calcaneal pitch = angle between the floor and a line along the inferior calcaneus. Normal ~18–25°."},
-{x:50,y:60,label:"Inferior calcaneal line",hint:"The line along the bottom of the calcaneus",expl:"Low pitch (<18°) = flatfoot/pes planus; high pitch = pes cavus. Always quote WB status — pitch changes with loading."},
+  stem:"Weight-bearing lateral foot with calcaneal pitch drawn. Normal ~18–30° (17–32 reported); < 17–18° indicates pes planus.",
+  hotspots:[{x:20,y:75,label:"Calcaneal pitch angle vertex",hint:"Where the two drawn lines meet at the back-bottom of the heel",expl:"Calcaneal pitch = angle between the floor and a inferior calcaneus on WB lateral. Normal ~18–30°; < 17–18° = flatfoot."},
+{x:50,y:60,label:"Inferior calcaneal line",hint:"The line along the bottom of the calcaneus",expl:"Pitch < 17–18° = pes planus; > 30° suggests pes cavus. Always quote WB status — pitch changes with loading."},
 {x:80,y:45,label:"Forefoot — assess Meary angle region",hint:"Midfoot arch region",expl:"On the WB lateral, also check Meary's angle (talar — 1st MT axis): normal ~0°, apex plantar = cavus, apex dorsal = flatfoot."}],
   ddx:["—"],
   pearls:["Pair with Meary's angle for arch assessment","Always measure on weight-bearing films"],
   refs:["Foot alignment angles (JAPMA)"], quizTag:"hallux",
-  report:"TECHNIQUE: WB lateral foot.\nFINDINGS: Calcaneal pitch measured - normal 18-25 deg.\nIMPRESSION: Normal calcaneal pitch.\nRECOMMENDATION: < 18 deg suggests pes planus; pair with Meary's angle.",
+  report:"TECHNIQUE: WB lateral foot.\nFINDINGS: Calcaneal pitch measured on WB lateral - normal ~18-30 deg.\nIMPRESSION: Normal calcaneal pitch.\nRECOMMENDATION: < 17-18 deg suggests pes planus; pair with Meary's angle.",
   teach:["Only valid on weight-bearing films", "Arch assessment = calcaneal pitch + Meary + Kite angle"],
 },
 {
@@ -391,12 +391,12 @@ REAL_CASES.push({
   stem:"DP foot showing many normal variants at once. Tap each one you can recognise — none of these are fractures.",
   hotspots:[{x:45,y:60,label:"Bipartite (accessory) medial sesamoid, 1st MTP",hint:"Under the 1st MTP joint head",expl:"Two ossified halves of the medial sesamoid — a normal variant, NOT a fracture. Fractures have irregular non-corticated edges; bipartite sesamoids are corticated and bilateral in ~25%."},
 {x:47,y:62,label:"Lateral sesamoid — normal single ossicle",hint:"Just beside the medial sesamoid",expl:"The lateral sesamoid is normally single — useful comparison."},
-{x:75,y:65,label:"Os peroneum at cuboid/5th MT base",hint:"Outer midfoot, near the cuboid",expl:"Accessory ossicle within the peroneus longus tendon — present in ~5–30%, usually asymptomatic; can fracture in lateral ankle injuries."}],
+{x:75,y:65,label:"Os peroneum at cuboid/5th MT base",hint:"Outer midfoot, near the cuboid",expl:"Accessory ossicle within the peroneus longus tendon — present in ~5–30% (fully ossified up to ~26%); usually asymptomatic; can fracture."}],
   ddx:["Avulsion fractures — jagged lucent lines, non-corticated margins"],
   pearls:["Rule of thumb: corticated + round = variant; jagged + lucent = fracture","Compare with the other foot; old films help"],
   refs:["Accessory ossicles (AJR 2019)"], quizTag:"ossicles",
   report:"TECHNIQUE: DP foot.\nFINDINGS: Multiple corticated accessory ossicles/sesamoids (hallux sesamoids, accessory navicular, os peroneum, os intermetatarseum, os vesalianum). No acute lucent fracture lines.\nIMPRESSION: Normal variants - accessory ossicles and sesamoids.\nRECOMMENDATION: Do not over-call fractures; compare contralateral if unsure.",
-  teach:["Corticated + round = variant; jagged + lucent = fracture", "~2.7% of ossicles are misdiagnosed as avulsion fractures"],
+  teach:["Corticated + round = variant; jagged + lucent = fracture", "a notable minority of ossicles get misread as fractures — always check cortication and compare sides"],
 },
 {
   id:"r15", title:"Accessory ossicles — lateral foot", topic:"Pitfalls", diff:2,
@@ -422,7 +422,7 @@ REAL_CASES.push({
   ddx:["—"],
   pearls:["Oblique view opens the TMT joints — use it for suspected Lisfranc","WB oblique stress views can reveal instability"],
   refs:["Foot views guide"], quizTag:"lisfranc",
-  report:"TECHNIQUE: Oblique foot.\nFINDINGS: Normal tarsometatarsal alignment; 1st-2nd MT base interval <= 2 mm.\nIMPRESSION: Normal oblique foot - best view for Lisfranc joints.\nRECOMMENDATION: Use oblique + WB views for suspected Lisfranc.",
+  report:"TECHNIQUE: Oblique foot.\nFINDINGS: Normal tarsometatarsal alignment; C1–M2 gap < 2 mm.\nIMPRESSION: Normal oblique foot - best view for Lisfranc joints.\nRECOMMENDATION: Use oblique + WB views for suspected Lisfranc.",
   teach:["Oblique opens the TMT joints", "WB oblique stress views can reveal instability"],
 },
 {
@@ -430,14 +430,14 @@ REAL_CASES.push({
   img:"images/Ankle_foot_DP_Dispe.jpg", imgW:1199, imgH:1980,
   attr:"Radiografia tibiotarsica, proiezione dorsoplantare — Dispe, via Wikimedia Commons, CC BY-SA 4.0",
   stem:"AP ankle+foot. Identify the mortise, talar dome, distal fibula and the Lisfranc interval. (Lateral and oblique views of the same foot are also in this library.)",
-  hotspots:[{x:50,y:25,label:"AP ankle view — mortise & medial clear space",hint:"Top portion of the composite",expl:"AP ankle: check the mortise, medial clear space (≤4 mm) and tibiofibular overlap."},
+  hotspots:[{x:50,y:25,label:"AP ankle view — mortise & medial clear space",hint:"Top portion of the composite",expl:"AP ankle: check the mortise, medial clear space (≤ 4 mm and ≤ superior clear space) and tibiofibular overlap (> 1 mm on mortise)."},
 {x:50,y:55,label:"Lateral view — tibiotalar joint & posterior talus",hint:"Middle portion",expl:"Lateral: tibiotalar congruity, posterior talus/calcaneus, os trigonum region."},
 {x:50,y:85,label:"Oblique/DP foot view — TMT (Lisfranc) interval",hint:"Bottom portion",expl:"Foot view: metatarsals, TMT joints (Lisfranc), 5th MT base — a complete ankle+foot series covers all three regions."}],
   ddx:["—"],
-  pearls:["Three views minimum for trauma: AP/mortise, lateral, oblique","Check soft tissues for swelling/gas first"],
+  pearls:["Three views minimum for ankle trauma: AP, mortise, lateral","Check soft tissues for swelling/gas first"],
   refs:["Ankle series guide"], quizTag:"views",
-  report:"TECHNIQUE: AP ankle+foot.\nFINDINGS: Normal mortise; medial clear space <= 6 mm; normal Lisfranc interval.\nIMPRESSION: Normal AP ankle+foot.\nRECOMMENDATION: Compare with lateral and oblique of the same series.",
-  teach:["Medial clear space must equal superior clear space", "Three views minimum for trauma"],
+  report:"TECHNIQUE: AP ankle+foot.\nFINDINGS: Normal mortise; medial clear space <= 4 mm; normal Lisfranc interval.\nIMPRESSION: Normal AP ankle+foot.\nRECOMMENDATION: Compare with lateral and oblique of the same series.",
+  teach:["Medial clear space ≤ 4 mm and ≤ superior clear space", "Three views minimum for ankle trauma: AP, mortise, lateral"],
 },
 {
   id:"r18", title:"Lateral ankle + foot — Dispe series", topic:"Normal anatomy", diff:1,

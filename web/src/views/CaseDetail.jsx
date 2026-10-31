@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useStore, patch, patchDeep, addXp, awardBadge, srsUpdate, XP } from '../store.js';
+import { useStore, patch, patchDeep, addXp, awardBadge, srsUpdate, XP, moveHotspot, exportFixes } from '../store.js';
 import { QUIZ, MODULES } from '../data/content.js';
 import { CASES, useCaseImage, useCompareImage } from '../data/cases.js';
 import Viewer from '../components/Viewer.jsx';
@@ -31,6 +31,9 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
   const [finished, setFinished] = useState(() => s.done.includes(caseId));
 
   const found = (c && s.found[caseId]) || {};
+  const fixes = (c && s.hotspotFix[caseId]) || {};
+  const effHotspots = c ? c.hotspots.map((h, i) => (fixes[i] ? { ...h, ...fixes[i] } : h)) : [];
+  const [editMode, setEditMode] = useState(false);
   const foundCount = Object.keys(found).length;
   const report = (c && s.reports[caseId]) || '';
   const caseQuiz = useMemo(() => (c ? QUIZ.filter(q => q.tag === c.quizTag).slice(0, mode === 'exam' ? 5 : 3) : []), [c, mode]);
@@ -109,12 +112,24 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
             className={`rounded-full border px-3 py-1.5 text-xs font-bold transition-all ${mode === 'exam' ? 'border-transparent bg-gradient-to-r from-amber-300 to-pink-400 text-base-950' : 'border-white/10 bg-base-700/80 text-muted'}`}>
             Exam mode
           </button>
+          <button onClick={() => setEditMode(v => !v)}
+            title="Drag any marker to correct its position; corrections are saved on this device"
+            className={`rounded-full border px-3 py-1.5 text-xs font-bold transition-all ${editMode ? 'border-transparent bg-gradient-to-r from-amber-300 to-orange-400 text-base-950' : 'border-white/10 bg-base-700/80 text-muted'}`}>
+            ✎ Fix markers
+          </button>
         </div>
       </div>
 
       {mode === 'exam' && (
         <div className="mb-4 rounded-xl border border-amber-400/40 bg-amber-500/10 px-4 py-2.5 text-[13px] text-amber-200">
           <b>Exam mode:</b> markers hidden, 5 questions, no hints, +25 XP bonus on completion. Scaffolding is off — this mirrors assessment conditions.
+        </div>
+      )}
+      {editMode && (
+        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-xl border border-amber-300/40 bg-amber-500/10 px-4 py-2.5 text-[13px] text-amber-200">
+          <span><b>Marker-fix mode:</b> drag any amber marker onto the correct spot on the film. Corrections save automatically on this device.</span>
+          <Btn variant="ghost" className="!px-3 !py-1 !text-xs" onClick={() => { navigator.clipboard?.writeText(exportFixes()); toast('Marker corrections copied to clipboard as JSON'); }}>Copy corrections JSON</Btn>
+          {Object.keys(fixes).length > 0 && <Btn variant="danger" className="!px-3 !py-1 !text-xs" onClick={() => { patchDeep('hotspotFix', { [caseId]: {} }); toast('Corrections for this case cleared'); }}>Clear this case</Btn>}
         </div>
       )}
 
@@ -137,7 +152,9 @@ export default function CaseDetail({ caseId, toast, fire, onBack }) {
             <div>
               <Viewer
                 img={img} imgW={c.imgW} imgH={c.imgH}
-                hotspots={c.hotspots} found={found} onReveal={reveal} showHotspots={showHotspots && mode === 'guided'}
+                hotspots={effHotspots} found={found} onReveal={reveal}
+                onMoveHotspot={editMode ? (i, x, y) => moveHotspot(caseId, i, x, y) : undefined}
+                showHotspots={showHotspots && (mode === 'guided' || editMode)}
                 tools={{
                   loupe: tools.loupe, measure: tools.measure,
                   toggleLoupe: () => setTools(t => ({ ...t, loupe: !t.loupe })),

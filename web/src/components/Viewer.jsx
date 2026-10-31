@@ -2,7 +2,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 
 /* PACS-style viewer. Overlay (hotspots / measurement points) lives INSIDE the same
    transformed layer as the <img>, so markers are glued to anatomy at any zoom/pan. */
-export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onReveal, showHotspots, tools }) {
+export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onReveal, onMoveHotspot, showHotspots, tools }) {
   const vpRef = useRef(null);
   const layerRef = useRef(null);
   const [view, setView] = useState({ s: 1, tx: 0, ty: 0 });
@@ -11,6 +11,7 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
   const [invert, setInvert] = useState(false);
   const [mpts, setMpts] = useState([]);
   const [angle, setAngle] = useState(null);
+  const [dragHs, setDragHs] = useState(null); // index of hotspot being dragged (edit mode)
   const ptrs = useRef(new Map());
   const drag = useRef(null);
   const viewRef = useRef(view);
@@ -62,7 +63,22 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
     if (ptrs.current.size === 1) drag.current = { x: e.clientX, y: e.clientY, tx: viewRef.current.tx, ty: viewRef.current.ty, moved: false };
     if (ptrs.current.size === 2) drag.current = null;
   };
+  const onHotspotPointerDown = (e, i) => {
+    if (!onMoveHotspot) return;
+    e.stopPropagation();
+    e.preventDefault();
+    try { vpRef.current.setPointerCapture(e.pointerId); } catch (_) {}
+    setDragHs(i);
+    ptrs.current.clear();
+    drag.current = { hs: i, moved: false };
+  };
   const onPointerMove = (e) => {
+    if (drag.current && drag.current.hs !== undefined && onMoveHotspot) {
+      const p = toPct(e);
+      drag.current.moved = true;
+      onMoveHotspot(drag.current.hs, Math.max(0, Math.min(100, p.x)), Math.max(0, Math.min(100, p.y)));
+      return;
+    }
     const r = vpRef.current.getBoundingClientRect();
     const mx = e.clientX - r.left, my = e.clientY - r.top;
     if (!ptrs.current.has(e.pointerId)) {
@@ -100,6 +116,7 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
     }
   };
   const onPointerUp = (e) => {
+    if (drag.current && drag.current.hs !== undefined) { drag.current = null; setDragHs(null); return; }
     const tap = ptrs.current.size === 1 && drag.current && !drag.current.moved;
     ptrs.current.delete(e.pointerId);
     if (!ptrs.current.size) drag.current = null;
@@ -169,11 +186,16 @@ export default function Viewer({ img, imgW, imgH, hotspots = [], found = {}, onR
             <button
               key={i}
               type="button"
-              onClick={(e) => { e.stopPropagation(); onReveal(i); }}
+              onClick={(e) => { e.stopPropagation(); if (dragHs !== null) return; onReveal(i); }}
+              onPointerDown={onMoveHotspot ? (e) => onHotspotPointerDown(e, i) : undefined}
+              title={onMoveHotspot ? 'Drag to correct this marker\u2019s position' : undefined}
               className={`absolute z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-sm font-extrabold transition-transform ${
-                found[i]
+                dragHs === i ? 'scale-125 border-2 border-amber-300 bg-amber-400 text-base-950 shadow-[0_0_16px_rgba(251,191,36,.8)]'
+                : found[i]
                   ? 'border-2 border-emerald-300 bg-emerald-400 text-base-950 shadow-[0_0_14px_rgba(52,211,153,.7)]'
-                  : 'animate-pulse border-2 border-dashed border-sky-400 bg-sky-400/15 text-sky-300 hover:scale-125 hover:bg-sky-400/40'
+                  : onMoveHotspot
+                    ? 'border-2 border-amber-300/80 bg-amber-400/20 text-amber-200 cursor-grab hover:scale-125 hover:bg-amber-400/40'
+                    : 'animate-pulse border-2 border-dashed border-sky-400 bg-sky-400/15 text-sky-300 hover:scale-125 hover:bg-sky-400/40'
               }`}
               style={{ left: `${h.x}%`, top: `${h.y}%` }}
               aria-label={found[i] ? `Finding found: ${h.label}` : `Mark finding ${i + 1}`}
